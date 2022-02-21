@@ -38,6 +38,7 @@ export async function searchDocument() {
     range.load();
     await context.sync();
 
+    // force cursor to beginning of document so word selection works.
     const start = context.document.body.getRange("Start");
     start.load();
     start.select();
