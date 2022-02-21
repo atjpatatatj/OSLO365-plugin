@@ -5,7 +5,7 @@ const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 import { wordDelimiters } from "../../utils/WordDelimiters";
 import { ignoredWords } from "../../utils/IgnoredWords";
 import { IOsloItem } from "../../oslo/IOsloItem";
-import {OsloStore} from "../../store/OsloStore";
+import { OsloStore } from "../../store/OsloStore";
 
 // configuration of the built-in validator
 const validatorConfig = {
@@ -16,16 +16,18 @@ const validatorConfig = {
 Vue.use(VlUiVueComponents, {
   validation: validatorConfig,
 });
-const store = OsloStore.getInstance();
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
+    const osloStore = OsloStore.getInstance();
+    const store = osloStore.getStore();
+
     var app = new Vue({
+      store: store,
       el: "#app",
       render: (h) => h(root),
     });
   }
-  store.initStore();
 });
 
 export async function searchDocument() {
