@@ -38,6 +38,11 @@ export async function searchDocument() {
     range.load();
     await context.sync();
 
+    const start = context.document.body.getRange("Start");
+    start.load();
+    start.select();
+    await context.sync();
+
     let paragraph = range.paragraphs.getFirstOrNullObject();
     paragraph.load();
     await context.sync();
@@ -116,7 +121,6 @@ export function selectWordInDocument(word: Word.Range) {
       found = true;
       results.items[index].select();
     }
-
     await context.sync();
   });
 }
