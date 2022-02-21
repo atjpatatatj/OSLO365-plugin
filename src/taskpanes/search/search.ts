@@ -86,6 +86,7 @@ export function search(searchPhrase: string) {
   }
 
   // Search the phrase in the OSLO database
+  const store = OsloStore.getInstance()
   const osloResult = store.osloStoreLookup(searchPhrase, exactMatch);
 
   EventBus.$emit("onSearchResult", osloResult);

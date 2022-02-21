@@ -68,7 +68,7 @@ export async function searchDocument() {
           await context.sync();
         }
       }
-
+      const store = OsloStore.getInstance()
       for (let word of wordList) {
         if (store.osloStoreLookup(word.text, false).length > 0) {
           wordsWithMatches.push(word);
@@ -86,6 +86,7 @@ export async function searchDocument() {
 }
 
 export function getDefinitions(word: Word.Range): IOsloItem[] {
+  const store = OsloStore.getInstance()
   return store.osloStoreLookup(word.text, false);
 }
 
