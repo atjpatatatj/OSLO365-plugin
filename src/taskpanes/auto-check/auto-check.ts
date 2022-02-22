@@ -96,8 +96,6 @@ export function getDefinitions(word: Word.Range): IOsloItem[] {
   return store.osloStoreLookup(word.text, false);
 }
 
-// This function expected the cursor to be at the beginning of the document
-// TODO: add function to start at the current position or at the beginning of the document
 export function selectWordInDocument(word: Word.Range) {
   return Word.run(async (context) => {
     const selection = context.document.getSelection();
@@ -114,7 +112,7 @@ export function selectWordInDocument(word: Word.Range) {
       const position = results.items[index].compareLocationWith(selection);
       await context.sync();
 
-      if (position.value === Word.LocationRelation.before) {
+      if (position.value === Word.LocationRelation.equal) {
         index++;
         continue;
       }
