@@ -1,10 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import root from "./pages/Root.vue";
+import {OsloStore} from "../../store/OsloStore";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
-import { OsloStore } from "../../store/OsloStore";
-
-let searching = false;
 
 // configuration of the built-in validator
 const validatorConfig = {

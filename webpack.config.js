@@ -106,7 +106,7 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "dictionary.html",
         template: "./src/taskpanes/dictionary/dictionary.html",
-        chunks: ["polyfill"],
+        chunks: ["polyfill", "dictionary"],
       }),
       new CopyWebpackPlugin({
         patterns: [

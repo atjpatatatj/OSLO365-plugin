@@ -26,14 +26,15 @@ import Vue from "vue";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-search-pane.vue";
 import {OsloStore} from "../../../store/OsloStore";
-const store = OsloStore.getInstance()
+const osloStore = OsloStore.getInstance();
+const store = osloStore.getStore();
 
 export default Vue.extend({
   components: { searchResultCard, contentFooter },
   name: "root",
   data: () => {
     return {
-      allitems: store.getStore()
+      allitems: store
     };
   }
 });

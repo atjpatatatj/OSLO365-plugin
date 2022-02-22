@@ -122,8 +122,10 @@ export class OsloStore {
       },
     });
   }
-
   public getStore() {
     return this.store;
+  }
+  public getItems() {
+    return this.store.state.items;
   }
 }
