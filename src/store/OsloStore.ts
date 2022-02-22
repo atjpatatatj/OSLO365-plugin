@@ -29,7 +29,7 @@ export class OsloStore {
 
     // only need to init once
     if (this.store.state.items.length < 1) {
-      trace("initializing store");
+      trace("Initializing store");
 
       this.httpRequest("GET", AppConfig.dataFileUrl)
         .then((json: string) => {
@@ -41,13 +41,13 @@ export class OsloStore {
 
           cleandata.map((item) => this.storeItem(item));
 
-          trace("information stored in Vuex store");
+          trace("Information stored in Vuex store");
         })
         .catch((error) => {
           trace("Error: " + error);
         });
     } else {
-      trace("store already initialized");
+      trace("Store already initialized");
     }
   }
 
