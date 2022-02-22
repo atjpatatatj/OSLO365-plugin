@@ -37,7 +37,6 @@ import { search } from "../search";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-search-pane.vue";
 import { IOsloItem } from "src/oslo/IOsloItem";
-import {store} from "../../../store/OsloStore";
 
 export default Vue.extend({
   components: { searchResultCard, contentFooter },
