@@ -22,6 +22,7 @@ module.exports = async (env, options) => {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       search: "./src/taskpanes/search/search.ts",
       autoCheck: "./src/taskpanes/auto-check/auto-check.ts",
+      dictionary: "./src/taskpanes/dictionary/dictionary.ts",
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
@@ -100,6 +101,11 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "settings.html",
         template: "./src/taskpanes/settings/settings.html",
+        chunks: ["polyfill"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "dictionary.html",
+        template: "./src/taskpanes/dictionary/dictionary.html",
         chunks: ["polyfill"],
       }),
       new CopyWebpackPlugin({
