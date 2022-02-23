@@ -4,6 +4,12 @@ import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
+/*
+There are 2 ways to store data like your dictionary.
+    o settings from the office javascript API
+    o localstorage
+After testing localstorage is the best option because the office API settings 'forgets' everything when the session is closed.
+ */
 
 // configuration of the built-in validator
 const validatorConfig = {
@@ -24,7 +30,7 @@ Office.onReady((info) => {
         });
     }
 });
-//TODO function to get items from dictionary - how will it be stored? -> ?local storage
+//TODO function to get items from dictionary
 //TODO function to add item to dictionary
 //TODO delete item from dictionary
 //TODO sort your items
