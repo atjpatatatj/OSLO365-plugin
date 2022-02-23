@@ -24,10 +24,11 @@ Office.onReady((info) => {
         });
     }
 });
-//TODO function to get items from dictionary - how will it be stored?
-//TODO function to add item to dictionary - from all panes?
+//TODO function to get items from dictionary - how will it be stored? -> ?local storage
+//TODO function to add item to dictionary
 //TODO delete item from dictionary
 //TODO sort your items
+//TODO remind them it's stored already
 //TODO search in your items DONE
 /** Searches a given phrase in the OSLO data set. */
 export function searchDict(searchPhrase: string) {
