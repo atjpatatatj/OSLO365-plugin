@@ -23,3 +23,8 @@ Office.onReady((info) => {
         });
     }
 });
+//TODO function to get items from dictionary - how will it be stored?
+//TODO function to add item to dictionary - from all panes?
+//TODO delete item from dictionary
+//TODO sort your items
+//TODO search in your items
