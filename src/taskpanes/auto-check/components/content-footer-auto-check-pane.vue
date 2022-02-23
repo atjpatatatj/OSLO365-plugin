@@ -9,7 +9,7 @@
           <vl-button mod-block @click="insertNote('endnote')">Eindnoot</vl-button>
         </vl-column>
         <vl-column>
-          <a>Toevoegen aan woordenboek</a>
+          <vl-button mod-block @click="addToDictionary()">Toevoegen aan woordenboek</vl-button>
         </vl-column>
       </vl-grid>
     </vl-layout>
@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { onInsertNoteClicked } from "../../../utils/Utils";
+import {addToDictionary, onInsertNoteClicked} from "../../../utils/Utils";
 import EventBus from "../../../utils/EventBus";
 import { IOsloItem } from "src/oslo/IOsloItem";
 
@@ -33,6 +33,9 @@ export default Vue.extend({
       if (Object.keys(this.radioTile).length > 0) {
         await onInsertNoteClicked(this.radioTile, which);
       }
+    },
+    addToDictionary(){
+      addToDictionary(this.radioTile);
     }
   },
   mounted() {

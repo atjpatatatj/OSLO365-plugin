@@ -24,6 +24,9 @@ export async function onInsertNoteClicked(data: any, which: string) {
     await context.sync();
   });
 }
+export function addToDictionary(data: any) {
+  console.log("added to dictionary" + data);
+}
 
 /**
  * Inserts either a footnote or an endnote
