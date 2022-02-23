@@ -2,6 +2,15 @@
   <div>
     <vl-layout>
       <vl-grid mod-stacked>
+        <vl-column>
+          <vl-input-field
+              id="search-input"
+              mod-block
+              v-model="input"
+              @input="searchDict"
+              placeholder="Doorzoek uw woordenboek"
+          />
+        </vl-column>
         <vl-column id="ResultBox" v-if="allitems.length > 0">
           <transition-group appear name="slide-fade">
             <search-result-card
@@ -26,6 +35,9 @@ import Vue from "vue";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-search-pane.vue";
 import {OsloStore} from "../../../store/OsloStore";
+import {search} from "../../search/search";
+import EventBus from "../../../utils/EventBus";
+import {IOsloItem} from "../../../oslo/IOsloItem";
 const osloStore = OsloStore.getInstance();
 const items = osloStore.getItems();
 

@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
+import EventBus from "../../utils/EventBus";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 
 // configuration of the built-in validator
@@ -28,3 +29,25 @@ Office.onReady((info) => {
 //TODO delete item from dictionary
 //TODO sort your items
 //TODO search in your items
+/** Searches a given phrase in the OSLO data set. */
+export function search(searchPhrase: string) {
+    console.log(`Looking for "${searchPhrase}"`);
+
+    if (!searchPhrase) {
+        return;
+    }
+
+    // If the search phrase begins with an equals char, perform an exact match (otherwise a "contains" match)
+    const exactMatch = searchPhrase.charAt(0) == "=";
+
+    if (exactMatch) {
+        // Remove the equals char from the search phrase
+        searchPhrase = searchPhrase.slice(1);
+    }
+
+    // Search the phrase in the OSLO database
+    const store = OsloStore.getInstance()
+    const osloResult = store.osloStoreLookup(searchPhrase, exactMatch);
+
+    EventBus.$emit("onDictSearchResult", osloResult);
+}
