@@ -38,6 +38,7 @@ import {OsloStore} from "../../../store/OsloStore";
 import {search} from "../../search/search";
 import EventBus from "../../../utils/EventBus";
 import {IOsloItem} from "../../../oslo/IOsloItem";
+import {searchDict} from "../dictionary";
 const osloStore = OsloStore.getInstance();
 const items = osloStore.getItems();
 
@@ -48,6 +49,18 @@ export default Vue.extend({
     return {
       allitems: items
     };
+  },
+  methods: {
+    searchDict() {
+      if (this.input.length > 2) {
+        searchDict(this.input);
+      }
+  }
+},
+  mounted() {
+    EventBus.$on("onDictSearchResult", (data: IOsloItem[]) => {
+      this.allitems = data;
+    });
   }
 });
 </script>

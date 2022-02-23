@@ -28,9 +28,9 @@ Office.onReady((info) => {
 //TODO function to add item to dictionary - from all panes?
 //TODO delete item from dictionary
 //TODO sort your items
-//TODO search in your items
+//TODO search in your items DONE
 /** Searches a given phrase in the OSLO data set. */
-export function search(searchPhrase: string) {
+export function searchDict(searchPhrase: string) {
     console.log(`Looking for "${searchPhrase}"`);
 
     if (!searchPhrase) {
