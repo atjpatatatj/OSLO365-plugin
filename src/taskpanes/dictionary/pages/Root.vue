@@ -33,7 +33,7 @@
 <script lang="ts">
 import Vue from "vue";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
-import contentFooter from "../components/content-footer-search-pane.vue";
+import contentFooter from "../components/content-footer-dictionary-pane.vue";
 import {OsloStore} from "../../../store/OsloStore";
 import {search} from "../../search/search";
 import EventBus from "../../../utils/EventBus";
