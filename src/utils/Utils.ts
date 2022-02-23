@@ -25,7 +25,12 @@ export async function onInsertNoteClicked(data: any, which: string) {
   });
 }
 export function addToDictionary(data: any) {
-  console.log("added to dictionary" + data);
+  console.log("added to dictionary");
+  console.log(data);
+}
+export function deleteFromDictionary(data: any) {
+  console.log("deleted from dictionary");
+  console.log(data);
 }
 
 /**
