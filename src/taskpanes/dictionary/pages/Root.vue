@@ -27,14 +27,14 @@ import searchResultCard from "../../../general-components/search-result-card/sea
 import contentFooter from "../components/content-footer-search-pane.vue";
 import {OsloStore} from "../../../store/OsloStore";
 const osloStore = OsloStore.getInstance();
-const store = osloStore.getStore();
+const items = osloStore.getItems();
 
 export default Vue.extend({
   components: { searchResultCard, contentFooter },
   name: "root",
   data: () => {
     return {
-      allitems: store
+      allitems: items
     };
   }
 });
