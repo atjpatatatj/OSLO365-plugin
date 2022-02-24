@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
+import {IOsloItem} from "../../oslo/IOsloItem";
+import {getDictionaryItems, searchDict} from "../../store/OsloDictionary";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 //FIXME footer obstructs last item
 /*
@@ -32,26 +34,15 @@ Office.onReady((info) => {
     }
 });
 //TODO sort your items
-/** Searches a given phrase in the OSLO data set. */
-//TODO search in own Dictionary instead of full dataset
-export function searchDict(searchPhrase: string) {
+/** Searches a given phrase in the dictionary. */
+export function search(searchPhrase: string) {
     console.log(`Looking for "${searchPhrase}"`);
 
     if (!searchPhrase) {
         return;
     }
-
-    // If the search phrase begins with an equals char, perform an exact match (otherwise a "contains" match)
-    const exactMatch = searchPhrase.charAt(0) == "=";
-
-    if (exactMatch) {
-        // Remove the equals char from the search phrase
-        searchPhrase = searchPhrase.slice(1);
-    }
-
-    // Search the phrase in the OSLO database
-    const store = OsloStore.getInstance()
-    const osloResult = store.osloStoreLookup(searchPhrase, exactMatch);
+    // Search the phrase in the OSLO dictionary
+    const osloResult = searchDict(searchPhrase);
 
     EventBus.$emit("onDictSearchResult", osloResult);
 }

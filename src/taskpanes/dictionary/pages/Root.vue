@@ -35,7 +35,7 @@ import searchResultCard from "../../../general-components/search-result-card/sea
 import contentFooter from "../components/content-footer-dictionary-pane.vue";
 import EventBus from "../../../utils/EventBus";
 import {IOsloItem} from "../../../oslo/IOsloItem";
-import {searchDict} from "../dictionary";
+import {search} from "../dictionary";
 import {getDictionaryItems} from "../../../store/OsloDictionary";
 const items = getDictionaryItems();
 
@@ -50,7 +50,7 @@ export default Vue.extend({
   methods: {
     searchDict() {
       if (this.input.length > 2) {
-        searchDict(this.input);
+        search(this.input);
       }
   }
 },

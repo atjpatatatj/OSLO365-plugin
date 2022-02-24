@@ -1,3 +1,5 @@
+import {IOsloItem} from "../oslo/IOsloItem";
+
 export function getDictionaryItems() {
     let dictionary = JSON.parse(localStorage.getItem("dictionary"));
     if(dictionary == null) dictionary = []; //if it's empty make a new one
@@ -37,4 +39,29 @@ export function deleteFromDictionary(data: any){
         }
         i++
     }
+}
+/** Searches a given phrase in the OSLO data set. */
+//FIXME go back to normal when search term is displayed -> search can be reused
+export function searchDict(phrase: string): IOsloItem[] {
+    if (!phrase) {
+        return null;
+    }
+    //clean
+    phrase = phrase.toLowerCase().trim();
+    // new list
+    const matches: IOsloItem[] = [];
+
+    let items = getDictionaryItems();
+    // loop for possible matches
+    for (const item of items) {
+        if (typeof item.label === "string") {
+            let possible = item.label.toLowerCase();
+            let result = possible.search(phrase); // returns position of word in the label
+            if (result >= 0) {
+                // -1 is no match, so everything on position 0 to infinity is a match
+                matches.push(item);
+            }
+        }
+    }
+    return matches.sort();
 }
