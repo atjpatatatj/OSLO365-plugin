@@ -32,7 +32,6 @@ Office.onReady((info) => {
     }
 });
 //TODO sort your items
-//TODO remind them it's stored already
 /** Searches a given phrase in the OSLO data set. */
 //TODO search in own Dictionary instead of full dataset
 export function searchDict(searchPhrase: string) {

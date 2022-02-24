@@ -24,9 +24,6 @@ export async function onInsertNoteClicked(data: any, which: string) {
     await context.sync();
   });
 }
-export function deleteFromDictionary(data: any) {
-  console.log("Deleted "+ data.label.toLowerCase()+" from dictionary");
-}
 
 /**
  * Inserts either a footnote or an endnote
