@@ -9,7 +9,7 @@
           <vl-button mod-block @click="insertNote('endnote')">Eindnoot</vl-button>
         </vl-column>
         <vl-column>
-          <vl-button mod-block @click="deleteFromDictionary()">Verwijderen van woordenboek</vl-button>
+          <vl-button id="button" mod-block @click="deleteFromDictionary()">Verwijderen van woordenboek</vl-button>
         </vl-column>
       </vl-grid>
     </vl-layout>
