@@ -29,17 +29,15 @@
     <content-footer v-if="allitems.length > 0" />
   </div>
 </template>
-
 <script lang="ts">
 import Vue from "vue";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-dictionary-pane.vue";
-import {OsloStore} from "../../../store/OsloStore";
 import EventBus from "../../../utils/EventBus";
 import {IOsloItem} from "../../../oslo/IOsloItem";
 import {searchDict} from "../dictionary";
-const osloStore = OsloStore.getInstance();
-const items = osloStore.getItems();
+import {getDictionaryItems} from "../../../store/OsloDictionary";
+const items = getDictionaryItems();
 
 export default Vue.extend({
   components: { searchResultCard, contentFooter },

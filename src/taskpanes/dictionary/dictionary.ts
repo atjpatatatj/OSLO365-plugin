@@ -4,7 +4,7 @@ import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
-
+//FIXME footer obstructs last item
 /*
 There are 2 ways to store data like your dictionary.
     o settings from the office javascript API
@@ -33,8 +33,8 @@ Office.onReady((info) => {
 });
 //TODO sort your items
 //TODO remind them it's stored already
-//TODO search in your items DONE
 /** Searches a given phrase in the OSLO data set. */
+//TODO search in own Dictionary instead of full dataset
 export function searchDict(searchPhrase: string) {
     console.log(`Looking for "${searchPhrase}"`);
 
