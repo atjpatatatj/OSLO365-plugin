@@ -24,9 +24,6 @@ export async function onInsertNoteClicked(data: any, which: string) {
     await context.sync();
   });
 }
-export function addToDictionary(data: any) {
-  console.log("Added "+ data.label.toLowerCase()+" to dictionary");
-}
 export function deleteFromDictionary(data: any) {
   console.log("Deleted "+ data.label.toLowerCase()+" from dictionary");
 }

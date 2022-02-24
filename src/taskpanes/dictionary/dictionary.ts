@@ -4,6 +4,7 @@ import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
+
 /*
 There are 2 ways to store data like your dictionary.
     o settings from the office javascript API
@@ -30,9 +31,6 @@ Office.onReady((info) => {
         });
     }
 });
-//TODO function to get items from dictionary
-//TODO function to add item to dictionary
-//TODO delete item from dictionary
 //TODO sort your items
 //TODO remind them it's stored already
 //TODO search in your items DONE

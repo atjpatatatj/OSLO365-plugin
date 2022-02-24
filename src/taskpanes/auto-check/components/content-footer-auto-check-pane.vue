@@ -18,9 +18,10 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {addToDictionary, onInsertNoteClicked} from "../../../utils/Utils";
+import {onInsertNoteClicked} from "../../../utils/Utils";
 import EventBus from "../../../utils/EventBus";
 import { IOsloItem } from "src/oslo/IOsloItem";
+import {addToDictionary} from "../../../store/OsloDictionary";
 
 export default Vue.extend({
   data: () => {
