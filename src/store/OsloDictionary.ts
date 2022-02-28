@@ -8,6 +8,9 @@ export function getDictionaryItems() {
 }
 //Gets existing dictionary from storage and adds item
 export function addToDictionary(data: any) {
+    if(typeof data.label === "undefined"){
+        return
+    }
     let dictionary = getDictionaryItems();
     let duplicate = false;
     for (const item of dictionary) {
@@ -31,6 +34,9 @@ function changeButtonBack(){
 }
 // delete item from your dictionary
 export function deleteFromDictionary(data: any){
+    if(typeof data.label === "undefined"){
+        return
+    }
     let dictionary = getDictionaryItems();
     let i = 0;
     for (const item of dictionary) {
