@@ -44,6 +44,7 @@ export default Vue.extend({
   name: "root",
   data: () => {
     return {
+      input: "",
       allitems: items
     };
   },
