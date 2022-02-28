@@ -129,7 +129,7 @@ body {
 }
 
 #ResultBox {
-  margin-bottom: 120px;
+  margin-bottom: 135px;
 }
 
 /* width */

@@ -74,7 +74,7 @@ body {
 }
 
 #ResultBox {
-  margin-bottom: 80px;
+  margin-bottom: 135px;
 }
 
 /* width */
