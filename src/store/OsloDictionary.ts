@@ -4,7 +4,8 @@ import {IOsloItem} from "../oslo/IOsloItem";
 export function getDictionaryItems() {
     let dictionary = JSON.parse(localStorage.getItem("dictionary"));
     if(dictionary == null) dictionary = []; //if it's empty make a new one
-    return dictionary
+    return dictionary.sort();
+    //FIXME sorted dict items
 }
 //Gets existing dictionary from storage and adds item
 export function addToDictionary(data: any) {
@@ -15,6 +16,7 @@ export function addToDictionary(data: any) {
             document.getElementById("button").innerHTML = data.label + " zit al in uw woordenboek"; // confirmation to user
             const myTimeout = setTimeout(changeButtonBack, 2000); // confirmation done
             duplicate = true;
+            break;
         }
     }
     if(!duplicate){ // not in dictionary already? go ahead and add!

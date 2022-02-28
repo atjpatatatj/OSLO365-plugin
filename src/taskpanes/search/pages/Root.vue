@@ -50,6 +50,7 @@ export default Vue.extend({
   },
   methods: {
     askOslo() {
+      //TODO return full list if input empty
       if (this.input.length > 2) {
         search(this.input);
       }

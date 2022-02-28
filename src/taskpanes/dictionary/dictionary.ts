@@ -53,5 +53,5 @@ export function emptySearch() {
     console.log("emptySearch");
     const osloResult = getDictionaryItems();
 
-    EventBus.$emit("onDictSearchResult", osloResult);
+    EventBus.$emit("onDictSearchResult", osloResult.sort());
 }

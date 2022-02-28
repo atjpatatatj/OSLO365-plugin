@@ -32,9 +32,9 @@ export class OsloStore {
     if (this.store.state.items.length < 1) {
       trace("Initializing store");
       const items = this.getLocalOsloItems();
-      if (items.length > 1) {
+      if (items.length > 1) { //checks if we can init from localstorage
         items.map((item) => this.storeItem(item));
-        trace("Saved oslo items to vuex store from localStorage");
+        trace("Saved oslo items to Vuex store from localStorage");
       }
       else{
         this.httpRequest("GET", AppConfig.dataFileUrl)
@@ -80,6 +80,7 @@ export class OsloStore {
       request.send();
     });
   }
+  //gets oslo items from our localstorage
   private getLocalOsloItems() {
     let dictionary = JSON.parse(localStorage.getItem("osloitems"));
     if(dictionary == null) dictionary = []; //if it's empty make a new one
@@ -111,9 +112,9 @@ export class OsloStore {
     }
     return matches.sort();
   }
-
+  // function to store item in VueX store
   private storeItem(item) {
-    let dictionaryItem = this.isDictionaryItem(item);
+    let dictionaryItem = this.isDictionaryItem(item); // checks if item is in dictionary
     let osloEntry: IOsloItem = {
       // new oslo object
       label: item["_source"]["prefLabel"],
@@ -124,7 +125,8 @@ export class OsloStore {
     };
     this.store.commit("addItem", osloEntry);
   }
-  private isDictionaryItem(item){
+  //function checks if it's in dictionary
+  private isDictionaryItem(item) :boolean{
     let dictionary = getDictionaryItems();
     let isDictionaryItem = false;
     for (const DictionaryItem of dictionary) {
@@ -133,7 +135,7 @@ export class OsloStore {
         break;
       }
     }
-    return isDictionaryItem;
+    return isDictionaryItem; // true or false
   }
 
   private initializeStore() {
