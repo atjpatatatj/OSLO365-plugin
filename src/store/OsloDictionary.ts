@@ -41,7 +41,6 @@ export function deleteFromDictionary(data: any){
     }
 }
 /** Searches a given phrase in the OSLO data set. */
-//FIXME go back to normal when search term is displayed -> search can be reused
 export function searchDict(phrase: string): IOsloItem[] {
     if (!phrase) {
         return null;

@@ -49,3 +49,10 @@ export function search(searchPhrase: string) {
 
     EventBus.$emit("onDictSearchResult", osloResult);
 }
+// gives back your full dictionary when input is empty
+export function emptySearch() {
+    console.log("emptySearch");
+    const osloResult = getDictionaryItems();
+
+    EventBus.$emit("onDictSearchResult", osloResult);
+}
