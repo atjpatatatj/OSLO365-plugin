@@ -21,8 +21,11 @@ Vue.use(Vuex);
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
+    const osloStore = OsloStore.getInstance();
+    const store = osloStore.getStore();
 
     var app = new Vue({
+      store: store,
       el: "#app",
       render: (h) => h(root),
     });

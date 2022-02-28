@@ -30,22 +30,29 @@ export class OsloStore {
     // only need to init once
     if (this.store.state.items.length < 1) {
       trace("Initializing store");
+      const items = this.getLocalOsloItems();
+      if (items.length > 1) {
+        items.map((item) => this.storeItem(item));
+        trace("Saved oslo items to vuex store from localStorage");
+      }
+      else{
+        this.httpRequest("GET", AppConfig.dataFileUrl)
+            .then((json: string) => {
+              if (!json) {
+                error("Oslo data empty");
+              }
+              const data = JSON.parse(json); //convert to usable JSON
+              const cleandata = data["hits"]["hits"]; //filter out stuff we don't really need
 
-      this.httpRequest("GET", AppConfig.dataFileUrl)
-        .then((json: string) => {
-          if (!json) {
-            error("Oslo data empty");
-          }
-          const data = JSON.parse(json); //convert to usable JSON
-          const cleandata = data["hits"]["hits"]; //filter out stuff we don't really need
+              localStorage.setItem("osloitems", JSON.stringify(cleandata));
+              cleandata.map((item) => this.storeItem(item));
 
-          cleandata.map((item) => this.storeItem(item));
-
-          trace("Information stored in Vuex store");
-        })
-        .catch((error) => {
-          trace("Error: " + error);
-        });
+              trace("Information stored in Vuex store and localStorage");
+            })
+            .catch((error) => {
+              trace("Error: " + error);
+            });
+      }
     } else {
       trace("Store already initialized");
     }
@@ -71,6 +78,11 @@ export class OsloStore {
       request.open(verb, url, true /* async */);
       request.send();
     });
+  }
+  private getLocalOsloItems() {
+    let dictionary = JSON.parse(localStorage.getItem("osloitems"));
+    if(dictionary == null) dictionary = []; //if it's empty make a new one
+    return dictionary
   }
 
   // Function to search the keyword in the Vuex store
