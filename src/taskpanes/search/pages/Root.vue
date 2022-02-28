@@ -33,7 +33,7 @@
 <script lang="ts">
 import Vue from "vue";
 import EventBus from "../../../utils/EventBus";
-import { search } from "../search";
+import { search, emptySearch } from "../search";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-search-pane.vue";
 import { IOsloItem } from "src/oslo/IOsloItem";
@@ -53,6 +53,9 @@ export default Vue.extend({
       //TODO return full list if input empty
       if (this.input.length > 2) {
         search(this.input);
+      }
+      else if(this.input.length == 0) {
+        emptySearch();
       }
     }
   },

@@ -5,7 +5,6 @@ export function getDictionaryItems() {
     let dictionary = JSON.parse(localStorage.getItem("dictionary"));
     if(dictionary == null) dictionary = []; //if it's empty make a new one
     return dictionary.sort();
-    //FIXME sorted dict items
 }
 //Gets existing dictionary from storage and adds item
 export function addToDictionary(data: any) {
