@@ -1,5 +1,6 @@
 import {IOsloItem} from "../oslo/IOsloItem";
 
+//gets all items from your localstorage dictionary
 export function getDictionaryItems() {
     let dictionary = JSON.parse(localStorage.getItem("dictionary"));
     if(dictionary == null) dictionary = []; //if it's empty make a new one
@@ -10,37 +11,40 @@ export function addToDictionary(data: any) {
     let dictionary = getDictionaryItems();
     let duplicate = false;
     for (const item of dictionary) {
-        if (item.label === data.label){
-            document.getElementById("button").innerHTML = data.label + " zit al in uw woordenboek";
-            const myTimeout = setTimeout(changeButtonBack, 2000);
+        if (item.label === data.label){ // match items? don't add same item twice.
+            document.getElementById("button").innerHTML = data.label + " zit al in uw woordenboek"; // confirmation to user
+            const myTimeout = setTimeout(changeButtonBack, 2000); // confirmation done
             duplicate = true;
         }
     }
-    if(!duplicate){
+    if(!duplicate){ // not in dictionary already? go ahead and add!
         dictionary.push(data);
         localStorage.setItem("dictionary", JSON.stringify(dictionary));
-        document.getElementById("button").innerHTML = data.label+ " is goed toegevoegd!";
-        const myTimeout = setTimeout(changeButtonBack, 2000);
+        document.getElementById("button").innerHTML = data.label+ " is goed toegevoegd!"; // confirmation to user
+        const myTimeout = setTimeout(changeButtonBack, 2000); // confirmation done
     }
 }
+// function to change the button text back to normal
 function changeButtonBack(){
     document.getElementById("button").innerHTML = "Toevoegen aan woordenboek";
 }
+// delete item from your dictionary
 export function deleteFromDictionary(data: any){
     let dictionary = getDictionaryItems();
     let i = 0;
     for (const item of dictionary) {
-        if (item.label === data.label){
-            dictionary.splice(i,1);
-            localStorage.setItem("dictionary", JSON.stringify(dictionary));
-            document.getElementById("button").innerHTML = data.label+ " is verwijderd!";
-            const myTimeout = setTimeout(changeButtonBack, 2000);
-            location.reload();
+        if (item.label === data.label){ // find the index of the item that needs to be removed
+            dictionary.splice(i,1);// delete 1 item on index position
+            localStorage.setItem("dictionary", JSON.stringify(dictionary)); // save to storage
+            document.getElementById("button").innerHTML = data.label+ " is verwijderd!"; // confirmation to user
+            const myTimeout = setTimeout(changeButtonBack, 2000); // confirmation done
+            location.reload(); // refresh page to load new list without removed item
+            break; //loop ends item found
         }
         i++
     }
 }
-/** Searches a given phrase in the OSLO data set. */
+// Searches a given phrase in the dictionary.
 export function searchDict(phrase: string): IOsloItem[] {
     if (!phrase) {
         return null;

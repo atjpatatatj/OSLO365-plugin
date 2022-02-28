@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
-import {IOsloItem} from "../../oslo/IOsloItem";
 import {getDictionaryItems, searchDict} from "../../store/OsloDictionary";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 //FIXME footer obstructs last item
