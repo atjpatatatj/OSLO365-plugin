@@ -4,4 +4,5 @@ export interface IOsloItem {
   keyphrase: string;
   description: string;
   reference: string;
+  dictionaryItem: boolean;
 }

@@ -4,6 +4,7 @@ import { error, trace } from "../utils/Utils";
 import { AppConfig } from "../utils/AppConfig";
 import { IOsloItem } from "../oslo/IOsloItem";
 import { Store } from "vuex";
+import {getDictionaryItems} from "./OsloDictionary";
 
 Vue.use(Vuex);
 
@@ -112,14 +113,27 @@ export class OsloStore {
   }
 
   private storeItem(item) {
+    let dictionaryItem = this.isDictionaryItem(item);
     let osloEntry: IOsloItem = {
       // new oslo object
       label: item["_source"]["prefLabel"],
       keyphrase: item["_source"]["id"],
       description: item["_source"]["definition"],
       reference: item["_source"]["context"],
+      dictionaryItem : dictionaryItem,
     };
     this.store.commit("addItem", osloEntry);
+  }
+  private isDictionaryItem(item){
+    let dictionary = getDictionaryItems();
+    let isDictionaryItem = false;
+    for (const DictionaryItem of dictionary) {
+      if (DictionaryItem.label === item["_source"]["prefLabel"]){
+        isDictionaryItem = true;
+        break;
+      }
+    }
+    return isDictionaryItem;
   }
 
   private initializeStore() {
