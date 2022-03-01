@@ -1,9 +1,8 @@
-import Vuex from "vuex";
+import Vuex, {Store} from "vuex";
 import Vue from "vue";
-import { error, trace } from "../utils/Utils";
-import { AppConfig } from "../utils/AppConfig";
-import { IOsloItem } from "../oslo/IOsloItem";
-import { Store } from "vuex";
+import {error, trace} from "../utils/Utils";
+import {AppConfig} from "../utils/AppConfig";
+import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
 
 //TODO place dictionary items above other search results
@@ -113,11 +112,26 @@ export class OsloStore {
         }
       }
     }
-    return matches.sort();
+    return OsloStore.sorter(matches);
+  }
+  //sorts items to show dictionary items first
+  private static sorter(items){
+    let dictionaryItems = [];
+    let i = 0;
+    for (const item of items){
+      let isDictionaryItem = OsloStore.isDictionaryItem(item.label);
+      console.log(isDictionaryItem);
+      if (isDictionaryItem){
+        items.splice(i,1); // delete the dictItem from the lists and add them to another list
+        dictionaryItems.push(item);
+      }
+      i++
+    }
+    return dictionaryItems.concat(items); // now we have 2 lists. We add the non-dict items at the end of the dict item list
   }
   // function to store item in VueX store
   private storeItem(item) {
-    let dictionaryItem = this.isDictionaryItem(item); // checks if item is in dictionary
+    let dictionaryItem = OsloStore.isDictionaryItem(item["_source"]["prefLabel"]); // checks if item is in dictionary
     let osloEntry: IOsloItem = {
       // new oslo object
       label: item["_source"]["prefLabel"],
@@ -129,11 +143,11 @@ export class OsloStore {
     this.store.commit("addItem", osloEntry);
   }
   //function checks if it's in dictionary
-  private isDictionaryItem(item) :boolean{
+  private static isDictionaryItem(itemName) :boolean{
     let dictionary = getDictionaryItems();
     let isDictionaryItem = false;
     for (const DictionaryItem of dictionary) {
-      if (DictionaryItem.label === item["_source"]["prefLabel"]){
+      if (JSON.stringify(DictionaryItem.label) === JSON.stringify(itemName)){
         isDictionaryItem = true;
         break;
       }
