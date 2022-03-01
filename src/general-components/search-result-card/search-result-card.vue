@@ -13,7 +13,7 @@
         :dictionaryItem="dictionaryItem"
         v-if="dictionaryItem === true"
         id="dictionary">
-      <br><br>Zit in uw woordenboek
+      <br><br>Aanwezig in uw woordenboek
     </span>
   </vl-radio-tile>
 </template>
