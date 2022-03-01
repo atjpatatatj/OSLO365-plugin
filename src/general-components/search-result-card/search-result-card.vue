@@ -9,6 +9,12 @@
     :info="description"
   >
     <a :href="url">{{ url }}</a>
+    <span
+        :dictionaryItem="dictionaryItem"
+        v-if="dictionaryItem === true"
+        id="dictionary">
+      <br><br>Zit in uw woordenboek
+    </span>
   </vl-radio-tile>
 </template>
 
@@ -36,6 +42,10 @@ export default Vue.extend({
     url: {
       type: String,
       default: ""
+    },
+    dictionaryItem: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => {
@@ -56,6 +66,10 @@ export default Vue.extend({
 
 .radio-tile a {
   word-wrap: break-word;
+}
+#dictionary{
+  color: #05c;
+  font-weight: bold;
 }
 
 /** Prevents jumping to top when clicking a radio tile */
