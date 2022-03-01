@@ -6,6 +6,9 @@ import { IOsloItem } from "../oslo/IOsloItem";
 import { Store } from "vuex";
 import {getDictionaryItems} from "./OsloDictionary";
 
+//TODO place dictionary items above other search results
+//TODO tutorial video if done -> walkthrough word plugin
+
 Vue.use(Vuex);
 
 export class OsloStore {
@@ -121,7 +124,7 @@ export class OsloStore {
       keyphrase: item["_source"]["id"],
       description: item["_source"]["definition"],
       reference: item["_source"]["context"],
-      dictionaryItem : dictionaryItem,
+      isDictionaryItem : dictionaryItem,
     };
     this.store.commit("addItem", osloEntry);
   }

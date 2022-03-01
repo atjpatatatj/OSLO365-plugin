@@ -5,6 +5,7 @@ import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
 import {getDictionaryItems, searchDict} from "../../store/OsloDictionary";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
+//TODO make delete button red
 /*
 There are 2 ways to store data like your dictionary.
     o settings from the office javascript API
@@ -47,7 +48,7 @@ export function search(searchPhrase: string) {
 
     EventBus.$emit("onDictSearchResult", osloResult);
 }
-// gives back your full dictionary when input is empty
+// Gives back your full dictionary when input is empty
 export function emptySearch() {
     console.log("emptySearch");
     const osloResult = getDictionaryItems();

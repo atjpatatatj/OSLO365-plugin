@@ -112,7 +112,7 @@ export function selectWordInDocument(word: Word.Range) {
       const position = results.items[index].compareLocationWith(selection);
       await context.sync();
 
-      if (position.value === Word.LocationRelation.equal) {
+      if (position.value === Word.LocationRelation.equal) { //param to change according to button + play with index
         index++;
         continue;
       }

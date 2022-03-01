@@ -4,5 +4,6 @@ export interface IOsloItem {
   keyphrase: string;
   description: string;
   reference: string;
-  dictionaryItem: boolean;
+  isDictionaryItem: boolean;
 }
+//TODO make isDictionaryItem optional -> optimise init function
