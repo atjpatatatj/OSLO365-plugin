@@ -59,7 +59,9 @@ export default Vue.extend({
 #content-footer div {
   background: #ffe615 !important;
 }
-
+#button{
+  background-color: red;
+}
 #content-footer a {
   cursor: grab;
 }
