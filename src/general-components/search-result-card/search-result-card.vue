@@ -3,6 +3,7 @@
     class="radio-tile"
     name="oslo-search-result-radio"
     v-model="selectedRadioTile"
+    :class="{dictionaryItemclass: dictionaryItem}"
     :value="value"
     :id="id"
     :title="title"
@@ -70,6 +71,9 @@ export default Vue.extend({
 #dictionary{
   color: #05c;
   font-weight: bold;
+}
+.dictionaryItemclass label{
+  background-color: #ffe615;
 }
 
 /** Prevents jumping to top when clicking a radio tile */

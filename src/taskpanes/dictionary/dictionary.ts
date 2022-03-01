@@ -35,7 +35,6 @@ Office.onReady((info) => {
         });
     }
 });
-//TODO visual feedback if item is dictionary item
 /** Searches a given phrase in the dictionary. */
 export function search(searchPhrase: string) {
     console.log(`Looking for "${searchPhrase}"`);

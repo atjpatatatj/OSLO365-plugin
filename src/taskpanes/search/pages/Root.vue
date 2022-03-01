@@ -21,7 +21,7 @@
               :title="hit.label"
               :description="hit.description"
               :url="hit.reference"
-              :dictionaryItem="hit.dictionaryItem"
+              :dictionaryItem="hit.isDictionaryItem"
             />
           </transition-group>
         </vl-column>
@@ -96,7 +96,6 @@ body {
   background: grey;
   border-radius: 10px;
 }
-
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }

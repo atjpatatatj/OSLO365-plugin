@@ -45,7 +45,7 @@
             :title="hit.label"
             :description="hit.description"
             :url="hit.reference"
-            :dictionaryItem="hit.dictionaryItem"
+            :dictionaryItem="hit.isDictionaryItem"
           />
         </vl-column>
       </vl-grid>
