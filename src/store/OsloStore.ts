@@ -4,8 +4,8 @@ import {error, trace} from "../utils/Utils";
 import {AppConfig} from "../utils/AppConfig";
 import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
+import EventBus from "../utils/EventBus";
 
-//TODO place dictionary items above other search results
 //TODO tutorial video if done -> walkthrough word plugin
 
 Vue.use(Vuex);

@@ -89,7 +89,15 @@ export function search(searchPhrase: string) {
   const store = OsloStore.getInstance()
   const osloResult = store.osloStoreLookup(searchPhrase, exactMatch);
 
-  EventBus.$emit("onSearchResult", osloResult);
+  if (osloResult.length < 1 ){
+    console.log(osloResult.length);
+    EventBus.$emit("onMatches", true);
+    EventBus.$emit("onSearchResult", osloResult);
+  }
+  else {
+    EventBus.$emit("onSearchResult", osloResult);
+    EventBus.$emit("onMatches", false);
+  }
 }
 
 // gives back your full dictionary when input is empty

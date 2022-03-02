@@ -25,6 +25,9 @@
             />
           </transition-group>
         </vl-column>
+        <vl-column id="noMatches" v-if="noMatches === true">
+          Er werden geen resultaten gevonden.
+        </vl-column>
       </vl-grid>
     </vl-layout>
     <content-footer v-if="result.length > 0" />
@@ -46,7 +49,8 @@ export default Vue.extend({
     return {
       input: "",
       show: false,
-      result: [] as IOsloItem[]
+      result: [] as IOsloItem[],
+      noMatches: false
     };
   },
   methods: {
@@ -67,6 +71,10 @@ export default Vue.extend({
     EventBus.$on("onWordSelection", (data: string) => {
       this.input = data;
     });
+
+    EventBus.$on("onMatches", (data: boolean) => {
+      this.noMatches = data;
+    });
   }
 });
 </script>
@@ -80,6 +88,12 @@ body {
 
 #ResultBox {
   margin-bottom: 135px;
+}
+#noMatches{
+  color: #05c;
+  font-weight: bold;
+  font-size: 1.25em;
+  margin-top: 25px;
 }
 
 /* width */
