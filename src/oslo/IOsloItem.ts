@@ -6,4 +6,4 @@ export interface IOsloItem {
   reference: string;
   isDictionaryItem: boolean;
 }
-//TODO make isDictionaryItem optional -> optimise init function
+

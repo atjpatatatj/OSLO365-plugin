@@ -89,6 +89,7 @@ export function search(searchPhrase: string) {
   const store = OsloStore.getInstance()
   const osloResult = store.osloStoreLookup(searchPhrase, exactMatch);
 
+  //If the results are empty we send a boolean to root so a message is shown "no results"
   if (osloResult.length < 1 ){
     console.log(osloResult.length);
     EventBus.$emit("onMatches", true);

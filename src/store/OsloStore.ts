@@ -127,7 +127,7 @@ export class OsloStore {
       }
       i++
     }
-    return dictionaryItems.concat(items); // now we have 2 lists. We add the non-dict items at the end of the dict item list
+    return dictionaryItems.concat(items); // now we have 2 lists. We add the non-dict items at the end of the list so the dict items are in the beginning of the list
   }
   // function to store item in VueX store
   private storeItem(item) {
