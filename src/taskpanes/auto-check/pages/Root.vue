@@ -80,7 +80,8 @@ export default Vue.extend({
       results: [] as Word.Range[],
       shownWord: {} as Word.Range,
       shownWordDefinitions: [] as IOsloItem[],
-      selectedDefinition: {} as IOsloItem
+      selectedDefinition: {} as IOsloItem,
+      back: false
     };
   },
   methods: {
@@ -98,12 +99,14 @@ export default Vue.extend({
       if (this.resultIndex + 1 <= this.results.length - 1) {
         this.resultIndex++;
         this.updateDisplayedWord();
+        this.back = false;
       }
     },
     previous() {
       if (this.resultIndex - 1 >= 0) {
         this.resultIndex--;
         this.updateDisplayedWord();
+        this.back = true;
       }
     },
     updateDisplayedWord() {
@@ -111,12 +114,12 @@ export default Vue.extend({
       this.shownWordDefinitions = getDefinitions(this.shownWord);
     },
     selectShownWordInDocument() {
-      selectWordInDocument(this.shownWord);
+      selectWordInDocument(this.shownWord, this.back);
     }
   },
   watch: {
     shownWord(newValue) {
-      selectWordInDocument(newValue);
+      selectWordInDocument(newValue, this.back);
     }
   },
 });

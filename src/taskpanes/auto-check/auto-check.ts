@@ -86,7 +86,6 @@ export async function searchDocument() {
 
       await context.sync();
     }
-
     return wordsWithMatches;
   });
 }
@@ -95,31 +94,60 @@ export function getDefinitions(word: Word.Range): IOsloItem[] {
   const store = OsloStore.getInstance()
   return store.osloStoreLookup(word.text, false);
 }
+
 //TODO works but not if word shows multiple times
-export function selectWordInDocument(word: Word.Range) {
+export function selectWordInDocument(word: Word.Range, back : boolean) {
   return Word.run(async (context) => {
+
     const selection = context.document.getSelection();
     selection.load();
 
     const results = context.document.body.search(word.text);
     context.load(results);
+    console.log(results);
 
     await context.sync();
 
     let found = false;
     let index = 0;
-    while (!found && index <= results.items.length - 1) {
-      const position = results.items[index].compareLocationWith(selection);
+    if (results.items.length === 1){
+      results.items[0].select();
       await context.sync();
-
-      if (position.value === Word.LocationRelation.equal) { //param to change according to button + play with index
-        index++;
-        continue;
-      }
-
-      found = true;
-      results.items[index].select();
     }
-    await context.sync();
+    else{
+      while (index < results.items.length ) {
+        const position = results.items[index].compareLocationWith(selection);
+        await context.sync();
+        console.log(position.value);
+
+        if (position.value === Word.LocationRelation.containsStart){
+          results.items[index].select();
+          await context.sync();
+          break;
+        }
+        if (back === false){
+          if (position.value === Word.LocationRelation.after){
+            results.items[index].select();
+            await context.sync();
+            break;
+          }
+        }
+        if (back  === true) {
+          if (position.value === Word.LocationRelation.after){
+            index--
+            results.items[index].select();
+            await context.sync();
+            break;
+          }
+          if (position.value === Word.LocationRelation.equal){
+            results.items[index].select();
+            await context.sync();
+            break;
+          }
+        }
+        index++
+        await context.sync();
+      }
+    }
   });
 }
