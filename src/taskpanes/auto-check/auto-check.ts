@@ -115,39 +115,41 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
       await context.sync();
     }
     else{
-      while (index < results.items.length ) {
-        const position = results.items[index].compareLocationWith(selection);
-        await context.sync();
-        console.log(position.value);
-
-        if (position.value === Word.LocationRelation.containsStart){
-          results.items[index].select();
-          await context.sync();
-          break;
-        }
-        if (back === false){
-          if (position.value === Word.LocationRelation.after){
-            results.items[index].select();
+        if (back === false) {
+          while (index <= results.items.length && !found) {
+            const position = results.items[index].compareLocationWith(selection);
             await context.sync();
-            break;
+            if (position.value === Word.LocationRelation.containsStart){ // we need this if when the first word shows up multiple times
+              results.items[index].select();
+              await context.sync();
+              break;
+            }
+
+            if (position.value !== Word.LocationRelation.after && position.value !== Word.LocationRelation.adjacentAfter) {
+              index++;
+              continue;
+            }
+
+            found = true;
+            results.items[index].select();
           }
         }
         if (back  === true) {
-          if (position.value === Word.LocationRelation.after){
-            index--
-            results.items[index].select();
+          while (index <= results.items.length && !found) {
+            const position = results.items[index].compareLocationWith(selection);
             await context.sync();
-            break;
-          }
-          if (position.value === Word.LocationRelation.equal){
+
+            if (position.value !== Word.LocationRelation.before && position.value !== Word.LocationRelation.adjacentBefore) {
+              index++;
+              continue;
+            }
+
+            found = true;
             results.items[index].select();
-            await context.sync();
-            break;
           }
         }
-        index++
+
         await context.sync();
       }
-    }
   });
 }
