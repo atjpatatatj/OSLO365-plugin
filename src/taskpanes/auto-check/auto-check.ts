@@ -104,7 +104,6 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
 
     const results = context.document.body.search(word.text);
     context.load(results);
-    console.log(results);
 
     await context.sync();
 
@@ -134,21 +133,29 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
             results.items[index].select();
           }
         }
-        if (back  === true) {
-          while (index <= results.items.length && !found) {
+        if (back === true){
+          let index = results.items.length -1;
+          while (!found) {
             const position = results.items[index].compareLocationWith(selection);
             await context.sync();
+            console.log(position.value);
 
             if (position.value !== Word.LocationRelation.before && position.value !== Word.LocationRelation.adjacentBefore) {
-              index++;
+              if (position.value === Word.LocationRelation.equal) {
+                index--;
+                results.items[index].select();
+                await context.sync();
+                break;
+              }
+              index--;
               continue;
             }
 
             found = true;
             results.items[index].select();
+
           }
         }
-
         await context.sync();
       }
   });
