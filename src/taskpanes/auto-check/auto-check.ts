@@ -95,7 +95,6 @@ export function getDefinitions(word: Word.Range): IOsloItem[] {
   return store.osloStoreLookup(word.text, false);
 }
 
-//TODO works but not if word shows multiple times
 export function selectWordInDocument(word: Word.Range, back : boolean) {
   return Word.run(async (context) => {
 
