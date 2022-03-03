@@ -134,7 +134,7 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
         }
         if (back === true){
           let index = results.items.length -1;
-          while (!found) {
+          while (!found && index >= 0) {
             const position = results.items[index].compareLocationWith(selection);
             await context.sync();
             console.log(position.value);
