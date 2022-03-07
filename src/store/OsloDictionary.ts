@@ -16,7 +16,7 @@ export function addToDictionary(data: any) {
     for (const item of dictionary) {
         if (item.label === data.label){ // match items? don't add same item twice.
             document.getElementById("button").innerHTML = data.label + " zit al in uw woordenboek"; // confirmation to user
-            const myTimeout = setTimeout(changeButtonBack, 2000); // confirmation done
+            const myTimeout = setTimeout(changeButtonBackAdded, 2000); // confirmation done
             duplicate = true;
             break;
         }
@@ -25,12 +25,16 @@ export function addToDictionary(data: any) {
         dictionary.push(data);
         localStorage.setItem("dictionary", JSON.stringify(dictionary));
         document.getElementById("button").innerHTML = data.label+ " is goed toegevoegd!"; // confirmation to user
-        const myTimeout = setTimeout(changeButtonBack, 2000); // confirmation done
+        const myTimeout = setTimeout(changeButtonBackAdded, 2000); // confirmation done
     }
 }
-// function to change the button text back to normal
-function changeButtonBack(){
+// function to change the button text back to normal| due to using this in a timeout function we can't pass a string with text
+function changeButtonBackAdded(){
     document.getElementById("button").innerHTML = "Toevoegen aan woordenboek";
+}
+// function to change the button text back to normal| due to using this in a timeout function we can't pass a string with text
+function changeButtonBackDeleted(){
+    document.getElementById("deleteEntireDictionary").innerHTML = "Verwijder alle items in woordenboek";
 }
 // delete item from your dictionary
 export function deleteFromDictionary(data: any){
@@ -44,7 +48,7 @@ export function deleteFromDictionary(data: any){
             dictionary.splice(i,1);// delete 1 item on index position
             localStorage.setItem("dictionary", JSON.stringify(dictionary)); // save to storage
             document.getElementById("button").innerHTML = data.label+ " is verwijderd!"; // confirmation to user
-            const myTimeout = setTimeout(changeButtonBack, 2000); // confirmation done
+            const myTimeout = setTimeout(changeButtonBackAdded, 2000); // confirmation done
             location.reload(); // refresh page to load new list without removed item
             break; //loop ends item found
         }
@@ -75,3 +79,10 @@ export function searchDict(phrase: string): IOsloItem[] {
     }
     return matches.sort();
 }
+// function to delete all your dictionary items
+export function deleteEntireDictionary(){
+    //localStorage.setItem("dictionary", JSON.stringify([])); //FIXME microsoft has an active issue where this does not work lol
+    document.getElementById("deleteEntireDictionary").innerHTML =  " Uw volledig woordenboek werd verwijderd!"; // confirmation to user
+    const myTimeout = setTimeout(changeButtonBackDeleted, 2000); // confirmation done
+}
+
