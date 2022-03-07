@@ -12,11 +12,16 @@
         // The initialize function must be defined each time a new page is loaded
         (function () {
             Office.initialize = function (reason) {
+                openDefintion();
             };
         })();
         function opensettings (clickEvent) {
-            Office.context.ui.displayDialogAsync(window.location.origin + "/settings.html", {height:70, width:30, displayInIframe:true});
+            //TODO defintion should open on startup!
+            Office.context.ui.displayDialogAsync(window.location.origin + "/definition.html", {height:70, width:30, displayInIframe:true});
             clickEvent.completed();
+        }
+        function openDefintion () {
+            Office.context.ui.displayDialogAsync(window.location.origin + "/definition.html", {height:70, width:30, displayInIframe:true});
         }
         function openAboutPage (clickEvent) {
             window.open('https://overheid.vlaanderen.be/oslo-wat-is-oslo',"_blank");

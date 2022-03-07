@@ -4,7 +4,6 @@ import {error, trace} from "../utils/Utils";
 import {AppConfig} from "../utils/AppConfig";
 import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
-import EventBus from "../utils/EventBus";
 
 //TODO tutorial video if done -> walkthrough word plugin
 
@@ -59,6 +58,7 @@ export class OsloStore {
     } else {
       trace("Store already initialized");
     }
+    this.getRandomDefinition();
   }
 
   //Function to retrieve the data from an url
@@ -171,5 +171,9 @@ export class OsloStore {
   }
   public getItems() {
     return this.store.state.items;
+  }
+  public getRandomDefinition(){
+    let randomInt = Math.floor(Math.random() * this.store.state.items.length);
+    return this.store.state.items[randomInt];
   }
 }
