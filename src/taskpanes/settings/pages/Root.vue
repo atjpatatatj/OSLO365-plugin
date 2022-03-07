@@ -38,6 +38,7 @@ export default Vue.extend({
     },
     deleteEntireDictionary(){
       deleteEntireDictionary();
+      this.confirmDelete = false;
     }
   }
 });
