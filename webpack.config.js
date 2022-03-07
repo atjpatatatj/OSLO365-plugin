@@ -24,6 +24,7 @@ module.exports = async (env, options) => {
       autoCheck: "./src/taskpanes/auto-check/auto-check.ts",
       dictionary: "./src/taskpanes/dictionary/dictionary.ts",
       settings: "./src/taskpanes/settings/settings.ts",
+      definition: "./src/taskpanes/definition/definition.ts",
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
@@ -108,6 +109,11 @@ module.exports = async (env, options) => {
         filename: "dictionary.html",
         template: "./src/taskpanes/dictionary/dictionary.html",
         chunks: ["polyfill", "dictionary"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "definition.html",
+        template: "./src/taskpanes/definition/definition.html",
+        chunks: ["polyfill", "definition"],
       }),
       new CopyWebpackPlugin({
         patterns: [
