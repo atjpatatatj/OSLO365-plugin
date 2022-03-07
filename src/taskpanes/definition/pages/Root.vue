@@ -3,16 +3,19 @@
     <vl-layout>
       <vl-grid v-vl-align:center mod-stacked>
         <vl-column>
-          interessante definitie van de dag
+          <br><h2 class="vl-title vl-title--h2" id="title">
+            interessante definitie van de dag
+          </h2>
         </vl-column>
-        <vl-column>
-          {{ randomDefinition.label }}
-        </vl-column>
-        <vl-column>
+        <vl-column id="content">
+          <h4 class="vl-title vl-title--h4">
+            {{ randomDefinition.label }}
+          </h4><br>
           {{ randomDefinition.description }}
-        </vl-column>
-        <vl-column>
-          {{ randomDefinition.reference }}
+          <br>
+          <br><br><a href="#" class="vl-link">
+            {{ randomDefinition.reference }}
+          </a>
         </vl-column>
       </vl-grid>
     </vl-layout>
@@ -39,5 +42,14 @@ export default Vue.extend({
 
 <style lang="scss">
 @import "../css/style.scss";
+#title {
+  background-color: #ffe615;
+}
+h3{
+  text-decoration: underline;
+}
+
+
+
 
 </style>
