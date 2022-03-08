@@ -71,6 +71,10 @@
 									</Action>
 									<Enabled>false</Enabled>
 								</Control>
+								<Action xsi:type="ShowTaskpane">
+									<TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
+									<SourceLocation resid="Taskpane.Definition"/>
+								</Action>
 							</Group>
 						</OfficeTab>
 
@@ -273,12 +277,13 @@
 			<bt:Urls>
 				<bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://overheid.vlaanderen.be/oslo-wat-is-oslo"/>
 				<bt:Url id="Taskpane.Begrippenkader" DefaultValue="https://localhost:3000/search.html"/>
-        <bt:Url id="Taskpane.TestPane" DefaultValue="https://localhost:3000/taskpane.html"/>
+        		<bt:Url id="Taskpane.TestPane" DefaultValue="https://localhost:3000/taskpane.html"/>
 				<bt:Url id="Taskpane.DocumentCheck" DefaultValue="https://localhost:3000/auto-check.html"/>
 				<bt:Url id="Taskpane.Help" DefaultValue="https://localhost:3000/help.html"/>
 				<bt:Url id="Taskpane.About" DefaultValue="https://localhost:3000/about.html"/>
 				<bt:Url id="Taskpane.MijnWoordenboek" DefaultValue="https://localhost:3000/dictionary.html"/>
 				<bt:Url id="Taskpane.Instellingen" DefaultValue="https://localhost:3000/settings.html"/>
+				<bt:Url id="Taskpane.Definition" DefaultValue="https://localhost:3000/definition.html"/>
 				<bt:Url id="residDesktopFuncUrl" DefaultValue="https://localhost:3000/functions.html"/>
 			</bt:Urls>
 			<bt:ShortStrings>
