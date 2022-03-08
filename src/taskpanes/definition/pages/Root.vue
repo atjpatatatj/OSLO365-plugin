@@ -4,16 +4,15 @@
       <vl-grid v-vl-align:center mod-stacked>
         <vl-column>
           <br><h2 class="vl-title vl-title--h2" id="title">
-            interessante definitie van de dag
+            Interessante definitie van de dag
           </h2>
         </vl-column>
         <vl-column id="content">
           <h4 class="vl-title vl-title--h4">
-            {{ randomDefinition.label }}
-          </h4><br>
-          {{ randomDefinition.description }}
-          <br>
-          <br><br><a href="#" class="vl-link">
+            {{ randomDefinition.label }}<br>
+          </h4>
+          {{ randomDefinition.description }}<br><br><br>
+          <a href="#" class="vl-link">
             {{ randomDefinition.reference }}
           </a>
         </vl-column>

@@ -50,5 +50,8 @@ export default Vue.extend({
 #deleteEntireDictionary{
   background-color: red;
 }
+#deleteEntireDictionary:hover {
+  background-color: crimson;
+}
 
 </style>

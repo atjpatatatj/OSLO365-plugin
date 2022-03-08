@@ -62,6 +62,9 @@ export default Vue.extend({
 #button{
   background-color: red;
 }
+#button:hover {
+  background-color: crimson;
+}
 #content-footer a {
   cursor: grab;
 }
