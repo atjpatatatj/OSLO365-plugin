@@ -10,8 +10,11 @@
           <br>
           <vl-button id="deleteEntireDictionary" mod-block @click="deleteEntireDictionary()">Ben je het zeker?</vl-button>
         </vl-column>
-        <vl-column>
-          <vl-button id="disableDailyDefinition" mod-block @click="disableDailyDefinition()">Definitie van de dag uitschakkelen</vl-button>
+        <vl-column v-if="setting === true">
+          <vl-button id="disableDailyDefinition" mod-block @click="disableDefinition()">Definitie van de dag uitschakelen</vl-button>
+        </vl-column>
+        <vl-column v-if="setting === false">
+          <vl-button id="enableDailyDefinition" mod-block @click="enableDefinition()">Definitie van de dag inschakelen</vl-button>
         </vl-column>
         <vl-column>
           mooie grafieken
@@ -24,12 +27,15 @@
 <script lang="ts">
 import Vue from "vue";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
+import {defintionOTDSetting, disableDefinitionOTD, enableDefintionOTD} from "../../../store/OsloSettings";
+const userSetting = defintionOTDSetting();
 
 export default Vue.extend({
   name: "root",
   data: () => {
     return {
       confirmDelete: false,
+      setting: userSetting,
     };
   },
   methods: {
@@ -39,6 +45,14 @@ export default Vue.extend({
     deleteEntireDictionary(){
       deleteEntireDictionary();
       this.confirmDelete = false;
+    },
+    enableDefinition(){
+      enableDefintionOTD();
+      this.setting = true;
+    },
+    disableDefinition(){
+      disableDefinitionOTD();
+      this.setting = false;
     }
   }
 });
