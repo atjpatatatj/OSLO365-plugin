@@ -15,7 +15,7 @@ export function disableDefinitionOTD(){
 export function defintionOTDSetting(){
     let setting = Office.context.document.settings.get('Office.AutoShowTaskpaneWithDocument');
     if (setting === null){
-        return true;
+        return false;
     }
     return setting;
 }

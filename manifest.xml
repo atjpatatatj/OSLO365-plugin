@@ -135,10 +135,10 @@
 									<Enabled>false</Enabled>
 								</Control>
 							</Group>
-							<Action xsi:type="ShowTaskpane">
-								<TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
-								<SourceLocation resid="Taskpane.Definition"/>
-							</Action>
+								<Action xsi:type="ShowTaskpane">
+									<TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
+									<SourceLocation resid="Taskpane.Definition"/>
+								</Action>
 
 							<Group id="OsloRibbonGroupThree">
 								<Label resid="OsloRibbonGroupInfo.Label"/>
