@@ -67,5 +67,17 @@ export default Vue.extend({
 #deleteEntireDictionary:hover {
   background-color: crimson;
 }
+#disableDailyDefinition{
+  background-color: red;
+}
+#disableDailyDefinition:hover {
+  background-color: crimson;
+}
+#enableDailyDefinition{
+  background-color: limegreen;
+}
+#enableDailyDefinition:hover {
+  background-color: green;
+}
 
 </style>
