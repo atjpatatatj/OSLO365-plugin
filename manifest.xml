@@ -135,11 +135,15 @@
 									<Enabled>false</Enabled>
 								</Control>
 							</Group>
-								<Action xsi:type="ShowTaskpane">
-									<TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
-									<SourceLocation resid="Taskpane.Definition"/>
-								</Action>
-
+								<control>
+									<Action xsi:type="ShowTaskpane">
+										<TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
+										<SourceLocation resid="Oslo.Taskpane.Url"/>
+										<!--
+										Alles werkt maar er is een error waardoor hij niet de resource kan laden
+										-->
+									</Action>
+								</control>
 							<Group id="OsloRibbonGroupThree">
 								<Label resid="OsloRibbonGroupInfo.Label"/>
 								<Icon>
@@ -288,7 +292,7 @@
 				<bt:Url id="Taskpane.About" DefaultValue="https://localhost:3000/about.html"/>
 				<bt:Url id="Taskpane.MijnWoordenboek" DefaultValue="https://localhost:3000/dictionary.html"/>
 				<bt:Url id="Taskpane.Instellingen" DefaultValue="https://localhost:3000/settings.html"/>
-				<bt:Url id="Taskpane.Definition" DefaultValue="https://localhost:3000/definition.html"/>
+				<bt:Url id="Oslo.Taskpane.Url" DefaultValue="https://www.google.com/"/>
 				<bt:Url id="residDesktopFuncUrl" DefaultValue="https://localhost:3000/functions.html"/>
 			</bt:Urls>
 			<bt:ShortStrings>
