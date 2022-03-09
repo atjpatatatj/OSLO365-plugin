@@ -27,7 +27,10 @@
 <script lang="ts">
 import Vue from "vue";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
-import {defintionOTDSetting, disableDefinitionOTD, enableDefintionOTD} from "../../../store/OsloSettings";
+import {
+  changeDefintionOTDSetting,
+  defintionOTDSetting,
+} from "../../../store/OsloSettings";
 const userSetting = defintionOTDSetting();
 
 export default Vue.extend({
@@ -47,11 +50,11 @@ export default Vue.extend({
       this.confirmDelete = false;
     },
     enableDefinition(){
-      enableDefintionOTD();
+      changeDefintionOTDSetting(true);
       this.setting = true;
     },
     disableDefinition(){
-      disableDefinitionOTD();
+      changeDefintionOTDSetting(false);
       this.setting = false;
     }
   }

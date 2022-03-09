@@ -7,23 +7,16 @@ We gebruiken daarom localstorage om dit over te dragen naar verschillende bestan
 export function initSettings() {
     let setting = JSON.parse(localStorage.getItem("defintionOTDSetting"));
     if (setting === null){
-        disableDefinitionOTD();
+        changeDefintionOTDSetting(false);
     }
     Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", setting);
     Office.context.document.settings.saveAsync();
 }
-// enable the setting in localstorage and office settings
-export function enableDefintionOTD(){
-    Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", true);
+// disable or enable the setting in localstorage and office settings
+export function changeDefintionOTDSetting(value: boolean){
+    Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", value);
     Office.context.document.settings.saveAsync();
-    localStorage.setItem("defintionOTDSetting", JSON.stringify(true)); // save to storage
-    console.log('Current value for mySetting: ' + Office.context.document.settings.get('Office.AutoShowTaskpaneWithDocument'));
-}
-// disable the setting in localstorage and office settings
-export function disableDefinitionOTD(){
-    Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", false);
-    Office.context.document.settings.saveAsync();
-    localStorage.setItem("defintionOTDSetting", JSON.stringify(false)); // save to storage
+    localStorage.setItem("defintionOTDSetting", JSON.stringify(value)); // save to storage
     console.log('Current value for mySetting: ' + Office.context.document.settings.get('Office.AutoShowTaskpaneWithDocument'));
 }
 // function to check the user setting
