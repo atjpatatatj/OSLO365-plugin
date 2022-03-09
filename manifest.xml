@@ -132,7 +132,6 @@
 										<TaskpaneId>OsloTaskPane</TaskpaneId>
 										<SourceLocation resid="Taskpane.MijnWoordenboek"/>
 									</Action>
-									<Enabled>false</Enabled>
 								</Control>
 							</Group>
 								<control>
@@ -171,6 +170,7 @@
 									<Action xsi:type="ShowTaskpane">
 										<SourceLocation resid="Taskpane.Instellingen"/>
 									</Action>
+
 								</Control>
 
 								<Control xsi:type="Button" id="Help">
@@ -288,10 +288,10 @@
 				<bt:Url id="Taskpane.Begrippenkader" DefaultValue="https://localhost:3000/search.html"/>
         		<bt:Url id="Taskpane.TestPane" DefaultValue="https://localhost:3000/taskpane.html"/>
 				<bt:Url id="Taskpane.DocumentCheck" DefaultValue="https://localhost:3000/auto-check.html"/>
-				<bt:Url id="Taskpane.Help" DefaultValue="https://localhost:3000/help.html"/>
+				<bt:Url id="Taskpane.Help" DefaultValue="https://localhost:3000/neen.html"/>
 				<bt:Url id="Taskpane.About" DefaultValue="https://localhost:3000/about.html"/>
 				<bt:Url id="Taskpane.MijnWoordenboek" DefaultValue="https://localhost:3000/dictionary.html"/>
-				<bt:Url id="Taskpane.Instellingen" DefaultValue="https://localhost:3000/settings.html"/>
+				<bt:Url id="Taskpane.Instellingen" DefaultValue="https://localhost:3000/neen.html"/>
 				<bt:Url id="Oslo.Taskpane.Url" DefaultValue="https://localhost:3000/definition.html"/>
 				<bt:Url id="residDesktopFuncUrl" DefaultValue="https://localhost:3000/functions.html"/>
 			</bt:Urls>
