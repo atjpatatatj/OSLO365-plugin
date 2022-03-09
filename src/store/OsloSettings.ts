@@ -57,15 +57,32 @@ function CreateUserCountList(){
     localStorage.setItem("useCountList", JSON.stringify(useCountList));
     return useCountList;
 }
+// function to increase count when item is used
 export function increaseCounter(definition: string){
     let useCountList = getUserCountList();
     let i = 0;
+    // find item
     for (const item of useCountList){
         if (item.label === definition){
-            useCountList[i].useCount++
-            break;
+            useCountList[i].useCount++ // increment use
+            break; //found it!
         }
         i++
     }
-    localStorage.setItem("useCountList", JSON.stringify(useCountList));
+    localStorage.setItem("useCountList", JSON.stringify(useCountList)); // save
+}
+// function to find the top 5 most used items
+export function findTop5MostUsedDefinitions(){
+    let useCountList = getUserCountList();
+    useCountList.sort(function(a, b){return b.useCount-a.useCount}); // sort the list on useCount
+    let top5 = useCountList.slice(0,5); // get the top 5
+
+    let i = 0;
+    for (const item of top5){
+        if (item.useCount === 0){
+            top5.splice(i,5);// delete all items that are zero
+        }
+        i++
+    }
+    return top5;
 }

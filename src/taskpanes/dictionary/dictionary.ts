@@ -4,12 +4,13 @@ import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
 import {getDictionaryItems, searchDict} from "../../store/OsloDictionary";
+import {findTop5MostUsedDefinitions, increaseCounter} from "../../store/OsloSettings";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 /*
 There are 2 ways to store data like your dictionary.
     o settings from the office javascript API
     o localstorage
-After testing localstorage is the best option because the office API settings 'forgets' everything when the session is closed.
+After testing localstorage is the best option because the office API saves only on one document and not all your documents
  */
 
 // configuration of the built-in validator
