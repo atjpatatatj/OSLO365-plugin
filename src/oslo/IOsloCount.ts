@@ -1,6 +1,6 @@
 /** An Oslo cache item */
-export interface IOsloItem {
+export interface IOsloCount {
   label: string;
-  userCount: number;
+  useCount: number;
 }
 

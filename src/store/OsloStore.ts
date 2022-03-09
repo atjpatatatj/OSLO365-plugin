@@ -60,7 +60,6 @@ export class OsloStore {
     } else {
       trace("Store already initialized");
     }
-    this.getRandomDefinition();
   }
 
   //Function to retrieve the data from an url
@@ -86,9 +85,9 @@ export class OsloStore {
   }
   //gets oslo items from our localstorage
   private getLocalOsloItems() {
-    let dictionary = JSON.parse(localStorage.getItem("osloitems"));
-    if(dictionary == null) dictionary = []; //if it's empty make a new one
-    return dictionary
+    let osloitems = JSON.parse(localStorage.getItem("osloitems"));
+    if(osloitems == null) osloitems = []; //if it's empty make a new one
+    return osloitems
   }
 
   // Function to search the keyword in the Vuex store
