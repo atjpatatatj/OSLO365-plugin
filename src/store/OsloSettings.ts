@@ -7,6 +7,7 @@ We gebruiken daarom localstorage om dit over te dragen naar verschillende bestan
 import {OsloStore} from "./OsloStore";
 import {IOsloCount} from "../oslo/IOsloCount";
 
+// get the saved setting and saving it in the office settings since it's not carried over as efficiently
 export function initSettings() {
     let setting = JSON.parse(localStorage.getItem("definitionOTDSetting"));
     if (setting === null){
@@ -40,7 +41,7 @@ export function getUserCountList(){
     return useCountList.sort();
 }
 // function to init the list doesn't exist
-export function CreateUserCountList(){
+function CreateUserCountList(){
     let useCountList = [];
     const osloStore = OsloStore.getInstance();
     let osloItems = osloStore.getItems();
@@ -48,11 +49,10 @@ export function CreateUserCountList(){
         let osloEntry: IOsloCount = {
             // new IOsloCount object
             label: item.label,
-            useCount : 0,
+            useCount : 0, // new list so everything is set to 0
         };
         useCountList.push(osloEntry);
     }
     localStorage.setItem("useCountList", JSON.stringify(useCountList));
-    console.log(useCountList);
     return useCountList;
 }
