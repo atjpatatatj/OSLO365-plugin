@@ -5,7 +5,7 @@ We gebruiken daarom localstorage om dit over te dragen naar verschillende bestan
 */
 // because office settings doesn't flow over documents we use localstorage to make up for this.
 export function initSettings() {
-    let setting = JSON.parse(localStorage.getItem("defintionOTDSetting"));
+    let setting = JSON.parse(localStorage.getItem("definitionOTDSetting"));
     if (setting === null){
         changeDefinitionODSSetting(false);
     }
@@ -22,7 +22,7 @@ export function changeDefinitionODSSetting(value: boolean){
 // function to check the user setting
 export function definitionODSSetting(){
     //we check with localstorage because this is the most accurate. The users setting is only saved when the user saves the document
-    let setting = JSON.parse(localStorage.getItem("defintionOTDSetting"));
+    let setting = JSON.parse(localStorage.getItem("definitionOTDSetting"));
     if (setting === null){
         return false;
     }
