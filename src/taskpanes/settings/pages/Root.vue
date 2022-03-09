@@ -28,10 +28,10 @@
 import Vue from "vue";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
 import {
-  changeDefintionOTDSetting,
-  defintionOTDSetting,
+  changeDefinitionODSSetting,
+  definitionODSSetting,
 } from "../../../store/OsloSettings";
-const userSetting = defintionOTDSetting();
+const userSetting = definitionODSSetting();
 
 export default Vue.extend({
   name: "root",
@@ -50,11 +50,11 @@ export default Vue.extend({
       this.confirmDelete = false;
     },
     enableDefinition(){
-      changeDefintionOTDSetting(true);
+      changeDefinitionODSSetting(true);
       this.setting = true;
     },
     disableDefinition(){
-      changeDefintionOTDSetting(false);
+      changeDefinitionODSSetting(false);
       this.setting = false;
     }
   }

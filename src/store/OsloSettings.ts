@@ -7,24 +7,28 @@ We gebruiken daarom localstorage om dit over te dragen naar verschillende bestan
 export function initSettings() {
     let setting = JSON.parse(localStorage.getItem("defintionOTDSetting"));
     if (setting === null){
-        changeDefintionOTDSetting(false);
+        changeDefinitionODSSetting(false);
     }
     Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", setting);
     Office.context.document.settings.saveAsync();
 }
 // disable or enable the setting in localstorage and office settings
-export function changeDefintionOTDSetting(value: boolean){
+export function changeDefinitionODSSetting(value: boolean){
     Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", value);
     Office.context.document.settings.saveAsync();
-    localStorage.setItem("defintionOTDSetting", JSON.stringify(value)); // save to storage
+    localStorage.setItem("definitionOTDSetting", JSON.stringify(value)); // save to storage
     console.log('Current value for mySetting: ' + Office.context.document.settings.get('Office.AutoShowTaskpaneWithDocument'));
 }
 // function to check the user setting
-export function defintionOTDSetting(){
+export function definitionODSSetting(){
     //we check with localstorage because this is the most accurate. The users setting is only saved when the user saves the document
     let setting = JSON.parse(localStorage.getItem("defintionOTDSetting"));
     if (setting === null){
         return false;
     }
     return setting;
+}
+// function to check the user setting
+export function initUserCount(){
+
 }
