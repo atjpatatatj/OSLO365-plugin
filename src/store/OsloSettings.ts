@@ -6,6 +6,7 @@ We gebruiken daarom localstorage om dit over te dragen naar verschillende bestan
 // because office settings doesn't flow over documents we use localstorage to make up for this.
 import {OsloStore} from "./OsloStore";
 import {IOsloCount} from "../oslo/IOsloCount";
+import exp from "constants";
 
 // get the saved setting and saving it in the office settings since it's not carried over as efficiently
 export function initSettings() {
@@ -55,4 +56,16 @@ function CreateUserCountList(){
     }
     localStorage.setItem("useCountList", JSON.stringify(useCountList));
     return useCountList;
+}
+export function increaseCounter(definition: string){
+    let useCountList = getUserCountList();
+    let i = 0;
+    for (const item of useCountList){
+        if (item.label === definition){
+            useCountList[i].useCount++
+            break;
+        }
+        i++
+    }
+    localStorage.setItem("useCountList", JSON.stringify(useCountList));
 }

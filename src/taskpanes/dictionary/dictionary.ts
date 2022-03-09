@@ -4,7 +4,6 @@ import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
 import {getDictionaryItems, searchDict} from "../../store/OsloDictionary";
-import {getUserCountList} from "../../store/OsloSettings";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 /*
 There are 2 ways to store data like your dictionary.
