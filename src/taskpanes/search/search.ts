@@ -1,0 +1,110 @@
+import Vue from "vue";
+import Vuex from "vuex";
+import root from "./pages/Root.vue";
+const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
+import { trace } from "../../utils/Utils";
+import EventBus from "../../utils/EventBus";
+import { OsloStore } from "../../store/OsloStore";
+
+let searching = false;
+
+// configuration of the built-in validator
+const validatorConfig = {
+  inject: true,
+  locale: "nl",
+};
+
+Vue.use(VlUiVueComponents, {
+  validation: validatorConfig,
+});
+Vue.use(Vuex);
+
+Office.onReady((info) => {
+  if (info.host === Office.HostType.Word) {
+    const osloStore = OsloStore.getInstance();
+    const store = osloStore.getStore();
+
+    var app = new Vue({
+      store: store,
+      el: "#app",
+      render: (h) => h(root),
+    });
+  }
+  Office.context.document.addHandlerAsync(Office.EventType.DocumentSelectionChanged, onWordSelectionChanged);
+});
+
+/** Called when the user selects something in the Word document */
+function onWordSelectionChanged(result: Office.AsyncResult<void>) {
+  processSelection();
+}
+
+/** Uses the current selection to perform a search in the OSLO data set. */
+function processSelection() {
+  // Callback after reading selected text
+  let onDataSelected = function (asyncResult) {
+    let error = asyncResult.error;
+
+    if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+      error("Selection failed: " + error.name + "; " + error.message);
+    } else {
+      // The selected text is used as a search phrase
+      let searchPhrase = asyncResult.value ? asyncResult.value.trim() : "";
+      EventBus.$emit("onWordSelection", searchPhrase);
+
+      if (searching) {
+        // When using the "Volgende Zoeken" button, enforce exact matching
+        searchPhrase = searchPhrase ? "=" + searchPhrase : "";
+        searching = false;
+      }
+      trace("processSelection [" + searchPhrase + "]");
+      search(searchPhrase);
+    }
+  };
+
+  // Get the currently selected text from the Word document, and process it
+  Office.context.document.getSelectedDataAsync(
+    Office.CoercionType.Text,
+    { valueFormat: "unformatted", filterType: "all" },
+    onDataSelected
+  );
+}
+
+/** Searches a given phrase in the OSLO data set. */
+export function search(searchPhrase: string) {
+  console.log(`Looking for "${searchPhrase}"`);
+
+  if (!searchPhrase) {
+    return;
+  }
+
+  // If the search phrase begins with an equals char, perform an exact match (otherwise a "contains" match)
+  const exactMatch = searchPhrase.charAt(0) == "=";
+
+  if (exactMatch) {
+    // Remove the equals char from the search phrase
+    searchPhrase = searchPhrase.slice(1);
+  }
+
+  // Search the phrase in the OSLO database
+  const store = OsloStore.getInstance()
+  const osloResult = store.osloStoreLookup(searchPhrase, exactMatch);
+
+  //If the results are empty we send a boolean to root so a message is shown "no results"
+  if (osloResult.length < 1 ){
+    console.log(osloResult.length);
+    EventBus.$emit("onMatches", true);
+    EventBus.$emit("onSearchResult", osloResult);
+  }
+  else {
+    EventBus.$emit("onSearchResult", osloResult);
+    EventBus.$emit("onMatches", false);
+  }
+}
+
+// gives back your full dictionary when input is empty
+export function emptySearch() {
+  console.log("emptySearch");
+  const store = OsloStore.getInstance()
+  const osloResult = store.getItems();
+  EventBus.$emit("onSearchResult", osloResult);
+}

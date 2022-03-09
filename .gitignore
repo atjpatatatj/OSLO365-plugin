@@ -1,6 +1,5 @@
+.vscode
 node_modules
 dist
-manifest.xml
 .idea
-docs
-.vs
+.npmrc
