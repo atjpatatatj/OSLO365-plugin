@@ -1,3 +1,7 @@
+<!--
+Het oorspronkelijk idee was om een pie chart te gebruiken voor de TOP5.
+Jammer genoeg zijn de meeste data visualisatie frameworks voor Vue2 en niet Vue3. Of ging niet door onze framework combinaties
+-->
 <template>
   <div>
     <vl-layout>
@@ -17,7 +21,13 @@
           <vl-button id="enableDailyDefinition" mod-block @click="enableDefinition()">Definitie van de dag inschakelen</vl-button>
         </vl-column>
         <vl-column>
-          mooie grafieken
+          <hr>
+          <h4 class="vl-title vl-title--h4">Uw top 5 meest gebruikte definities!</h4>
+          <ul id="top5list">
+            <li v-for="(item, index) in top5" class="top5item">
+              Nr {{ index + 1}}: {{ item.label }} - {{item.useCount}} keer gebruikt
+            </li>
+          </ul>
         </vl-column>
       </vl-grid>
     </vl-layout>
@@ -29,9 +39,10 @@ import Vue from "vue";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
 import {
   changeDefinitionODSSetting,
-  definitionODSSetting,
+  definitionODSSetting, findTop5MostUsedDefinitions,
 } from "../../../store/OsloSettings";
 const userSetting = definitionODSSetting();
+const top5data = findTop5MostUsedDefinitions();
 
 export default Vue.extend({
   name: "root",
@@ -39,6 +50,7 @@ export default Vue.extend({
     return {
       confirmDelete: false,
       setting: userSetting,
+      top5 : top5data
     };
   },
   methods: {
@@ -81,6 +93,11 @@ export default Vue.extend({
 }
 #enableDailyDefinition:hover {
   background-color: green;
+}
+.top5item{
+  text-align: left;
+  font-size: 15px;
+  padding-top: 4px;
 }
 
 </style>

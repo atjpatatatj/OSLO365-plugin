@@ -75,13 +75,5 @@ export function findTop5MostUsedDefinitions(){
         }
         i++
     }
-    // prepare data for pie-chart (needs to be in an array with arrays)
-    let chartkickData = [];
-    for (const item of top5){
-        let newDataItem = [];
-        newDataItem.push(item.label);
-        newDataItem.push(item.useCount);
-        chartkickData.push(newDataItem);
-    }
     return top5;
 }
