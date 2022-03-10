@@ -70,7 +70,6 @@ export function increaseCounter(definition: string){
         i++
     }
     localStorage.setItem("useCountList", JSON.stringify(useCountList)); // save
-    findTop5MostUsedDefinitions();
 }
 // function to find the top 5 most used items
 export function findTop5MostUsedDefinitions(){
@@ -85,6 +84,13 @@ export function findTop5MostUsedDefinitions(){
         }
         i++
     }
-    console.table(top5);
+    // prepare data for pie-chart (needs to be in an array with arrays)
+    let chartkickData = [];
+    for (const item of top5){
+        let newDataItem = [];
+        newDataItem.push(item.label);
+        newDataItem.push(item.useCount);
+        chartkickData.push(newDataItem);
+    }
     return top5;
 }
