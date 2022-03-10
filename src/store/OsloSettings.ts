@@ -70,6 +70,7 @@ export function increaseCounter(definition: string){
         i++
     }
     localStorage.setItem("useCountList", JSON.stringify(useCountList)); // save
+    findTop5MostUsedDefinitions();
 }
 // function to find the top 5 most used items
 export function findTop5MostUsedDefinitions(){
@@ -84,5 +85,6 @@ export function findTop5MostUsedDefinitions(){
         }
         i++
     }
+    console.table(top5);
     return top5;
 }
