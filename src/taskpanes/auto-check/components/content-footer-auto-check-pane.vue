@@ -34,7 +34,7 @@ export default Vue.extend({
     async insertNote(which) {
       if (Object.keys(this.radioTile).length > 0) {
         await onInsertNoteClicked(this.radioTile, which);
-        increaseCounter(this.radioTile.label);
+        increaseCounter(this.radioTile);
       }
     },
     addToDictionary(){
