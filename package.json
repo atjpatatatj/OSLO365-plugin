@@ -29,6 +29,7 @@
     "@govflanders/vl-ui-action-group": "^11.0.0",
     "@govflanders/vl-ui-content-footer": "^11.0.0",
     "@govflanders/vl-ui-core": "^12.0.0",
+    "@govflanders/vl-ui-data-table": "^11.0.7",
     "@govflanders/vl-ui-input-field": "^11.0.0",
     "@govflanders/vl-ui-introduction": "^11.0.0",
     "@govflanders/vl-ui-loader": "^11.0.0",

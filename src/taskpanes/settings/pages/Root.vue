@@ -22,12 +22,21 @@ Jammer genoeg zijn de meeste data visualisatie frameworks voor Vue2 en niet Vue3
         </vl-column>
         <vl-column>
           <hr>
-          <h4 class="vl-title vl-title--h4">Uw top 5 meest gebruikte definities!</h4>
-          <ul id="top5list">
-            <li v-for="(item, index) in top5" class="top5item">
-              Nr {{ index + 1}}: {{ item.label }} - {{item.useCount}} keer gebruikt
-            </li>
-          </ul>
+          <h5 class="vl-title vl-title--h5">Uw top 5 meest gebruikte definities</h5>
+          <table class="vl-data-table vl-data-table--zebra">
+            <thead>
+            <tr>
+              <th>Definitie</th>
+              <th>Keren gebruikt</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in top5">
+              <td data-title="Definitie">{{ item.label }}</td>
+              <td id ="count" data-title="Keren gebruikt">{{item.useCount}}</td>
+            </tr>
+            </tbody>
+          </table>
         </vl-column>
       </vl-grid>
     </vl-layout>
@@ -35,6 +44,7 @@ Jammer genoeg zijn de meeste data visualisatie frameworks voor Vue2 en niet Vue3
 </template>
 
 <script lang="ts">
+import { Datatable } from '@govflanders/vl-ui-data-table';
 import Vue from "vue";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
 import {
@@ -75,6 +85,7 @@ export default Vue.extend({
 
 <style lang="scss">
 @import "../css/style.scss";
+@import "~@govflanders/vl-ui-data-table/src/scss/data-table";
 
 #deleteEntireDictionary{
   background-color: red;
@@ -82,22 +93,16 @@ export default Vue.extend({
 #deleteEntireDictionary:hover {
   background-color: crimson;
 }
-#disableDailyDefinition{
-  background-color: red;
-}
-#disableDailyDefinition:hover {
-  background-color: crimson;
-}
 #enableDailyDefinition{
   background-color: limegreen;
 }
 #enableDailyDefinition:hover {
-  background-color: green;
+  background-color: mediumseagreen;
 }
-.top5item{
-  text-align: left;
-  font-size: 15px;
-  padding-top: 4px;
+h5{
+  text-decoration: underline;
 }
-
+#count{
+  text-align: center;
+}
 </style>
