@@ -19,9 +19,13 @@ Jammer genoeg zijn de meeste data visualisatie frameworks voor Vue2 en niet Vue3
         </vl-column>
         <vl-column v-if="setting === false">
           <vl-button id="enableDailyDefinition" mod-block @click="enableDefinition()">Definitie van de dag inschakelen</vl-button>
+          <br><hr>
         </vl-column>
-        <vl-column>
-          <hr>
+        <vl-column v-if="top5.length === 0">
+          <h5 class="vl-title vl-title--h5">Uw top 5 meest gebruikte definities</h5>
+          <p id="empty">U heeft nog geen voetnoot/eindnoot gebruikt. Hier zal u zien welke definities u het meeste gebruikt.</p>
+        </vl-column>
+        <vl-column v-if="top5.length  > 0">
           <h5 class="vl-title vl-title--h5">Uw top 5 meest gebruikte definities</h5>
           <table class="vl-data-table vl-data-table--zebra">
             <thead>
@@ -33,7 +37,7 @@ Jammer genoeg zijn de meeste data visualisatie frameworks voor Vue2 en niet Vue3
             <tbody>
             <tr v-for="item in top5">
               <td data-title="Definitie">{{ item.label }}</td>
-              <td id ="count" data-title="Keren gebruikt">{{item.useCount}}</td>
+              <td id="count" data-title="Keren gebruikt">{{item.useCount}}</td>
             </tr>
             </tbody>
           </table>
@@ -104,5 +108,9 @@ h5{
 }
 #count{
   text-align: center;
+}
+#empty{
+  color: #05c;
+  font-weight: bold;
 }
 </style>
