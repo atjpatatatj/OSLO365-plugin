@@ -8,7 +8,7 @@ export function getDictionaryItems() {
 }
 //Gets existing dictionary from storage and adds item
 export function addToDictionary(data: any) {
-    if(typeof data.label === "undefined"){
+    if(typeof data.label === "undefined"){ // filter out some incomplete objects
         return
     }
     let dictionary = getDictionaryItems();
@@ -80,10 +80,6 @@ export function searchDict(phrase: string): IOsloItem[] {
     return matches.sort();
 }
 // function to delete all your dictionary items
-/*
-this issue is that you get a faulty error that says you don't have permission to work with localstorage from dialog API
-https://github.com/OfficeDev/office-js/issues/2231
- */
 export function deleteEntireDictionary(){
     localStorage.setItem("dictionary", JSON.stringify([])); //FIXME microsoft has an active issue where this does not work lol
     document.getElementById("deleteEntireDictionary").innerHTML =  " Uw volledig woordenboek werd verwijderd!"; // confirmation to user
