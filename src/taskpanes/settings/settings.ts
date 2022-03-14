@@ -20,7 +20,6 @@ Vue.use(VlUiVueComponents, {
     validation: validatorConfig,
 });
 Vue.use(Vuex);
-initSettings(); // check the setting in localstorage before opening it
 Office.onReady((info) => {
     if (info.host === Office.HostType.Word) {
         const osloStore = OsloStore.getInstance();
