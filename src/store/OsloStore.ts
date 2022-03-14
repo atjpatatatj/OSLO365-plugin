@@ -57,7 +57,8 @@ export class OsloStore {
               trace("Error: " + error);
             });
       }
-    } else {
+    }
+    else {
       trace("Store already initialized");
     }
   }
