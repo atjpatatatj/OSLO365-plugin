@@ -25,7 +25,7 @@
             />
           </transition-group>
         </vl-column>
-        <vl-column id="noMatches" v-if="noMatches === true">
+        <vl-column id="noMatches" v-if="result.length === 0 && this.firstTime === false">
           Er werden geen resultaten gevonden.
         </vl-column>
       </vl-grid>
@@ -50,7 +50,7 @@ export default Vue.extend({
       input: "",
       show: false,
       result: [] as IOsloItem[],
-      noMatches: false
+      firstTime: true
     };
   },
   methods: {
@@ -65,15 +65,12 @@ export default Vue.extend({
   },
   mounted() {
     EventBus.$on("onSearchResult", (data: IOsloItem[]) => {
+      this.firstTime = false;
       this.result = data;
     });
 
     EventBus.$on("onWordSelection", (data: string) => {
       this.input = data;
-    });
-
-    EventBus.$on("onMatches", (data: boolean) => {
-      this.noMatches = data;
     });
   }
 });
