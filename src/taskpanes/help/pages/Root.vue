@@ -6,6 +6,10 @@
           Lorem ipsum dolor sit amet,
           consectetur adipisicing elit.
         </p>
+        <video width="600" controls>
+          <source src="assets/videos/search.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </vl-tab>
       <vl-tab label="Selectie zoeken" id="selectie-zoeken" mod-show-title>
         <p>
