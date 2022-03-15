@@ -13,13 +13,14 @@
       </vl-tab>
       <vl-tab label="Selectie zoeken" id="selectie-zoeken" mod-show-title>
         <p>
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco
-          laboris nisi ut aliquip ex ea commodo consequat.
-          Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur.
-          Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          U kan ook definities opzoeken door een woord te selecteren in uw document.
         </p>
+        <span id="opgelet">Opgelet: Open eerst het zoekvenster en selecteer dan pas uw woord.</span>
+        <br><br>
+        <video width="600" controls autoplay loop>
+          <source src="assets/videos/search_select_1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </vl-tab>
       <vl-tab label="Voetnoot" id="voetnoot" mod-show-title>
         <p>
@@ -93,5 +94,8 @@ a:visited{
 }
 .vl-tab__pane{
   padding-left: 10px;
+}
+#opgelet{
+  font-weight: bold;
 }
 </style>
