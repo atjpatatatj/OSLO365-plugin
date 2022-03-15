@@ -3,10 +3,10 @@
     <vl-tabs :hash-change="true" @tab-change="onTabChange">
       <vl-tab label="Zoeken" id="zoeken" mod-show-title>
         <p>
-          Lorem ipsum dolor sit amet,
-          consectetur adipisicing elit.
+          Met de zoek functie kan u definities opzoeken. Indien er geen resultaten zijn zal de plugin u dit melden.
         </p>
-        <video width="600" controls>
+        <br>
+        <video width="600" controls autoplay loop>
           <source src="assets/videos/search.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
