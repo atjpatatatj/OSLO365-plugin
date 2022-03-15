@@ -15,7 +15,7 @@
         <p>
           U kan ook definities opzoeken door een woord te selecteren in uw document.
         </p>
-        <span id="opgelet">Opgelet: Open eerst het zoekvenster en selecteer dan pas uw woord.</span>
+        <span class="opgelet">Opgelet: Open eerst het zoekvenster en selecteer dan pas uw woord.</span>
         <br><br>
         <video width="600" controls autoplay loop>
           <source src="assets/videos/search_select_1.mp4" type="video/mp4">
@@ -24,17 +24,29 @@
       </vl-tab>
       <vl-tab label="Voetnoot" id="voetnoot" mod-show-title>
         <p>
-          Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
+          Via de knop voetnoot kan u een referentie toevoegen van de geselecteerde definitie.
         </p>
+        <p>
+          De voetnoot vindt u vanonder op uw document.
+        </p>
+        <br>
+        <video width="600" controls autoplay loop>
+          <source src="assets/videos/footnote.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </vl-tab>
       <vl-tab label="Eindnoot" id="eindnoot" mod-show-title>
         <p>
-          Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
+          Via de knop eindnoot kan u een referentie toevoegen van de geselecteerde definitie.
         </p>
+        <p>
+          Uw eindnoot wordt onder uw paragraaf toegevoegd.
+        </p>
+        <br>
+        <video width="600" controls autoplay loop>
+          <source src="assets/videos/endnote.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </vl-tab>
       <vl-tab label="Document scan" id="document-scan" mod-show-title>
         <p>
@@ -95,7 +107,7 @@ a:visited{
 .vl-tab__pane{
   padding-left: 10px;
 }
-#opgelet{
+.opgelet{
   font-weight: bold;
 }
 </style>
