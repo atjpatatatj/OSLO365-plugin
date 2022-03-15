@@ -165,7 +165,7 @@
 									</Icon>
 									<!--
 									<Action xsi:type="ExecuteFunction">
-									<FunctionName>opensettings</FunctionName>
+									<FunctionName>openSettings</FunctionName>
 									</Action>
 									-->
 									<Action xsi:type="ShowTaskpane">
@@ -185,11 +185,9 @@
 									<bt:Image size="32" resid="IconHelp.32x32"/>
 									<bt:Image size="80" resid="IconHelp.80x80"/>
 									</Icon>
-									<Action xsi:type="ShowTaskpane">
-										<TaskpaneId>OsloTaskPane</TaskpaneId>
-										<SourceLocation resid="Taskpane.Help"/>
+									<Action xsi:type="ExecuteFunction">
+										<FunctionName>openHelp</FunctionName>
 									</Action>
-									<Enabled>false</Enabled>
 								</Control>
 								<Control xsi:type="Button" id="About">
 									<Label resid="About.Label"/>

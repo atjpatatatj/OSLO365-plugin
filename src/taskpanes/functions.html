@@ -14,7 +14,11 @@
             Office.initialize = function (reason) {
             };
         })();
-        function opensettings (clickEvent) {
+        function openHelp (clickEvent) {
+            Office.context.ui.displayDialogAsync(window.location.origin + "/help.html", {height:70, width:70, displayInIframe:true});
+            clickEvent.completed();
+        }
+        function openSettings (clickEvent) {
             Office.context.ui.displayDialogAsync(window.location.origin + "/settings.html", {height:70, width:30, displayInIframe:true});
             clickEvent.completed();
         }
