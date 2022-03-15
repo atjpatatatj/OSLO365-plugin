@@ -25,6 +25,7 @@ module.exports = async (env, options) => {
       dictionary: "./src/taskpanes/dictionary/dictionary.ts",
       settings: "./src/taskpanes/settings/settings.ts",
       definition: "./src/taskpanes/definition/definition.ts",
+      help: "./src/taskpanes/help/help.ts"
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
@@ -114,6 +115,11 @@ module.exports = async (env, options) => {
         filename: "definition.html",
         template: "./src/taskpanes/definition/definition.html",
         chunks: ["polyfill", "definition"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "help.html",
+        template: "./src/taskpanes/help/help.html",
+        chunks: ["polyfill", "help"],
       }),
       new CopyWebpackPlugin({
         patterns: [
