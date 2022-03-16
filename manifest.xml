@@ -163,15 +163,15 @@
 										<bt:Image size="32" resid="IconInstellingen.32x32"/>
 										<bt:Image size="80" resid="IconInstellingen.80x80"/>
 									</Icon>
-									<!--
+
 									<Action xsi:type="ExecuteFunction">
 									<FunctionName>openSettings</FunctionName>
 									</Action>
-									-->
+									<!--
 									<Action xsi:type="ShowTaskpane">
 										<SourceLocation resid="Taskpane.Instellingen"/>
 									</Action>
-
+									-->
 								</Control>
 
 								<Control xsi:type="Button" id="Help">
