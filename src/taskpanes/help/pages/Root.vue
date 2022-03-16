@@ -75,7 +75,14 @@
         </video>
       </vl-tab>
       <vl-tab label="Verwijderen van woordenboek" id="verwijderen-van-woordenboek" mod-show-title>
-        WIP
+        <p>
+          Als u een definitie niet meer gebruikt kan u deze natuurlijk gemakkelijk verwijderen.
+        </p>
+        <br>
+        <video width="600" controls autoplay loop>
+          <source src="assets/videos/dictDelete.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </vl-tab>
       <vl-tab label="Definitie van de dag" id="Definitie-van-de-dag" mod-show-title>
         <p>
