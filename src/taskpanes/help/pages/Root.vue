@@ -50,37 +50,41 @@
       </vl-tab>
       <vl-tab label="Document scan" id="document-scan" mod-show-title>
         <p>
-          Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
+          Met de functie document scant u uw volledig document. U krijgt een overzicht met alle matches.
         </p>
+        <p>
+          U kan makkelijk navigeren naar de definitie die u wilt en vervolgens een voet/eindnoot toevoegen.
+        </p>
+        <br>
+        <video width="600" controls autoplay loop>
+          <source src="assets/videos/scan.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </vl-tab>
       <vl-tab label="Toevoegen aan woordenboek" id="toevoegen-aan-woordenboek" mod-show-title>
         <p>
-          Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
+          Ook kan u definities die u veel gebruikt toevoegen aan uw woordenboek. Zo vindt u ze makkelijk terug.
         </p>
+        <p>
+          De definities die in uw woordenboek zitten worden eerst getoond tijdens zoekresultaten.
+        </p>
+        <br>
+        <video width="600" controls autoplay loop>
+          <source src="assets/videos/dictAdd.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </vl-tab>
       <vl-tab label="Verwijderen van woordenboek" id="verwijderen-van-woordenboek" mod-show-title>
-        <p>
-          Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
-        </p>
+        WIP
       </vl-tab>
       <vl-tab label="Definitie van de dag" id="Definitie-van-de-dag" mod-show-title>
         <p>
-          Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
+        WIP
         </p>
       </vl-tab>
       <vl-tab label="Uw top 5 definities" id="uw-top-5-definities" mod-show-title>
         <p>
-          Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
+          WIP
         </p>
       </vl-tab>
     </vl-tabs>
