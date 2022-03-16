@@ -1,54 +1,57 @@
-<!--
-Het oorspronkelijk idee was om een pie chart te gebruiken voor de TOP5.
-Jammer genoeg zijn de meeste data visualisatie frameworks voor Vue2 en niet Vue3. Of ging niet door onze framework combinaties
--->
 <template>
   <div>
-    <vl-layout>
-      <vl-grid v-vl-align:center mod-stacked>
-        <vl-column v-if="confirmDelete === false">
-          <br>
-          <vl-button id="deleteEntireDictionary" mod-block @click="areYouSure()">Verwijder alle items in woordenboek</vl-button>
-        </vl-column>
-        <vl-column v-if="confirmDelete === true">
-          <br>
-          <vl-button id="deleteEntireDictionary" mod-block @click="deleteEntireDictionary()">Ben je het zeker?</vl-button>
-        </vl-column>
-        <vl-column v-if="setting === true">
-          <vl-button id="disableDailyDefinition" mod-block @click="disableDefinition()">Definitie van de dag uitschakelen</vl-button>
-        </vl-column>
-        <vl-column v-if="setting === false">
-          <vl-button id="enableDailyDefinition" mod-block @click="enableDefinition()">Definitie van de dag inschakelen</vl-button>
-          <br><hr>
-        </vl-column>
-        <vl-column v-if="top5.length === 0">
-          <h5 class="vl-title vl-title--h5">Uw top 5 meest gebruikte definities</h5>
-          <p id="empty">U heeft nog geen voetnoot/eindnoot gebruikt. Hier zal u zien welke definities u het meeste gebruikt.</p>
-        </vl-column>
-        <vl-column v-if="top5.length  > 0">
-          <h5 class="vl-title vl-title--h5">Uw top 5 meest gebruikte definities</h5>
-          <table class="vl-data-table vl-data-table--zebra">
-            <thead>
-            <tr>
-              <th>Definitie</th>
-              <th>Keren gebruikt</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in top5">
-              <td data-title="Definitie">{{ item.label }}</td>
-              <td id="count" data-title="Keren gebruikt">{{item.useCount}}</td>
-            </tr>
-            </tbody>
-          </table>
-        </vl-column>
-      </vl-grid>
-    </vl-layout>
+    <vl-tabs :hash-change="true" @tab-change="onTabChange">
+      <vl-tab label="Algemeen" id="algemeen" mod-show-title>
+        <vl-layout>
+          <vl-grid v-vl-align:center mod-stacked>
+            <vl-column v-if="confirmDelete === false">
+              <br>
+              <vl-button id="deleteEntireDictionary" mod-block @click="areYouSure()">Verwijder alle items in woordenboek</vl-button>
+            </vl-column>
+            <vl-column v-if="confirmDelete === true">
+              <br>
+              <vl-button id="deleteEntireDictionary" mod-block @click="deleteEntireDictionary()">Ben je het zeker?</vl-button>
+            </vl-column>
+            <vl-column v-if="setting === true">
+              <vl-button id="disableDailyDefinition" mod-block @click="disableDefinition()">Definitie van de dag uitschakelen</vl-button>
+            </vl-column>
+            <vl-column v-if="setting === false">
+              <vl-button id="enableDailyDefinition" mod-block @click="enableDefinition()">Definitie van de dag inschakelen</vl-button>
+              <br>
+            </vl-column>
+          </vl-grid>
+        </vl-layout>
+      </vl-tab>
+      <vl-tab label="Meest gebruikte definities" id="top5" mod-show-title>
+        <vl-layout>
+          <vl-grid v-vl-align:center mod-stacked>
+            <vl-column v-if="top5.length === 0">
+              <p id="empty">U heeft nog geen voetnoot/eindnoot gebruikt. Hier zal u zien welke definities u het meeste gebruikt.</p>
+            </vl-column>
+            <vl-column v-if="top5.length  > 0">
+              <table class="vl-data-table vl-data-table--zebra">
+                <thead>
+                <tr>
+                  <th>Definitie</th>
+                  <th>Keren gebruikt</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in top5">
+                  <td data-title="Definitie">{{ item.label }}</td>
+                  <td id="count" data-title="Keren gebruikt">{{item.useCount}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </vl-column>
+          </vl-grid>
+        </vl-layout>
+      </vl-tab>
+    </vl-tabs>
   </div>
 </template>
 
 <script lang="ts">
-import { Datatable } from '@govflanders/vl-ui-data-table';
 import Vue from "vue";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
 import {
@@ -90,6 +93,7 @@ export default Vue.extend({
 <style lang="scss">
 @import "../css/style.scss";
 @import "~@govflanders/vl-ui-data-table/src/scss/data-table";
+@import "~@govflanders/vl-ui-tabs/src/scss/tabs";
 
 #deleteEntireDictionary{
   background-color: red;
@@ -112,5 +116,11 @@ h5{
 #empty{
   color: #05c;
   font-weight: bold;
+}
+a:visited{
+  color: #05c;
+}
+.vl-tab__pane{
+  padding-left: 15px;
 }
 </style>
