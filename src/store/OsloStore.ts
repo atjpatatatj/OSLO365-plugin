@@ -29,7 +29,7 @@ export class OsloStore {
   // Fetches all the data from the Oslo database
   public init() {
     this.initializeStore();
-    initSettings();
+    // initSettings();
 
     // only need to init once
     if (this.store.state.items.length < 1) {

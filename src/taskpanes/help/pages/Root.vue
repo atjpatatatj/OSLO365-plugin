@@ -116,7 +116,7 @@ a:visited{
   color: #05c;
 }
 .vl-tab__pane{
-  padding-left: 10px;
+ padding-left: 15px;
 }
 .opgelet{
   font-weight: bold;
