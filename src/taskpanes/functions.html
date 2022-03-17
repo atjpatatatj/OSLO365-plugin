@@ -14,12 +14,17 @@
             Office.initialize = function (reason) {
             };
         })();
+        var dialog;
         function openHelp (clickEvent) {
             Office.context.ui.displayDialogAsync(window.location.origin + "/help.html", {height:72, width:52, displayInIframe:true});
             clickEvent.completed();
         }
         function openSettings (clickEvent) {
-            Office.context.ui.displayDialogAsync(window.location.origin + "/settings.html", {height:70, width:52, displayInIframe:true});
+            Office.context.ui.displayDialogAsync(window.location.origin + "/settings.html", {height:70, width:52, displayInIframe:true},
+                function (asyncResult) {
+                    dialog = asyncResult.value;
+                    dialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
+            });
             clickEvent.completed();
         }
         function openAboutPage (clickEvent) {
@@ -34,7 +39,9 @@
             window.open('https://microsoft.com',"_blank");
             clickEvent.completed();
         }
-
+        function processMessage(arg) {
+            console.log("Joepie!");
+        }
     </script>
 </head>
 
