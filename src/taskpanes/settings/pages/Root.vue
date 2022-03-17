@@ -56,10 +56,9 @@ import Vue from "vue";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
 import {
   changeDefinitionODSSetting,
-  definitionODSSetting, findTop5MostUsedDefinitions,
+  definitionODSSetting,
 } from "../../../store/OsloSettings";
 const userSetting = definitionODSSetting();
-const top5data = findTop5MostUsedDefinitions();
 
 export default Vue.extend({
   name: "root",
@@ -67,7 +66,7 @@ export default Vue.extend({
     return {
       confirmDelete: false,
       setting: userSetting,
-      top5 : top5data
+      top5 : []
     };
   },
   methods: {
