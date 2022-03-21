@@ -76,8 +76,11 @@
             if (message.messageType === 'delete'){
                 localStorage.setItem("dictionary", JSON.stringify([]));
             }
-            else {
-                writeToDoc('undefined message');
+            if (message.messageType === 'settings'){
+                writeToDoc(JSON.stringify(message.info));
+            }
+            else{
+                writeToDoc('undefined code');
             }
         }
         function eventHandler(arg) {

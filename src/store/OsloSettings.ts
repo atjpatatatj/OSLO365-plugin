@@ -4,9 +4,7 @@ Als je je test document lokaal saved en daar in test zal de instelling blijven.
 We gebruiken daarom localstorage om dit over te dragen naar verschillende bestanden.
 */
 // because office settings doesn't flow over documents we use localstorage to make up for this.
-import {OsloStore} from "./OsloStore";
 import {IOsloCount} from "../oslo/IOsloCount";
-import exp from "constants";
 
 // get the saved setting and saving it in the office settings since it's not carried over as efficiently
 export function initSettings() {
@@ -109,5 +107,7 @@ export function getSettingsData(){
         SettingsData[object].useCount = item.useCount;
         i++
     }
+    SettingsData.definitionODSSetting = definitionODSSetting();
     console.log(SettingsData);
+    return SettingsData;
 }

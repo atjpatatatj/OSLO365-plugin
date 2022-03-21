@@ -2,8 +2,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import root from "./pages/Root.vue";
-import {OsloStore} from "../../store/OsloStore";
-import {initSettings} from "../../store/OsloSettings";
+import {getSettingsData} from "../../store/OsloSettings";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 /*
 Due to a lot of issues with the diagram API it's currently set as a taskpane
@@ -25,6 +24,9 @@ Office.onReady((info) => {
             el: "#app",
             render: (h) => h(root),
         });
+        const userSetting = getSettingsData();
+        let message = {messageType: "settings", info: userSetting};
+        Office.context.ui.messageParent(JSON.stringify(message));
     }
 });
 

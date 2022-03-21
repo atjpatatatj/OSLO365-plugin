@@ -54,7 +54,6 @@
 <script lang="ts">
 
 import Vue from "vue";
-import {deleteEntireDictionary} from "../../../store/OsloDictionary";
 import {
   changeDefinitionODSSetting,
   definitionODSSetting,
