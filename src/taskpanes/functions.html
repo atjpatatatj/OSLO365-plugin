@@ -10,6 +10,7 @@
           href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css" />
     <script>
         // The initialize function must be defined each time a new page is loaded
+
         (function () {
             Office.initialize = function (reason) {
             };
@@ -71,7 +72,13 @@
             }
         }
         function messageHandler(arg) {
-            writeToDoc(arg.message);
+            let message = JSON.parse(arg.message);
+            if (message.messageType === 'delete'){
+                localStorage.setItem("dictionary", JSON.stringify([]));
+            }
+            else {
+                writeToDoc('undefined message');
+            }
         }
         function eventHandler(arg) {
             // In addition to general system errors, there are 2 specific errors

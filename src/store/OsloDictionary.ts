@@ -79,10 +79,4 @@ export function searchDict(phrase: string): IOsloItem[] {
     }
     return matches.sort();
 }
-// function to delete all your dictionary items
-export function deleteEntireDictionary(){
-    localStorage.setItem("dictionary", JSON.stringify([])); //FIXME microsoft has an active issue where this does not work lol
-    document.getElementById("deleteEntireDictionary").innerHTML =  " Uw volledig woordenboek werd verwijderd!"; // confirmation to user
-    const myTimeout = setTimeout(changeButtonBackDeleted, 2000); // confirmation done
-}
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--
     <vl-tabs :hash-change="true" @tab-change="onTabChange">
       <vl-tab label="Algemeen" id="algemeen" mod-show-title>
         <vl-layout>
@@ -49,11 +48,6 @@
         </vl-layout>
       </vl-tab>
     </vl-tabs>
-    -->
-    <button onclick="function myFunction() {
-        Office.context.ui.messageParent('test');
-    }
-    myFunction()">Click me</button>
   </div>
 </template>
 
@@ -81,7 +75,9 @@ export default Vue.extend({
       this.confirmDelete = true;
     },
     deleteEntireDictionary(){
-      deleteEntireDictionary();
+      let message = {messageType: "delete", code: 1};
+      Office.context.ui.messageParent(JSON.stringify(message));
+      document.getElementById("deleteEntireDictionary").innerHTML =  " Uw volledig woordenboek werd verwijderd!";
       this.confirmDelete = false;
     },
     enableDefinition(){
