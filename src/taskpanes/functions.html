@@ -15,33 +15,95 @@
             };
         })();
         var dialog;
-        function openHelp (clickEvent) {
+        var clickEvent
+        function openHelp (event) {
             Office.context.ui.displayDialogAsync(window.location.origin + "/help.html", {height:72, width:52, displayInIframe:true});
-            clickEvent.completed();
+            event.completed();
         }
-        function openSettings (clickEvent) {
-            Office.context.ui.displayDialogAsync(window.location.origin + "/settings.html", {height:70, width:52, displayInIframe:true},
-                function (asyncResult) {
-                    dialog = asyncResult.value;
-                    dialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
-            });
-            clickEvent.completed();
+        function openSettings (event) {
+            clickEvent = event;
+            openDialog();
         }
-        function openAboutPage (clickEvent) {
+        function openAboutPage (event) {
             window.open('https://overheid.vlaanderen.be/oslo-wat-is-oslo',"_blank");
-            clickEvent.completed();
+            event.completed();
         }
-        function openProximusWebsite (clickEvent) {
+        function openProximusWebsite (event) {
             window.open('https://proximus.com',"_blank");
-            clickEvent.completed();
+            event.completed();
         }
-        function openMicrosoftWebsite (clickEvent) {
+        function openMicrosoftWebsite (event) {
             window.open('https://microsoft.com',"_blank");
-            clickEvent.completed();
+            event.completed();
         }
-        function processMessage(arg) {
-            console.log("Joepie!");
+        function openDialog() {
+            //IMPORTANT: IFrame mode only works in Online (Web) clients. Desktop clients (Windows, IOS, Mac) always display as a pop-up inside of Office apps.
+            Office.context.ui.displayDialogAsync(window.location.origin + "/settings.html",
+                { height: 70, width: 52, displayInIframe: true }, dialogCallback);
         }
+        function dialogCallback(asyncResult) {
+            if (asyncResult.status === "failed") {
+
+                // In addition to general system errors, there are 3 specific errors for
+                // displayDialogAsync that you can handle individually.
+                switch (asyncResult.error.code) {
+                    case 12004:
+                        writeToDoc("Domain is not trusted");
+                        break;
+                    case 12005:
+                        writeToDoc("HTTPS is required");
+                        break;
+                    case 12007:
+                        writeToDoc("A dialog is already opened.");
+                        break;
+                    default:
+                        writeToDoc(asyncResult.error.message);
+                        break;
+                }
+            }
+            else {
+                dialog = asyncResult.value;
+                /*Messages are sent by developers programatically from the dialog using office.context.ui.messageParent(...)*/
+                dialog.addEventHandler(Office.EventType.DialogMessageReceived, messageHandler);
+
+                /*Events are sent by the platform in response to user actions or errors. For example, the dialog is closed via the 'x' button*/
+                dialog.addEventHandler(Office.EventType.DialogEventReceived, eventHandler);
+            }
+        }
+        function messageHandler(arg) {
+            dialog.close();
+            writeToDoc(arg.message);
+        }
+        function eventHandler(arg) {
+            // In addition to general system errors, there are 2 specific errors
+            // and one event that you can handle individually.
+            switch (arg.error) {
+                case 12002:
+                    writeToDoc("Cannot load URL, no such page or bad URL syntax.");
+                    break;
+                case 12003:
+                    writeToDoc("HTTPS is required.");
+                    break;
+                case 12006:
+                    // The dialog was closed, typically because the user the pressed X button.
+                    writeToDoc("Dialog closed by user");
+                    break;
+                default:
+                    writeToDoc("Undefined error in dialog window");
+                    break;
+            }
+        }
+        function writeToDoc(text)
+        {
+            Office.context.document.setSelectedDataAsync(text,
+                function (asyncResult) {
+                    var error = asyncResult.error;
+                    if (asyncResult.status === "failed") {
+                        console.log("Unable to write to the document: " + asyncResult.error.message);
+                    }
+                });
+        }
+
     </script>
 </head>
 
