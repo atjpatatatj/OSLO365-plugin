@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--
     <vl-tabs :hash-change="true" @tab-change="onTabChange">
       <vl-tab label="Algemeen" id="algemeen" mod-show-title>
         <vl-layout>
@@ -48,10 +49,16 @@
         </vl-layout>
       </vl-tab>
     </vl-tabs>
+    -->
+    <button onclick="function myFunction() {
+        Office.context.ui.messageParent('test');
+    }
+    myFunction()">Click me</button>
   </div>
 </template>
 
 <script lang="ts">
+
 import Vue from "vue";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
 import {
