@@ -76,6 +76,12 @@
             if (message.messageType === 'delete'){
                 localStorage.setItem("dictionary", JSON.stringify([]));
             }
+            if (message.messageType === 'changeDefinitionSettings'){
+                Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", message.code);
+                Office.context.document.settings.saveAsync();
+                localStorage.setItem("definitionOTDSetting", JSON.stringify(message.code)); // save to storage
+                writeToDoc('Current value for mySetting: ' + Office.context.document.settings.get('Office.AutoShowTaskpaneWithDocument'));
+            }
         }
         function eventHandler(arg) {
             // In addition to general system errors, there are 2 specific errors

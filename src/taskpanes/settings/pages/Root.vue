@@ -82,11 +82,13 @@ export default Vue.extend({
       this.confirmDelete = false;
     },
     enableDefinition(){
-      changeDefinitionODSSetting(true);
+      let message = {messageType: "changeDefinitionSettings", code: true};
+      Office.context.ui.messageParent(JSON.stringify(message));
       this.setting = true;
     },
     disableDefinition(){
-      changeDefinitionODSSetting(false);
+      let message = {messageType: "changeDefinitionSettings", code: false};
+      Office.context.ui.messageParent(JSON.stringify(message));
       this.setting = false;
     }
   }
