@@ -56,9 +56,11 @@
 import Vue from "vue";
 import {
   changeDefinitionODSSetting,
-  definitionODSSetting,
+  definitionODSSetting, findTop5MostUsedDefinitions
 } from "../../../store/OsloSettings";
 const userSetting = definitionODSSetting();
+const top5object = findTop5MostUsedDefinitions();
+
 
 export default Vue.extend({
   name: "root",
@@ -66,7 +68,7 @@ export default Vue.extend({
     return {
       confirmDelete: false,
       setting: userSetting,
-      top5 : []
+      top5 : top5object
     };
   },
   methods: {
@@ -112,7 +114,7 @@ h5{
   text-decoration: underline;
 }
 #count{
-  text-align: center;
+  text-align: left;
 }
 #empty{
   color: #05c;

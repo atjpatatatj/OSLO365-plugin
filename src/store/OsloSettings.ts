@@ -61,7 +61,7 @@ export function increaseCounter(item: any){
     localStorage.setItem("useCountList", JSON.stringify(useCountList)); // save
 }
 // function to find the top 5 most used items
-function findTop5MostUsedDefinitions(){
+export function findTop5MostUsedDefinitions(){
     let useCountList = getUserCountList();
     useCountList.sort(function(a, b){return b.useCount-a.useCount}); // sort the list on useCount
     let top5 = useCountList.slice(0,5); // get the top 5
@@ -73,41 +73,24 @@ function findTop5MostUsedDefinitions(){
         }
         i++
     }
-    return top5;
+    // return top5; // remove mockdata and return top5 when bug is fixed
+    return [
+        {
+            label: "Dierenloopweide",
+            useCount: 23,
+        },
+        {
+            label: "Natuurlijke Waterloop",
+            useCount: 15,
+        },
+        {
+            label: "Watervegetatie",
+            useCount: 8,
+        },
+        {
+            label: "Kunstmatige Waterloop",
+            useCount: 4,
+        }
+    ];
 }
-export function getSettingsData(){
-    let SettingsData = {
-        position1: {
-            label: 'empty',
-            useCount: 0
-        },
-        position2: {
-            label: 'empty',
-            useCount: 0
-        },
-        position3: {
-            label: 'empty',
-            useCount: 0
-        },
-        position4: {
-            label: 'empty',
-            useCount: 0
-        },
-        position5: {
-            label: 'empty',
-            useCount: 0
-        },
-        definitionODSSetting: false
-    }
-    let top5 = findTop5MostUsedDefinitions();
-    let i = 1;
-    for (const item of top5){
-        var object = 'position' + i;
-        SettingsData[object].label = item.label;
-        SettingsData[object].useCount = item.useCount;
-        i++
-    }
-    SettingsData.definitionODSSetting = definitionODSSetting();
-    console.log(SettingsData);
-    return SettingsData;
-}
+
