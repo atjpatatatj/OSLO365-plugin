@@ -79,4 +79,9 @@ export function searchDict(phrase: string): IOsloItem[] {
     }
     return matches.sort();
 }
+export function deleteEntireDictionary(){
+    localStorage.setItem("dictionary", JSON.stringify([]));
+    document.getElementById("deleteEntireDictionary").innerHTML =  " Uw volledig woordenboek werd verwijderd!"; // confirmation to user
+    const myTimeout = setTimeout(changeButtonBackDeleted, 2000); // confirmation done
+}
 

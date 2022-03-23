@@ -73,24 +73,6 @@ export function findTop5MostUsedDefinitions(){
         }
         i++
     }
-    // return top5; // remove mockdata and return top5 when bug is fixed
-    return [
-        {
-            label: "Dierenloopweide",
-            useCount: 23,
-        },
-        {
-            label: "Natuurlijke Waterloop",
-            useCount: 15,
-        },
-        {
-            label: "Watervegetatie",
-            useCount: 8,
-        },
-        {
-            label: "Kunstmatige Waterloop",
-            useCount: 4,
-        }
-    ];
+    return top5;
 }
 

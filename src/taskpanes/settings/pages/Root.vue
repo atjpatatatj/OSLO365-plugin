@@ -55,8 +55,10 @@
 
 import Vue from "vue";
 import {
+  changeDefinitionODSSetting,
   definitionODSSetting, findTop5MostUsedDefinitions
 } from "../../../store/OsloSettings";
+import {deleteEntireDictionary} from "../../../store/OsloDictionary";
 const userSetting = definitionODSSetting();
 const top5object = findTop5MostUsedDefinitions();
 
@@ -75,19 +77,15 @@ export default Vue.extend({
       this.confirmDelete = true;
     },
     deleteEntireDictionary(){
-      let message = {messageType: "delete", code: 1};
-      Office.context.ui.messageParent(JSON.stringify(message));
-      document.getElementById("deleteEntireDictionary").innerHTML =  " Uw volledig woordenboek werd verwijderd!";
+      deleteEntireDictionary();
       this.confirmDelete = false;
     },
     enableDefinition(){
-      let message = {messageType: "changeDefinitionSettings", code: true};
-      Office.context.ui.messageParent(JSON.stringify(message));
+      changeDefinitionODSSetting(true);
       this.setting = true;
     },
     disableDefinition(){
-      let message = {messageType: "changeDefinitionSettings", code: false};
-      Office.context.ui.messageParent(JSON.stringify(message));
+      changeDefinitionODSSetting(false);
       this.setting = false;
     }
   }
@@ -115,7 +113,7 @@ h5{
   text-decoration: underline;
 }
 #count{
-  text-align: left;
+  text-align: center;
 }
 #empty{
   color: #05c;
