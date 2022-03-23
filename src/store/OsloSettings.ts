@@ -28,7 +28,7 @@ export function definitionODSSetting(){
     return setting;
 }
 // function to check the user count list
-export function getUserCountList(){
+function getUserCountList(){
     let useCountList = JSON.parse(localStorage.getItem("useCountList"));
     if(useCountList === null) useCountList = [];
     return useCountList.sort();
@@ -53,7 +53,6 @@ export function increaseCounter(item: any){
         }
         useCountList.push(entry); // add our newly used item to the list
     }
-
     localStorage.setItem("useCountList", JSON.stringify(useCountList)); // save
 }
 // function to find the top 5 most used items
