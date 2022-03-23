@@ -49,16 +49,16 @@
                 // displayDialogAsync that you can handle individually.
                 switch (asyncResult.error.code) {
                     case 12004:
-                        writeToDoc("Domain is not trusted");
+                        console.log("Domain is not trusted");
                         break;
                     case 12005:
-                        writeToDoc("HTTPS is required");
+                        console.log("HTTPS is required");
                         break;
                     case 12007:
-                        writeToDoc("A dialog is already opened.");
+                        console.log("A dialog is already opened.");
                         break;
                     default:
-                        writeToDoc(asyncResult.error.message);
+                        console.log(asyncResult.error.message);
                         break;
                 }
             }
