@@ -4,7 +4,6 @@ import {error, trace} from "../utils/Utils";
 import {AppConfig} from "../utils/AppConfig";
 import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
-import {initSettings} from "./OsloSettings";
 
 Vue.use(Vuex);
 
@@ -58,7 +57,6 @@ export class OsloStore {
     else {
       trace("Store already initialized");
     }
-    initSettings();
   }
 
   //Function to retrieve the data from an url
