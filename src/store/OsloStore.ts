@@ -4,9 +4,6 @@ import {error, trace} from "../utils/Utils";
 import {AppConfig} from "../utils/AppConfig";
 import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
-import {initSettings} from "./OsloSettings";
-
-//TODO tutorial video if done -> walkthrough word plugin
 
 Vue.use(Vuex);
 
@@ -29,7 +26,6 @@ export class OsloStore {
   // Fetches all the data from the Oslo database
   public init() {
     this.initializeStore();
-    // initSettings();
 
     // only need to init once
     if (this.store.state.items.length < 1) {

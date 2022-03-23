@@ -55,7 +55,6 @@
 
 import Vue from "vue";
 import {
-  changeDefinitionODSSetting,
   definitionODSSetting, findTop5MostUsedDefinitions
 } from "../../../store/OsloSettings";
 const userSetting = definitionODSSetting();
