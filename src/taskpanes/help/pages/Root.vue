@@ -87,8 +87,13 @@
       </vl-tab>
       <vl-tab label="Uw top 5 definities" id="uw-top-5-definities" mod-show-title>
         <p>
-          WIP
+          De oslo plugin houdt lokaal uw top 5 bij.
         </p>
+        <br>
+        <video width="600" controls autoplay loop>
+          <source src="assets/videos/Top5.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </vl-tab>
     </vl-tabs>
   </div>

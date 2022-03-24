@@ -47,6 +47,13 @@
           </vl-grid>
         </vl-layout>
       </vl-tab>
+      <vl-tab label="Oslo updaten" id="UpdateOslo" mod-show-title>
+        <vl-layout>
+          <vl-grid v-vl-align:center mod-stacked>
+          </vl-grid>
+
+        </vl-layout>
+      </vl-tab>
     </vl-tabs>
   </div>
 </template>
