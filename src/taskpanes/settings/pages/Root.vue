@@ -50,8 +50,10 @@
       <vl-tab label="Oslo updaten" id="UpdateOslo" mod-show-title>
         <vl-layout>
           <vl-grid v-vl-align:center mod-stacked>
+            <p>De laatste update was op</p>
+            <p>{{timeStamp}}</p>
+            <vl-button id="update" mod-block @click="updateOsloStore()">Oslo definities updaten</vl-button>
           </vl-grid>
-
         </vl-layout>
       </vl-tab>
     </vl-tabs>
@@ -66,8 +68,11 @@ import {
   definitionODSSetting, findTop5MostUsedDefinitions
 } from "../../../store/OsloSettings";
 import {deleteEntireDictionary} from "../../../store/OsloDictionary";
+import {OsloStore} from "../../../store/OsloStore";
 const userSetting = definitionODSSetting();
 const top5object = findTop5MostUsedDefinitions();
+const store = OsloStore.getInstance();
+const timeStampStore = store.getLatestUpdateMoment();
 
 
 export default Vue.extend({
@@ -76,7 +81,8 @@ export default Vue.extend({
     return {
       confirmDelete: false,
       setting: userSetting,
-      top5 : top5object
+      top5 : top5object,
+      timeStamp: timeStampStore
     };
   },
   methods: {
@@ -94,6 +100,10 @@ export default Vue.extend({
     disableDefinition(){
       changeDefinitionODSSetting(false);
       this.setting = false;
+    },
+    updateOsloStore(){
+      store.updateStore();
+      this.timeStamp = store.getLatestUpdateMoment();
     }
   }
 });

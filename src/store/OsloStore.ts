@@ -164,17 +164,19 @@ export class OsloStore {
     const currentDayOfMonth = currentDate.getDate();
     const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
     const currentYear = currentDate.getFullYear();
+    const currentHour = currentDate.getHours();
+    const currentMinutes = currentDate.getMinutes();
 
-    const dateString = currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear;
+    const dateString = currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear + " om " + currentHour +":" + currentMinutes;
     localStorage.setItem("lastUpdated", dateString);
   }
-  public getLatestUpdateTime(){
+  public getLatestUpdateMoment(){
     return localStorage.getItem("lastUpdated");
   }
   private needsUpdate(){
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1; // Be careful! January is 0, not 1
-    const oldDate = this.getLatestUpdateTime();
+    const oldDate = this.getLatestUpdateMoment();
     const dateArray = oldDate.split('-');
     const oldMonth = parseInt(dateArray[1]);
     return currentMonth !== oldMonth;
