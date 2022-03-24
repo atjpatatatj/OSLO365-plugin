@@ -5,6 +5,7 @@
         <p>
           Met de zoek functie kan u definities opzoeken. Indien er geen resultaten zijn zal de plugin u dit melden.
         </p>
+        <p>'*' kan gebruikt worden om alles op te vragen.</p>
         <br>
         <video width="600" controls autoplay loop>
           <source src="assets/videos/search.mp4" type="video/mp4">
@@ -83,11 +84,6 @@
           <source src="assets/videos/dictDelete.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-      </vl-tab>
-      <vl-tab label="Definitie van de dag" id="Definitie-van-de-dag" mod-show-title>
-        <p>
-        WIP
-        </p>
       </vl-tab>
       <vl-tab label="Uw top 5 definities" id="uw-top-5-definities" mod-show-title>
         <p>
