@@ -1,15 +1,12 @@
-import Vuex, {Store} from "vuex";
-import Vue from "vue";
 import {error, trace} from "../utils/Utils";
 import {AppConfig} from "../utils/AppConfig";
 import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
 
-Vue.use(Vuex);
-
 export class OsloStore {
   private static instance: OsloStore;
   private store: any;
+  private osloItems = [];
 
   private constructor() {
     this.init();
@@ -25,38 +22,31 @@ export class OsloStore {
 
   // Fetches all the data from the Oslo database
   public init() {
-    this.initializeStore();
-
-    // only need to init once
-    if (this.store.state.items.length < 1) {
-      trace("Initializing store");
-      const items = this.getLocalOsloItems();
-      if (items.length > 1) { //checks if we can init from localstorage
-        items.map((item) => this.storeItem(item));
-        trace("Saved oslo items to Vuex store from localStorage");
-      }
-      else{
-        this.httpRequest("GET", AppConfig.dataFileUrl)
-            .then((json: string) => {
-              if (!json) {
-                error("Oslo data empty");
-              }
-              const data = JSON.parse(json); //convert to usable JSON
-              const cleandata = data["hits"]["hits"]; //filter out stuff we don't really need
-
-              localStorage.setItem("osloitems", JSON.stringify(cleandata));
-              cleandata.map((item) => this.storeItem(item));
-
-              trace("Information stored in Vuex store and localStorage");
-            })
-            .catch((error) => {
-              trace("Error: " + error);
-            });
-      }
+    trace("Initializing store");
+    const items = OsloStore.getLocalOsloItems();
+    if (items.length > 1) { //checks if we can init from localstorage
+      trace("Store already active. " + items.length + " definitions stored in store");
     }
-    else {
-      trace("Store already initialized");
+    else{
+      this.updateStore();
     }
+  }
+  public updateStore(){
+    this.httpRequest("GET", AppConfig.dataFileUrl)
+        .then((json: string) => {
+          if (!json) {
+            error("Oslo data empty");
+          }
+          const data = JSON.parse(json); //convert to usable JSON
+          const cleandata = data["hits"]["hits"]; //filter out stuff we don't really need
+
+          cleandata.map((item) => this.storeItem(item));
+          localStorage.setItem("osloitems", JSON.stringify(this.osloItems));
+          console.log(this.osloItems.length + " definitions stored on osloStore");
+        })
+        .catch((error) => {
+          trace("Error: " + error);
+        });
   }
 
   //Function to retrieve the data from an url
@@ -81,7 +71,7 @@ export class OsloStore {
     });
   }
   //gets oslo items from our localstorage
-  private getLocalOsloItems() {
+  private static getLocalOsloItems() {
     let osloitems = JSON.parse(localStorage.getItem("osloitems"));
     if(osloitems == null) osloitems = []; //if it's empty make a new one
     return osloitems
@@ -97,7 +87,7 @@ export class OsloStore {
     // new list
     const matches: IOsloItem[] = [];
 
-    let items = this.store.state.items;
+    let items = OsloStore.getLocalOsloItems();
     // loop for possible matches
     for (const item of items) {
       if (typeof item.label === "string") {
@@ -137,7 +127,8 @@ export class OsloStore {
       reference: item["_source"]["context"],
       isDictionaryItem : dictionaryItem,
     };
-    this.store.commit("addItem", osloEntry);
+    // this.store.commit("addItem", osloEntry);
+    this.osloItems.push(osloEntry);
   }
   //function checks if it's in dictionary
   private static isDictionaryItem(itemName) :boolean{
@@ -152,26 +143,15 @@ export class OsloStore {
     return isDictionaryItem; // true or false
   }
 
-  private initializeStore() {
-    this.store = new Store({
-      state: {
-        items: [] as IOsloItem[],
-      },
-      mutations: {
-        addItem(state, item) {
-          state.items.push(item);
-        },
-      },
-    });
-  }
   public getStore() {
     return this.store;
   }
   public getItems() {
-    return this.store.state.items;
+    return OsloStore.getLocalOsloItems();
   }
   public getRandomDefinition(){
-    let randomInt = Math.floor(Math.random() * this.store.state.items.length);
-    return this.store.state.items[randomInt];
+    let items = OsloStore.getLocalOsloItems();
+    let randomInt = Math.floor(Math.random() * items);
+    return items[randomInt];
   }
 }
