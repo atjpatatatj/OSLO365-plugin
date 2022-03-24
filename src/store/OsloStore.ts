@@ -26,13 +26,14 @@ export class OsloStore {
     trace("Initializing store");
     initSettings(); // bring settings to new documents
     const items = OsloStore.getLocalOsloItems();
-    if (items.length > 1) { //checks if we can init from localstorage
+    if (items.length > 1 && this.needsUpdate() === false) { //checks if we can init from localstorage
       trace("Store already active. " + items.length + " definitions stored in store");
     }
     else{
       this.updateStore();
     }
   }
+  // Get request to fetch the data
   public updateStore(){
     this.httpRequest("GET", AppConfig.dataFileUrl)
         .then((json: string) => {
@@ -49,6 +50,7 @@ export class OsloStore {
         .catch((error) => {
           trace("Error: " + error);
         });
+    this.createTimeStamp();
   }
 
   //Function to retrieve the data from an url
@@ -155,5 +157,26 @@ export class OsloStore {
     let items = OsloStore.getLocalOsloItems();
     let randomInt = Math.floor(Math.random() * items);
     return items[randomInt];
+  }
+  private createTimeStamp(){
+    const currentDate = new Date();
+
+    const currentDayOfMonth = currentDate.getDate();
+    const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
+    const currentYear = currentDate.getFullYear();
+
+    const dateString = currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear;
+    localStorage.setItem("lastUpdated", dateString);
+  }
+  public getLatestUpdateTime(){
+    return localStorage.getItem("lastUpdated");
+  }
+  private needsUpdate(){
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // Be careful! January is 0, not 1
+    const oldDate = this.getLatestUpdateTime();
+    const dateArray = oldDate.split('-');
+    const oldMonth = parseInt(dateArray[1]);
+    return currentMonth !== oldMonth;
   }
 }
