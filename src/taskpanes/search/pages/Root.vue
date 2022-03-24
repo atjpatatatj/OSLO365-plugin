@@ -58,7 +58,7 @@ export default Vue.extend({
       if (this.input.length > 2) {
         search(this.input);
       }
-      else if(this.input.length == 0) {
+      else if(this.input === '*') {
         emptySearch();
       }
     }
