@@ -1,5 +1,4 @@
 import Vue from "vue";
-import Vuex from "vuex";
 import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
@@ -21,7 +20,6 @@ const validatorConfig = {
 Vue.use(VlUiVueComponents, {
     validation: validatorConfig,
 });
-Vue.use(Vuex);
 
 Office.onReady((info) => {
     if (info.host === Office.HostType.Word) {

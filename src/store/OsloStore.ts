@@ -2,6 +2,7 @@ import {error, trace} from "../utils/Utils";
 import {AppConfig} from "../utils/AppConfig";
 import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
+import {initSettings} from "./OsloSettings";
 
 export class OsloStore {
   private static instance: OsloStore;
@@ -23,6 +24,7 @@ export class OsloStore {
   // Fetches all the data from the Oslo database
   public init() {
     trace("Initializing store");
+    initSettings(); // bring settings to new documents
     const items = OsloStore.getLocalOsloItems();
     if (items.length > 1) { //checks if we can init from localstorage
       trace("Store already active. " + items.length + " definitions stored in store");
@@ -77,7 +79,7 @@ export class OsloStore {
     return osloitems
   }
 
-  // Function to search the keyword in the Vuex store
+  // Function to search the keyword in the oslo store
   public osloStoreLookup(phrase: string, useExactMatching: boolean): IOsloItem[] {
     if (!phrase) {
       return null;
@@ -116,7 +118,7 @@ export class OsloStore {
     }
     return dictionaryItems.concat(items); // now we have 2 lists. We add the non-dict items at the end of the list so the dict items are in the beginning of the list
   }
-  // function to store item in VueX store
+  // function to store item in oslo store
   private storeItem(item) {
     let dictionaryItem = OsloStore.isDictionaryItem(item["_source"]["prefLabel"]); // checks if item is in dictionary
     let osloEntry: IOsloItem = {

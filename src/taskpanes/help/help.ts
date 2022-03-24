@@ -1,5 +1,4 @@
 import Vue from "vue";
-import Vuex from "vuex";
 import root from "./pages/Root.vue";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 
@@ -12,7 +11,6 @@ const validatorConfig = {
 Vue.use(VlUiVueComponents, {
     validation: validatorConfig,
 });
-Vue.use(Vuex);
 
 Office.onReady((info) => {
     if (info.host === Office.HostType.Word) {
