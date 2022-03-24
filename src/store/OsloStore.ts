@@ -3,6 +3,7 @@ import {AppConfig} from "../utils/AppConfig";
 import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
 import {initSettings} from "./OsloSettings";
+var store = require('store');
 
 export class OsloStore {
   private static instance: OsloStore;
@@ -25,8 +26,8 @@ export class OsloStore {
   public init() {
     trace("Initializing store");
     initSettings(); // bring settings to new documents
-    const items = OsloStore.getLocalOsloItems();
-    if (items.length > 1 && this.needsUpdate() === false) { //checks if we can init from localstorage
+    const items = OsloStore.getStorageItems();
+    if (items.length > 1 && this.needsUpdate() === false) { //checks if we can init from storage
       trace("Store already active. " + items.length + " definitions stored in store");
     }
     else{
@@ -44,7 +45,7 @@ export class OsloStore {
           const cleandata = data["hits"]["hits"]; //filter out stuff we don't really need
 
           cleandata.map((item) => this.storeItem(item));
-          localStorage.setItem("osloitems", JSON.stringify(this.osloItems));
+          store.set('osloItems', this.osloItems);
           console.log(this.osloItems.length + " definitions stored on osloStore");
         })
         .catch((error) => {
@@ -74,9 +75,9 @@ export class OsloStore {
       request.send();
     });
   }
-  //gets oslo items from our localstorage
-  private static getLocalOsloItems() {
-    let osloitems = JSON.parse(localStorage.getItem("osloitems"));
+  //gets oslo items from our storage
+  private static getStorageItems() {
+    let osloitems = store.get('osloItems');
     if(osloitems == null) osloitems = []; //if it's empty make a new one
     return osloitems
   }
@@ -91,7 +92,7 @@ export class OsloStore {
     // new list
     const matches: IOsloItem[] = [];
 
-    let items = OsloStore.getLocalOsloItems();
+    let items = OsloStore.getStorageItems();
     // loop for possible matches
     for (const item of items) {
       if (typeof item.label === "string") {
@@ -151,10 +152,10 @@ export class OsloStore {
     return this.store;
   }
   public getItems() {
-    return OsloStore.getLocalOsloItems();
+    return OsloStore.getStorageItems();
   }
   public getRandomDefinition(){
-    let items = OsloStore.getLocalOsloItems();
+    let items = OsloStore.getStorageItems();
     let randomInt = Math.floor(Math.random() * items);
     return items[randomInt];
   }
