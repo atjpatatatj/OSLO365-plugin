@@ -1,10 +1,8 @@
 import Vue from "vue";
-import Vuex from "vuex";
 import root from "./pages/Root.vue";
 import {OsloStore} from "../../store/OsloStore";
 import EventBus from "../../utils/EventBus";
 import {getDictionaryItems, searchDict} from "../../store/OsloDictionary";
-import {findTop5MostUsedDefinitions, increaseCounter} from "../../store/OsloSettings";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 /*
 There are 2 ways to store data like your dictionary.
@@ -22,14 +20,11 @@ const validatorConfig = {
 Vue.use(VlUiVueComponents, {
     validation: validatorConfig,
 });
-Vue.use(Vuex);
 
 Office.onReady((info) => {
     if (info.host === Office.HostType.Word) {
         const osloStore = OsloStore.getInstance();
-        const store = osloStore.getStore();
         var app = new Vue({
-            store: store,
             el: "#app",
             render: (h) => h(root)
         });

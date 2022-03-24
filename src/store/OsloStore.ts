@@ -1,18 +1,13 @@
-import Vuex, {Store} from "vuex";
-import Vue from "vue";
 import {error, trace} from "../utils/Utils";
 import {AppConfig} from "../utils/AppConfig";
 import {IOsloItem} from "../oslo/IOsloItem";
 import {getDictionaryItems} from "./OsloDictionary";
 import {initSettings} from "./OsloSettings";
 
-//TODO tutorial video if done -> walkthrough word plugin
-
-Vue.use(Vuex);
-
 export class OsloStore {
   private static instance: OsloStore;
   private store: any;
+  private osloItems = [];
 
   private constructor() {
     this.init();
@@ -28,38 +23,34 @@ export class OsloStore {
 
   // Fetches all the data from the Oslo database
   public init() {
-    this.initializeStore();
-    initSettings();
-
-    // only need to init once
-    if (this.store.state.items.length < 1) {
-      trace("Initializing store");
-      const items = this.getLocalOsloItems();
-      if (items.length > 1) { //checks if we can init from localstorage
-        items.map((item) => this.storeItem(item));
-        trace("Saved oslo items to Vuex store from localStorage");
-      }
-      else{
-        this.httpRequest("GET", AppConfig.dataFileUrl)
-            .then((json: string) => {
-              if (!json) {
-                error("Oslo data empty");
-              }
-              const data = JSON.parse(json); //convert to usable JSON
-              const cleandata = data["hits"]["hits"]; //filter out stuff we don't really need
-
-              localStorage.setItem("osloitems", JSON.stringify(cleandata));
-              cleandata.map((item) => this.storeItem(item));
-
-              trace("Information stored in Vuex store and localStorage");
-            })
-            .catch((error) => {
-              trace("Error: " + error);
-            });
-      }
-    } else {
-      trace("Store already initialized");
+    trace("Initializing store");
+    initSettings(); // bring settings to new documents
+    const items = OsloStore.getLocalOsloItems();
+    if (items.length > 1 && this.needsUpdate() === false) { //checks if we can init from localstorage
+      trace("Store already active. " + items.length + " definitions stored in store");
     }
+    else{
+      this.updateStore();
+    }
+  }
+  // Get request to fetch the data
+  public updateStore(){
+    this.httpRequest("GET", AppConfig.dataFileUrl)
+        .then((json: string) => {
+          if (!json) {
+            error("Oslo data empty");
+          }
+          const data = JSON.parse(json); //convert to usable JSON
+          const cleandata = data["hits"]["hits"]; //filter out stuff we don't really need
+
+          cleandata.map((item) => this.storeItem(item));
+          localStorage.setItem("osloitems", JSON.stringify(this.osloItems));
+          console.log(this.osloItems.length + " definitions stored on osloStore");
+        })
+        .catch((error) => {
+          trace("Error: " + error);
+        });
+    this.createTimeStamp();
   }
 
   //Function to retrieve the data from an url
@@ -84,13 +75,13 @@ export class OsloStore {
     });
   }
   //gets oslo items from our localstorage
-  private getLocalOsloItems() {
+  private static getLocalOsloItems() {
     let osloitems = JSON.parse(localStorage.getItem("osloitems"));
     if(osloitems == null) osloitems = []; //if it's empty make a new one
     return osloitems
   }
 
-  // Function to search the keyword in the Vuex store
+  // Function to search the keyword in the oslo store
   public osloStoreLookup(phrase: string, useExactMatching: boolean): IOsloItem[] {
     if (!phrase) {
       return null;
@@ -100,7 +91,7 @@ export class OsloStore {
     // new list
     const matches: IOsloItem[] = [];
 
-    let items = this.store.state.items;
+    let items = OsloStore.getLocalOsloItems();
     // loop for possible matches
     for (const item of items) {
       if (typeof item.label === "string") {
@@ -129,7 +120,7 @@ export class OsloStore {
     }
     return dictionaryItems.concat(items); // now we have 2 lists. We add the non-dict items at the end of the list so the dict items are in the beginning of the list
   }
-  // function to store item in VueX store
+  // function to store item in oslo store
   private storeItem(item) {
     let dictionaryItem = OsloStore.isDictionaryItem(item["_source"]["prefLabel"]); // checks if item is in dictionary
     let osloEntry: IOsloItem = {
@@ -140,7 +131,8 @@ export class OsloStore {
       reference: item["_source"]["context"],
       isDictionaryItem : dictionaryItem,
     };
-    this.store.commit("addItem", osloEntry);
+    // this.store.commit("addItem", osloEntry);
+    this.osloItems.push(osloEntry);
   }
   //function checks if it's in dictionary
   private static isDictionaryItem(itemName) :boolean{
@@ -155,26 +147,38 @@ export class OsloStore {
     return isDictionaryItem; // true or false
   }
 
-  private initializeStore() {
-    this.store = new Store({
-      state: {
-        items: [] as IOsloItem[],
-      },
-      mutations: {
-        addItem(state, item) {
-          state.items.push(item);
-        },
-      },
-    });
-  }
   public getStore() {
     return this.store;
   }
   public getItems() {
-    return this.store.state.items;
+    return OsloStore.getLocalOsloItems();
   }
   public getRandomDefinition(){
-    let randomInt = Math.floor(Math.random() * this.store.state.items.length);
-    return this.store.state.items[randomInt];
+    let items = OsloStore.getLocalOsloItems();
+    let randomInt = Math.floor(Math.random() * items);
+    return items[randomInt];
+  }
+  private createTimeStamp(){
+    const currentDate = new Date();
+
+    const currentDayOfMonth = currentDate.getDate();
+    const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
+    const currentYear = currentDate.getFullYear();
+    const currentHour = currentDate.getHours();
+    const currentMinutes = currentDate.getMinutes();
+
+    const dateString = currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear + " om " + currentHour +":" + currentMinutes;
+    localStorage.setItem("lastUpdated", dateString);
+  }
+  public getLatestUpdateMoment(){
+    return localStorage.getItem("lastUpdated");
+  }
+  private needsUpdate(){
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // Be careful! January is 0, not 1
+    const oldDate = this.getLatestUpdateMoment();
+    const dateArray = oldDate.split('-');
+    const oldMonth = parseInt(dateArray[1]);
+    return currentMonth !== oldMonth;
   }
 }

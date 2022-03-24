@@ -1,5 +1,4 @@
 import Vue from "vue";
-import Vuex from "vuex";
 import root from "./pages/Root.vue";
 const VlUiVueComponents = require("@govflanders/vl-ui-vue-components");
 import { trace } from "../../utils/Utils";
@@ -17,7 +16,6 @@ const validatorConfig = {
 Vue.use(VlUiVueComponents, {
   validation: validatorConfig,
 });
-Vue.use(Vuex);
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -25,7 +23,6 @@ Office.onReady((info) => {
     const store = osloStore.getStore();
 
     var app = new Vue({
-      store: store,
       el: "#app",
       render: (h) => h(root),
     });
@@ -89,16 +86,7 @@ export function search(searchPhrase: string) {
   const store = OsloStore.getInstance()
   const osloResult = store.osloStoreLookup(searchPhrase, exactMatch);
 
-  //If the results are empty we send a boolean to root so a message is shown "no results"
-  if (osloResult.length < 1 ){
-    console.log(osloResult.length);
-    EventBus.$emit("onMatches", true);
-    EventBus.$emit("onSearchResult", osloResult);
-  }
-  else {
-    EventBus.$emit("onSearchResult", osloResult);
-    EventBus.$emit("onMatches", false);
-  }
+  EventBus.$emit("onSearchResult", osloResult);
 }
 
 // gives back your full dictionary when input is empty

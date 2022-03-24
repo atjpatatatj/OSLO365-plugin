@@ -1,17 +1,11 @@
-/*
-Tijdens testen lijkt het alsof dit niets doet, maar de gegevens gaan mee met het document.
-Als je je test document lokaal saved en daar in test zal de instelling blijven.
-We gebruiken daarom localstorage om dit over te dragen naar verschillende bestanden.
-*/
-// because office settings doesn't flow over documents we use localstorage to make up for this.
-import {OsloStore} from "./OsloStore";
+// because office settings doesn't flow over documents we use localstorage to send and save the setting to new documents.
 import {IOsloCount} from "../oslo/IOsloCount";
-import exp from "constants";
 
 // get the saved setting and saving it in the office settings since it's not carried over as efficiently
 export function initSettings() {
     let setting = JSON.parse(localStorage.getItem("definitionOTDSetting"));
     if (setting === null){
+        console.log("saved settings to this document");
         changeDefinitionODSSetting(false);
     }
     Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", setting);
@@ -34,40 +28,30 @@ export function definitionODSSetting(){
     return setting;
 }
 // function to check the user count list
-export function getUserCountList(){
+function getUserCountList(){
     let useCountList = JSON.parse(localStorage.getItem("useCountList"));
-    if(useCountList === null) {
-        useCountList = CreateUserCountList(); //if it's empty make a new one
-    }
+    if(useCountList === null) useCountList = [];
     return useCountList.sort();
 }
-// function to init the list doesn't exist
-function CreateUserCountList(){
-    let useCountList = [];
-    const osloStore = OsloStore.getInstance();
-    let osloItems = osloStore.getItems();
-    for (const item of osloItems){
-        let osloEntry: IOsloCount = {
-            // new IOsloCount object
-            label: item.label,
-            useCount : 0, // new list so everything is set to 0
-        };
-        useCountList.push(osloEntry);
-    }
-    localStorage.setItem("useCountList", JSON.stringify(useCountList));
-    return useCountList;
-}
+
 // function to increase count when item is used
-export function increaseCounter(definition: string){
-    let useCountList = getUserCountList();
-    let i = 0;
+export function increaseCounter(item: any){
+    let useCountList = getUserCountList(); // our list
     // find item
-    for (const item of useCountList){
-        if (item.label === definition){
-            useCountList[i].useCount++ // increment use
+    let newItem = true;
+    for (const countItem of useCountList){
+        if (countItem.label === item.label){
+            countItem.useCount++ // increment useCount
+            newItem = false; // we found the item so it's not new
             break; //found it!
         }
-        i++
+    }
+    if (newItem){
+        let entry: IOsloCount = { // create a new countObject
+            label: item.label,
+            useCount: 1 // set to one because it's new and we have just used it
+        }
+        useCountList.push(entry); // add our newly used item to the list
     }
     localStorage.setItem("useCountList", JSON.stringify(useCountList)); // save
 }
@@ -80,9 +64,10 @@ export function findTop5MostUsedDefinitions(){
     let i = 0;
     for (const item of top5){
         if (item.useCount === 0){
-            top5.splice(i,5);// delete all items that are zero
+            top5.splice(i,5);// delete all items that are zero. Since our list is sorted by useCount we can safely delete everything after first zero
         }
         i++
     }
     return top5;
 }
+

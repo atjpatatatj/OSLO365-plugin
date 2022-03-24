@@ -22,6 +22,7 @@ import {onInsertNoteClicked} from "../../../utils/Utils";
 import EventBus from "../../../utils/EventBus";
 import { IOsloItem } from "src/oslo/IOsloItem";
 import {deleteFromDictionary} from "../../../store/OsloDictionary";
+import {increaseCounter} from "../../../store/OsloSettings";
 
 export default Vue.extend({
   data: () => {
@@ -33,6 +34,7 @@ export default Vue.extend({
     async insertNote(which) {
       if (Object.keys(this.radioTile).length > 0) {
         await onInsertNoteClicked(this.radioTile, which);
+        increaseCounter(this.radioTile);
       }
     },
     deleteFromDictionary(){
