@@ -3,13 +3,13 @@
     <vl-layout>
       <vl-grid v-vl-align:center mod-stacked>
         <vl-column width="6">
-          <vl-button mod-block @click="insertNote('footnote')">Voetnoot</vl-button>
+          <vl-button class="nopadding" mod-block @click="insertNote('footnote')">Voetnoot</vl-button>
         </vl-column>
         <vl-column width="6">
-          <vl-button mod-block @click="insertNote('endnote')">Eindnoot</vl-button>
+          <vl-button class="nopadding" mod-block @click="insertNote('endnote')">Eindnoot</vl-button>
         </vl-column>
         <vl-column>
-          <vl-button id="button" mod-block @click="addToDictionary()">Toevoegen aan uw woorden</vl-button>
+          <vl-button class="nopadding" id="button" mod-block @click="addToDictionary()">Toevoegen aan uw woorden</vl-button>
         </vl-column>
       </vl-grid>
     </vl-layout>
@@ -64,5 +64,8 @@ export default Vue.extend({
 
 #content-footer a {
   cursor: grab;
+}
+.nopadding{
+  padding: 0 !important;
 }
 </style>
