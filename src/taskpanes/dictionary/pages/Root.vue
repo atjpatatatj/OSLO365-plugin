@@ -8,7 +8,7 @@
               mod-block
               v-model="input"
               @input="searchDict"
-              placeholder="Doorzoek uw woordenboek"
+              placeholder="Doorzoek uw woorden"
           />
         </vl-column>
         <vl-column id="ResultBox" v-if="allitems.length > 0">

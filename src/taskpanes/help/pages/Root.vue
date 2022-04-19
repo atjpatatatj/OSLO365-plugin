@@ -62,12 +62,12 @@
           Your browser does not support the video tag.
         </video>
       </vl-tab>
-      <vl-tab label="Toevoegen aan woordenboek" id="toevoegen-aan-woordenboek" mod-show-title>
+      <vl-tab label="Toevoegen aan uw woorden" id="toevoegen-aan-woorden" mod-show-title>
         <p>
-          Ook kan u definities die u veel gebruikt toevoegen aan uw woordenboek. Zo vindt u ze makkelijk terug.
+          Ook kan u definities die u veel gebruikt toevoegen aan uw woorden. Zo vindt u ze makkelijk terug.
         </p>
         <p>
-          De definities die in uw woordenboek zitten worden eerst getoond tijdens zoekresultaten.
+          De definities die in uw woorden zitten worden eerst getoond tijdens zoekresultaten.
         </p>
         <br>
         <video width="600" controls autoplay loop>
@@ -75,7 +75,7 @@
           Your browser does not support the video tag.
         </video>
       </vl-tab>
-      <vl-tab label="Verwijderen van woordenboek" id="verwijderen-van-woordenboek" mod-show-title>
+      <vl-tab label="Verwijderen van uw woorden" id="verwijderen-van-woorden" mod-show-title>
         <p>
           Als u een definitie niet meer gebruikt kan u deze natuurlijk gemakkelijk verwijderen.
         </p>

@@ -15,7 +15,7 @@ export function addToDictionary(data: any) {
     let duplicate = false;
     for (const item of dictionary) {
         if (item.label === data.label){ // match items? don't add same item twice.
-            document.getElementById("button").innerHTML = data.label + " zit al in uw woordenboek"; // confirmation to user
+            document.getElementById("button").innerHTML = data.label + " zit al in uw woorden"; // confirmation to user
             const myTimeout = setTimeout(changeButtonBackAdded, 2000); // confirmation done
             duplicate = true;
             break;
@@ -30,11 +30,11 @@ export function addToDictionary(data: any) {
 }
 // function to change the button text back to normal| due to using this in a timeout function we can't pass a string with text
 function changeButtonBackAdded(){
-    document.getElementById("button").innerHTML = "Toevoegen aan woordenboek";
+    document.getElementById("button").innerHTML = "Toevoegen aan uw woorden";
 }
 // function to change the button text back to normal| due to using this in a timeout function we can't pass a string with text
 function changeButtonBackDeleted(){
-    document.getElementById("deleteEntireDictionary").innerHTML = "Verwijder alle items in woordenboek";
+    document.getElementById("deleteEntireDictionary").innerHTML = "Verwijder alle items in woorden";
 }
 // delete item from your dictionary
 export function deleteFromDictionary(data: any){
@@ -81,7 +81,7 @@ export function searchDict(phrase: string): IOsloItem[] {
 }
 export function deleteEntireDictionary(){
     localStorage.setItem("dictionary", JSON.stringify([]));
-    document.getElementById("deleteEntireDictionary").innerHTML =  " Uw volledig woordenboek werd verwijderd!"; // confirmation to user
+    document.getElementById("deleteEntireDictionary").innerHTML =  " Al uw volledig woorden werd verwijderd!"; // confirmation to user
     const myTimeout = setTimeout(changeButtonBackDeleted, 2000); // confirmation done
 }
 
