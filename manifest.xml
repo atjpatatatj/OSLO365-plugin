@@ -307,7 +307,7 @@
 				</bt:String>
 				<bt:String id="OsloRibbonButton.Label" DefaultValue="Zoeken in OSLO">
 				</bt:String>
-				<bt:String id="OsloRibbonButton.Label.Short" DefaultValue="    Zoeken">
+				<bt:String id="OsloRibbonButton.Label.Short" DefaultValue="Definitie zoeken">
 				</bt:String>
 				<bt:String id="DocumentCheck.Label" DefaultValue="Document controle">
 				</bt:String>

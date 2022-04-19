@@ -1,7 +1,7 @@
 <template>
   <div>
     <vl-tabs :hash-change="true" @tab-change="onTabChange">
-      <vl-tab label="Zoeken" id="zoeken" mod-show-title>
+      <vl-tab label="Definitie zoeken" id="zoeken" mod-show-title>
         <p>
           Met de zoek functie kan u definities opzoeken. Indien er geen resultaten zijn zal de plugin u dit melden.
         </p>
