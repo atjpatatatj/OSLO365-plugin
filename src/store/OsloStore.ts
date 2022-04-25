@@ -114,6 +114,7 @@ export class OsloStore {
     for (const item of items){
       let isDictionaryItem = OsloStore.isDictionaryItem(item.label);
       if (isDictionaryItem){
+        item.isDictionaryItem = true;
         items.splice(i,1); // delete the dictItem from the lists and add them to another list
         dictionaryItems.push(item);
       }

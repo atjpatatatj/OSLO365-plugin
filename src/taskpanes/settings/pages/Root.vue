@@ -6,7 +6,7 @@
           <vl-grid v-vl-align:center mod-stacked>
             <vl-column v-if="confirmDelete === false">
               <br>
-              <vl-button id="deleteEntireDictionary" mod-block @click="areYouSure()">Verwijder alle items in woordenboek</vl-button>
+              <vl-button id="deleteEntireDictionary" mod-block @click="areYouSure()">Verwijder alle items in uw woorden</vl-button>
             </vl-column>
             <vl-column v-if="confirmDelete === true">
               <br>

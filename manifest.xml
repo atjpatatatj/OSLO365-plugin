@@ -117,11 +117,11 @@
 									</Action>
 									<Enabled>false</Enabled>
 								</Control>
-								<Control xsi:type="Button" id="MijnWoordenboek">
-									<Label resid="MijnWoordenboek.Label"/>
+								<Control xsi:type="Button" id="MijnWoorden">
+									<Label resid="MijnWoorden.Label"/>
 									<Supertip>
-										<Title resid="MijnWoordenboek.Label"/>
-										<Description resid="MijnWoordenboek.Description"/>
+										<Title resid="MijnWoorden.Label"/>
+										<Description resid="MijnWoorden.Description"/>
 									</Supertip>
 									<Icon>
 										<bt:Image size="16" resid="IconMijnWoordenboek.16x16"/>
@@ -130,7 +130,7 @@
 									</Icon>
 									<Action xsi:type="ShowTaskpane">
 										<TaskpaneId>OsloTaskPane</TaskpaneId>
-										<SourceLocation resid="Taskpane.MijnWoordenboek"/>
+										<SourceLocation resid="Taskpane.MijnWoorden"/>
 									</Action>
 									<Enabled>false</Enabled>
 								</Control>
@@ -289,7 +289,7 @@
 				<bt:Url id="Taskpane.DocumentCheck" DefaultValue="https://localhost:3000/auto-check.html"/>
 				<bt:Url id="Taskpane.Help" DefaultValue="https://localhost:3000/help.html"/>
 				<bt:Url id="Taskpane.About" DefaultValue="https://localhost:3000/about.html"/>
-				<bt:Url id="Taskpane.MijnWoordenboek" DefaultValue="https://localhost:3000/dictionary.html"/>
+				<bt:Url id="Taskpane.MijnWoorden" DefaultValue="https://localhost:3000/dictionary.html"/>
 				<bt:Url id="Taskpane.Instellingen" DefaultValue="https://localhost:3000/settings.html"/>
 				<bt:Url id="Oslo.Taskpane.Url" DefaultValue="https://localhost:3000/definition.html"/>
 				<bt:Url id="residDesktopFuncUrl" DefaultValue="https://localhost:3000/functions.html"/>
@@ -307,7 +307,7 @@
 				</bt:String>
 				<bt:String id="OsloRibbonButton.Label" DefaultValue="Zoeken in OSLO">
 				</bt:String>
-				<bt:String id="OsloRibbonButton.Label.Short" DefaultValue="    Zoeken">
+				<bt:String id="OsloRibbonButton.Label.Short" DefaultValue="Definitie zoeken">
 				</bt:String>
 				<bt:String id="DocumentCheck.Label" DefaultValue="Document controle">
 				</bt:String>
@@ -317,7 +317,7 @@
 				</bt:String>
 				<bt:String id="OsloContextMenu.Label" DefaultValue="Zoek op in OSLO">
 				</bt:String>
-				<bt:String id="MijnWoordenboek.Label" DefaultValue="Mijn woordenboek">
+				<bt:String id="MijnWoorden.Label" DefaultValue="Mijn woorden">
 				</bt:String>
 				<bt:String id="Instellingen.Label" DefaultValue="   Instellingen">
 				</bt:String>
@@ -347,7 +347,7 @@
 				</bt:String>
 				<bt:String id="OsloContextMenu.Description" DefaultValue="Zoek op in OSLO">
 				</bt:String>
-				<bt:String id="MijnWoordenboek.Description" DefaultValue="Sla OSLO-definities op in uw woordenboek.">
+				<bt:String id="MijnWoorden.Description" DefaultValue="Sla OSLO-definities op in uw woorden.">
 				</bt:String>
 				<bt:String id="Instellingen.Description" DefaultValue="Instellingen voor de OSLO-plugin.">
 				</bt:String>
