@@ -64,7 +64,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {searchDocument, getDefinitions, selectWordInDocument} from "../auto-check";
+import {searchDocument, getDefinitions, selectWordInDocument, searchDocumentForWord} from "../auto-check";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-auto-check-pane.vue";
 import { IOsloItem } from "src/oslo/IOsloItem";

@@ -96,6 +96,62 @@ export async function searchDocument() {
     return wordsWithMatches;
   });
 }
+export async function searchDocumentForWord(word: Word.Range) {
+  return await Word.run(async (context) => {
+    const wordsWithMatches: Word.Range[] = [];
+
+    const range = context.document.body.getRange();
+    range.load();
+    await context.sync();
+
+    let paragraph = range.paragraphs.getFirstOrNullObject();
+    paragraph.load();
+    await context.sync();
+
+    while (!paragraph.isNullObject) {
+      let ranges = paragraph.split(wordDelimiters, true /* trimDelimiters*/, true /* trimSpacing */);
+      ranges.load();
+
+      const wordList: Word.Range[] = [];
+
+      await context.sync().catch(function (error) {
+        // If the paragraph is empty, the split throws an error
+        ranges = null;
+      });
+
+      if (ranges && ranges.items) {
+        for (let word of ranges.items) {
+          // Collect all the words in the paragraph, so we can search through them
+          // We check if the 'word' is longer then 1 characters, if not don't include the word in the wordlist
+          // We also check if the word is not in the list of excluded words
+          if (
+              word.text.length > 1 &&
+              !ignoredWords.find((ignoredWord: string) => ignoredWord.toLowerCase() === word.text.toLowerCase())
+          ) {
+            wordList.push(word);
+          }
+
+          await context.sync();
+        }
+      }
+      const store = OsloStore.getInstance()
+      for (let wordFromList of wordList) {
+        if (store.osloStoreLookup(word.text, false).length > 0) {
+          if (wordFromList.text === word.text){
+            wordsWithMatches.push(word);
+          }
+        }
+      }
+
+      paragraph = paragraph.getNextOrNullObject();
+      paragraph.load();
+
+      await context.sync();
+    }
+    console.table(wordsWithMatches);
+    return wordsWithMatches;
+  });
+}
 
 export function getDefinitions(word: Word.Range): IOsloItem[] {
   const store = OsloStore.getInstance()
