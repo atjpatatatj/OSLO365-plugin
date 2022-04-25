@@ -23,7 +23,6 @@ Office.onReady((info) => {
     const store = osloStore.getStore();
 
     var app = new Vue({
-      store: store,
       el: "#app",
       render: (h) => h(root),
     });
@@ -76,8 +75,16 @@ export async function searchDocument() {
       }
       const store = OsloStore.getInstance()
       for (let word of wordList) {
+        let duplicate = false;
         if (store.osloStoreLookup(word.text, false).length > 0) {
-          wordsWithMatches.push(word);
+          for (let wordInList of wordsWithMatches){
+            if(word.text === wordInList.text){
+              duplicate = true;
+            }
+          }
+          if (!duplicate){
+            wordsWithMatches.push(word);
+          }
         }
       }
 
