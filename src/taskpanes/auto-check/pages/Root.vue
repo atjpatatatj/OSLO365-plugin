@@ -17,11 +17,8 @@
     <vl-layout>
       <vl-grid mod-stacked v-if="scanned && results.length > 0">
         <vl-column>
-          <vl-title tag-name="h4">
+          <vl-title tag-name="h5">
             Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>
-          </vl-title>
-          <vl-title tag-name="h6">
-            {{ shownWord.text }} komt {{ subResults.length }} keer voor in uw document
           </vl-title>
         </vl-column>
         <vl-column>
@@ -39,6 +36,9 @@
             >
           </vl-action-group>
         </vl-column>
+        <vl-title tag-name="h6" v-if="subResults.length > 1">
+          <span class="vl-u-mark">{{ shownWord.text }}</span> komt {{ subResults.length }} keer voor in uw document
+        </vl-title>
         <vl-column id="ResultBox">
           <search-result-card
             v-for="(hit, index) of shownWordDefinitions"
