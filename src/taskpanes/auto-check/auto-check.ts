@@ -64,7 +64,7 @@ export async function searchDocument() {
           // We check if the 'word' is longer then 1 characters, if not don't include the word in the wordlist
           // We also check if the word is not in the list of excluded words
           if (
-            word.text.length > 1 &&
+            word.text.length > 2 &&
             !ignoredWords.find((ignoredWord: string) => ignoredWord.toLowerCase() === word.text.toLowerCase())
           ) {
             wordList.push(word);
