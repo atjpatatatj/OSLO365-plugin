@@ -148,7 +148,6 @@ export async function searchDocumentForWord(word: Word.Range) {
 
       await context.sync();
     }
-    console.table(wordsWithMatches);
     return wordsWithMatches;
   });
 }
@@ -200,7 +199,6 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
           while (!found && index >= 0) {
             const position = results.items[index].compareLocationWith(selection);
             await context.sync();
-            console.log(position.value);
 
             if (position.value !== Word.LocationRelation.before && position.value !== Word.LocationRelation.adjacentBefore) {
               if (position.value === Word.LocationRelation.equal) {
