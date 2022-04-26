@@ -38,7 +38,9 @@
         </vl-column>
         <vl-column v-if="subResults.length > 1">
           <vl-title tag-name="h6">
-            <span class="vl-u-mark">{{ shownWord.text }}</span> komt {{ subResults.length }} keer voor in uw document. <a @click="toSubResults">Wissel naar {{ shownWord.text }} selectie</a>
+            <span class="vl-u-mark">{{ shownWord.text }}</span> komt {{ subResults.length }} keer voor in uw document.
+            <a v-if="onSubResult === false" @click="toSubResults">Wissel naar {{ shownWord.text }} selectie</a>
+            <a v-if="onSubResult === true" @click="toResults">Keer terug naar globale selectie</a>
           </vl-title>
         </vl-column>
         <vl-column id="ResultBox">
@@ -88,6 +90,9 @@ export default Vue.extend({
       selectedDefinition: {} as IOsloItem,
       back: false,
       subResults: [] as Word.Range[],
+      savedIndex: 0,
+      savedResults: [] as Word.Range[],
+      onSubResult: false,
     };
   },
   methods: {
@@ -104,9 +109,18 @@ export default Vue.extend({
       selectWordInDocument(this.shownWord, this.back);
     },
     toSubResults() {
+      this.savedResults = this.results;
       this.results = this.subResults;
+      this.savedIndex = this.resultIndex;
       this.resultIndex = 0;
       this.shownWord = this.subResults[this.resultIndex];
+      this.onSubResult = true;
+    },
+    toResults() {
+      this.results = this.savedResults;
+      this.resultIndex = this.savedIndex;
+      this.shownWord = this.results[this.resultIndex];
+      this.onSubResult = false;
     },
     next() {
       if (this.resultIndex + 1 <= this.results.length - 1) {
