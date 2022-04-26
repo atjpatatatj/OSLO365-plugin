@@ -20,6 +20,7 @@
           <vl-title tag-name="h2">
             Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>
           </vl-title>
+          {{ subResults }}
         </vl-column>
         <vl-column>
           <vl-action-group mod-space-between>
@@ -81,7 +82,8 @@ export default Vue.extend({
       shownWord: {} as Word.Range,
       shownWordDefinitions: [] as IOsloItem[],
       selectedDefinition: {} as IOsloItem,
-      back: false
+      back: false,
+      subResults: [] as Word.Range[],
     };
   },
   methods: {
@@ -92,6 +94,7 @@ export default Vue.extend({
       this.results = await searchDocument();
       this.shownWord = this.results[this.resultIndex];
       this.shownWordDefinitions = getDefinitions(this.shownWord);
+      this.subResults = await searchDocumentForWord(this.shownWord);
 
       this.searching = false;
     },
@@ -109,9 +112,10 @@ export default Vue.extend({
         this.back = true;
       }
     },
-    updateDisplayedWord() {
+    async updateDisplayedWord() {
       this.shownWord = this.results[this.resultIndex];
       this.shownWordDefinitions = getDefinitions(this.shownWord);
+      this.subResults = await searchDocumentForWord(this.shownWord);
     },
     selectShownWordInDocument() {
       selectWordInDocument(this.shownWord, this.back);
