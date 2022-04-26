@@ -36,9 +36,11 @@
             >
           </vl-action-group>
         </vl-column>
-        <vl-title tag-name="h6" v-if="subResults.length > 1">
-          <span class="vl-u-mark">{{ shownWord.text }}</span> komt {{ subResults.length }} keer voor in uw document
-        </vl-title>
+        <vl-column v-if="subResults.length > 1">
+          <vl-title tag-name="h6">
+            <span class="vl-u-mark">{{ shownWord.text }}</span> komt {{ subResults.length }} keer voor in uw document. <a @click="toSubResults">Wissel naar {{ shownWord.text }} selectie</a>
+          </vl-title>
+        </vl-column>
         <vl-column id="ResultBox">
           <search-result-card
             v-for="(hit, index) of shownWordDefinitions"
@@ -99,6 +101,9 @@ export default Vue.extend({
       this.subResults = await searchDocumentForWord(this.shownWord);
 
       this.searching = false;
+    },
+    toSubResults() {
+      console.log('done bhai');
     },
     next() {
       if (this.resultIndex + 1 <= this.results.length - 1) {
