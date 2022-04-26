@@ -101,6 +101,7 @@ export default Vue.extend({
       this.subResults = await searchDocumentForWord(this.shownWord);
 
       this.searching = false;
+      selectWordInDocument(this.shownWord, this.back);
     },
     toSubResults() {
       this.results = this.subResults;
@@ -125,16 +126,12 @@ export default Vue.extend({
       this.shownWord = this.results[this.resultIndex];
       this.shownWordDefinitions = getDefinitions(this.shownWord);
       this.subResults = await searchDocumentForWord(this.shownWord);
+      selectWordInDocument(this.shownWord, this.back);
     },
     selectShownWordInDocument() {
       selectWordInDocument(this.shownWord, this.back);
     }
-  },
-  watch: {
-    shownWord(newValue) {
-      selectWordInDocument(newValue, this.back);
-    }
-  },
+  }
 });
 </script>
 
