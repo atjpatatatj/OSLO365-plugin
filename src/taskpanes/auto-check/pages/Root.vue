@@ -103,7 +103,9 @@ export default Vue.extend({
       this.searching = false;
     },
     toSubResults() {
-      console.log('done bhai');
+      this.results = this.subResults;
+      this.resultIndex = 0;
+      this.shownWord = this.subResults[this.resultIndex];
     },
     next() {
       if (this.resultIndex + 1 <= this.results.length - 1) {
