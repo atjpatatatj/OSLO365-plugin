@@ -78,7 +78,7 @@ export async function searchDocument() {
         let duplicate = false;
         if (store.osloStoreLookup(word.text, false).length > 0) {
           for (let wordInList of wordsWithMatches){
-            if(word.text === wordInList.text){
+            if(word.text.toLowerCase() === wordInList.text.toLowerCase()){
               duplicate = true;
             }
           }
@@ -137,7 +137,7 @@ export async function searchDocumentForWord(word: Word.Range) {
       const store = OsloStore.getInstance()
       for (let wordFromList of wordList) {
         if (store.osloStoreLookup(word.text, false).length > 0) {
-          if (wordFromList.text === word.text){
+          if (wordFromList.text.toLowerCase() === word.text.toLowerCase()){
             wordsWithMatches.push(word);
           }
         }
