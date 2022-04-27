@@ -37,7 +37,7 @@ export async function searchDocument() {
     range.load();
     await context.sync();
 
-    // force cursor to beginning of document so word selection works.
+    // force cursor to start of document so word selection works.
     const start = context.document.body.getRange("Start");
     start.load();
     start.select();
@@ -61,7 +61,7 @@ export async function searchDocument() {
       if (ranges && ranges.items) {
         for (let word of ranges.items) {
           // Collect all the words in the paragraph, so we can search through them
-          // We check if the 'word' is longer then 1 characters, if not don't include the word in the wordlist
+          // We check if the 'word' is longer then 2 characters, if not don't include the word in the wordlist
           // We also check if the word is not in the list of excluded words
           if (
             word.text.length > 2 &&
