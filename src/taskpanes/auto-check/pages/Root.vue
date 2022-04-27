@@ -26,7 +26,16 @@
             <vl-button mod-icon-before icon="nav-left-light" @click="previous" :mod-disabled="resultIndex === 0"
               >Vorige</vl-button
             >
-            <vl-introduction>{{ resultIndex + 1 }} / {{ results.length }}</vl-introduction>
+            <vl-introduction>
+              <vl-input-field
+                  id="search-input"
+                  mod-block
+                  v-model="input"
+                  @input="navigation"
+                  :placeholder="[[ resultIndex + 1 ]]"
+                  style="width: 25px; height: 35px; font-size: 16px;"
+              />
+               / {{ results.length }}</vl-introduction>
             <vl-button
               mod-icon-after
               icon="nav-right-light"
