@@ -150,9 +150,6 @@ export default Vue.extend({
       this.shownWordDefinitions = getDefinitions(this.shownWord);
       this.subResults = await searchDocumentForWord(this.shownWord);
       selectWordInDocument(this.shownWord, this.back);
-    },
-    selectShownWordInDocument() {
-      selectWordInDocument(this.shownWord, this.back);
     }
   }
 });
