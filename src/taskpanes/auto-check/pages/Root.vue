@@ -136,6 +136,7 @@ export default Vue.extend({
         this.resultIndex++;
         this.updateDisplayedWord();
         this.back = false;
+        this.input = "";
       }
     },
     previous() {
@@ -143,7 +144,12 @@ export default Vue.extend({
         this.resultIndex--;
         this.updateDisplayedWord();
         this.back = true;
+        this.input = "";
       }
+    },
+    navigation() {
+      this.resultIndex = this.input - 1;
+      this.updateDisplayedWord();
     },
     async updateDisplayedWord() {
       this.shownWord = this.results[this.resultIndex];
