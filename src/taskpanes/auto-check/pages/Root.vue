@@ -48,7 +48,7 @@
         <vl-column v-if="subResults.length > 1">
           <vl-title tag-name="h6">
             <span class="vl-u-mark">{{ shownWord.text }}</span> komt {{ subResults.length }} keer voor in uw document.
-            <a v-if="onSubResult === false" @click="toSubResults">Wissel naar {{ shownWord.text }} selectie</a>
+            <a v-if="onSubResult === false" @click="toSubResults">Wissel naar "{{ shownWord.text }}" selectie</a>
             <a v-if="onSubResult === true" @click="toResults">Keer terug naar globale selectie</a>
           </vl-title>
         </vl-column>
