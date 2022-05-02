@@ -16,6 +16,12 @@
   <div v-else>
     <vl-layout>
       <vl-grid mod-stacked v-if="scanned && results.length > 0">
+        <vl-column>
+          <vl-title tag-name="h4">
+            Er werden <span class="vl-u-mark">{{results.length}}</span> matches gevonden in uw document.
+          </vl-title>
+        </vl-column>
+        <a v-for="item in results">{{item.text}}</a>
 <!--        <vl-column>-->
 <!--          <vl-title tag-name="h5">-->
 <!--            Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>-->
@@ -57,7 +63,6 @@
 <!--            :dictionaryItem="hit.isDictionaryItem"-->
 <!--          />-->
 <!--        </vl-column>-->
-        leeg venster
       </vl-grid>
       <vl-grid mod-stacked v-if="scanned && results.length === 0">
         <vl-column>
@@ -147,6 +152,7 @@ body {
 #ResultBox {
   margin-bottom: 135px;
 }
+
 
 /* width */
 ::-webkit-scrollbar {
