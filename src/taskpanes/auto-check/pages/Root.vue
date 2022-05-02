@@ -17,9 +17,10 @@
     <vl-layout>
       <vl-grid mod-stacked v-if="scanned && results.length > 0">
         <vl-column>
-          <vl-title tag-name="h4">
-            Er werden <span class="vl-u-mark">{{results.length}}</span> matches gevonden in uw document.
+          <vl-title tag-name="h3">
+            Er werden <span class="vl-u-mark">{{results.length}} definities </span> gevonden in uw document.
           </vl-title>
+          <hr><br>
         </vl-column>
         <a v-for="item in results">{{item.text}}</a>
 <!--        <vl-column>-->
@@ -112,7 +113,6 @@ export default Vue.extend({
       this.subResults = await searchDocumentForWord(this.shownWord);
 
       this.searching = false;
-      selectWordInDocument(this.shownWord, this.back);
     },
     next() {
       if (this.resultIndex + 1 <= this.results.length - 1) {
@@ -151,6 +151,15 @@ body {
 
 #ResultBox {
   margin-bottom: 135px;
+}
+a {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0055cc;
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
 }
 
 
