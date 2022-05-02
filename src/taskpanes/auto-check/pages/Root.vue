@@ -16,54 +16,48 @@
   <div v-else>
     <vl-layout>
       <vl-grid mod-stacked v-if="scanned && results.length > 0">
-        <vl-column>
-          <vl-title tag-name="h5">
-            Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>
-          </vl-title>
-        </vl-column>
-        <vl-column>
-          <vl-action-group mod-space-between>
-            <vl-button mod-icon-before icon="nav-left-light" @click="previous" :mod-disabled="resultIndex === 0"
-              >Vorige</vl-button
-            >
-            <vl-introduction>
-              <vl-input-field
-                  id="search-input"
-                  mod-block
-                  v-model="input"
-                  @input="navigation"
-                  :placeholder="[[ resultIndex + 1 ]]"
-                  style="width: 25px; height: 35px; font-size: 16px;"
-              />
-               / {{ results.length }}</vl-introduction>
-            <vl-button
-              mod-icon-after
-              icon="nav-right-light"
-              @click="next"
-              :mod-disabled="resultIndex === results.length - 1"
-              >Volgende</vl-button
-            >
-          </vl-action-group>
-        </vl-column>
-        <vl-column v-if="subResults.length > 1">
-          <vl-title tag-name="h6">
-            <span class="vl-u-mark">{{ shownWord.text }}</span> komt {{ subResults.length }} keer voor in uw document.
-            <a v-if="onSubResult === false" @click="toSubResults">Wissel naar "{{ shownWord.text }}" selectie</a>
-            <a v-if="onSubResult === true" @click="toResults">Keer terug naar globale selectie</a>
-          </vl-title>
-        </vl-column>
-        <vl-column id="ResultBox">
-          <search-result-card
-            v-for="(hit, index) of shownWordDefinitions"
-            :key="`${hit.reference}-${index}`"
-            :value="hit"
-            :id="`radio-tile-${index}`"
-            :title="hit.label"
-            :description="hit.description"
-            :url="hit.reference"
-            :dictionaryItem="hit.isDictionaryItem"
-          />
-        </vl-column>
+<!--        <vl-column>-->
+<!--          <vl-title tag-name="h5">-->
+<!--            Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>-->
+<!--          </vl-title>-->
+<!--        </vl-column>-->
+<!--        <vl-column>-->
+<!--          <vl-action-group mod-space-between>-->
+<!--            <vl-button mod-icon-before icon="nav-left-light" @click="previous" :mod-disabled="resultIndex === 0"-->
+<!--              >Vorige</vl-button-->
+<!--            >-->
+<!--            <vl-introduction>-->
+<!--              <vl-input-field-->
+<!--                  id="search-input"-->
+<!--                  mod-block-->
+<!--                  v-model="input"-->
+<!--                  @input="navigation"-->
+<!--                  :placeholder="[[ resultIndex + 1 ]]"-->
+<!--                  style="width: 25px; height: 35px; font-size: 16px;"-->
+<!--              />-->
+<!--               / {{ results.length }}</vl-introduction>-->
+<!--            <vl-button-->
+<!--              mod-icon-after-->
+<!--              icon="nav-right-light"-->
+<!--              @click="next"-->
+<!--              :mod-disabled="resultIndex === results.length - 1"-->
+<!--              >Volgende</vl-button-->
+<!--            >-->
+<!--          </vl-action-group>-->
+<!--        </vl-column>-->
+<!--        <vl-column id="ResultBox">-->
+<!--          <search-result-card-->
+<!--            v-for="(hit, index) of shownWordDefinitions"-->
+<!--            :key="`${hit.reference}-${index}`"-->
+<!--            :value="hit"-->
+<!--            :id="`radio-tile-${index}`"-->
+<!--            :title="hit.label"-->
+<!--            :description="hit.description"-->
+<!--            :url="hit.reference"-->
+<!--            :dictionaryItem="hit.isDictionaryItem"-->
+<!--          />-->
+<!--        </vl-column>-->
+        leeg venster
       </vl-grid>
       <vl-grid mod-stacked v-if="scanned && results.length === 0">
         <vl-column>
@@ -99,9 +93,6 @@ export default Vue.extend({
       selectedDefinition: {} as IOsloItem,
       back: false,
       subResults: [] as Word.Range[],
-      savedIndex: 0,
-      savedResults: [] as Word.Range[],
-      onSubResult: false,
     };
   },
   methods: {
@@ -117,26 +108,11 @@ export default Vue.extend({
       this.searching = false;
       selectWordInDocument(this.shownWord, this.back);
     },
-    toSubResults() {
-      this.savedResults = this.results;
-      this.results = this.subResults;
-      this.savedIndex = this.resultIndex;
-      this.resultIndex = 0;
-      this.shownWord = this.subResults[this.resultIndex];
-      this.onSubResult = true;
-    },
-    toResults() {
-      this.results = this.savedResults;
-      this.resultIndex = this.savedIndex;
-      this.shownWord = this.results[this.resultIndex];
-      this.onSubResult = false;
-    },
     next() {
       if (this.resultIndex + 1 <= this.results.length - 1) {
         this.resultIndex++;
         this.updateDisplayedWord();
         this.back = false;
-        this.input = "";
       }
     },
     previous() {
@@ -144,7 +120,6 @@ export default Vue.extend({
         this.resultIndex--;
         this.updateDisplayedWord();
         this.back = true;
-        this.input = "";
       }
     },
     navigation() {
