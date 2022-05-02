@@ -15,14 +15,20 @@
   </vl-layout>
   <div v-else>
     <vl-layout>
-      <vl-grid mod-stacked v-if="scanned && results.length > 0">
+      <vl-grid mod-stacked v-if="scanned && results.length > 0 && !onSubResults">
         <vl-column>
           <vl-title tag-name="h3">
             Er werden <span class="vl-u-mark">{{results.length}} definities </span> gevonden in uw document.
           </vl-title>
           <hr><br>
         </vl-column>
-        <a v-for="item in results">{{item.text}}</a>
+        <a v-for="item in results" @click="toSubResults">{{item.text}}</a>
+      </vl-grid>
+      <vl-grid v-if="onSubResults">
+        <vl-column>
+          <a @click="toResults">Terug naar alle resultaten</a>
+        </vl-column>
+      </vl-grid>
 <!--        <vl-column>-->
 <!--          <vl-title tag-name="h5">-->
 <!--            Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>-->
@@ -64,7 +70,6 @@
 <!--            :dictionaryItem="hit.isDictionaryItem"-->
 <!--          />-->
 <!--        </vl-column>-->
-      </vl-grid>
       <vl-grid mod-stacked v-if="scanned && results.length === 0">
         <vl-column>
           <vl-introduction>Er werden geen overeenkomsten gevonden in OSLO voor het document.</vl-introduction>
@@ -137,6 +142,12 @@ export default Vue.extend({
       this.shownWordDefinitions = getDefinitions(this.shownWord);
       this.subResults = await searchDocumentForWord(this.shownWord);
       selectWordInDocument(this.shownWord, this.back);
+    },
+    toSubResults() {
+      this.onSubResults = true;
+    },
+    toResults(){
+      this.onSubResults = false;
     }
   }
 });
