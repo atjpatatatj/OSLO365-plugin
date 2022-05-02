@@ -68,7 +68,7 @@
         </vl-column>
       </vl-grid>
     </vl-layout>
-    <content-footer v-if="scanned && results.length > 0" />
+    <content-footer v-if="scanned && results.length > 0 && onSubResults" />
   </div>
 </template>
 
@@ -93,6 +93,7 @@ export default Vue.extend({
       selectedDefinition: {} as IOsloItem,
       back: false,
       subResults: [] as Word.Range[],
+      onSubResults: false
     };
   },
   methods: {
