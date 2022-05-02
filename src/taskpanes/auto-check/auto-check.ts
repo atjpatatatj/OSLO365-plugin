@@ -93,8 +93,13 @@ export async function searchDocument() {
 
       await context.sync();
     }
-    return wordsWithMatches;
+    return wordsWithMatches.sort(Comparator);
   });
+}
+function Comparator(a, b) {
+  if (a.text < b.text) return -1;
+  if (a.text > b.text) return 1;
+  return 0;
 }
 export async function searchDocumentForWord(word: Word.Range) {
   return await Word.run(async (context) => {
