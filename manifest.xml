@@ -336,7 +336,7 @@
 				</bt:String>
 				<bt:String id="About.Label" DefaultValue="Wat is OSLO?">
 				</bt:String>
-				<bt:String id="OsloContextMenu.Label" DefaultValue="Zoek op in OSLO">
+				<bt:String id="OsloContextMenu.Label" DefaultValue="Open de OSLO zoekfunctie">
 				</bt:String>
 				<bt:String id="MijnWoorden.Label" DefaultValue="Mijn woorden">
 				</bt:String>
@@ -354,7 +354,7 @@
 				</bt:String>
 				<bt:String id="Microsoft.LabelTwo" DefaultValue="Microsoft">
 				</bt:String>
-				<bt:String id="OsloContextMenu.Label" DefaultValue="Zoek op in OSLO">
+				<bt:String id="OsloContextMenu.Label" DefaultValue="Open de OSLO zoekfunctie">
 				</bt:String>
 			</bt:ShortStrings>
 			<bt:LongStrings>
@@ -368,7 +368,7 @@
 				</bt:String>
 				<bt:String id="About.Description" DefaultValue="Wat is OSLO?">
 				</bt:String>
-				<bt:String id="OsloContextMenu.Description" DefaultValue="Zoek op in OSLO">
+				<bt:String id="OsloContextMenu.Description" DefaultValue="Open de OSLO zoekfunctie">
 				</bt:String>
 				<bt:String id="MijnWoorden.Description" DefaultValue="Sla OSLO-definities op in uw woorden.">
 				</bt:String>
@@ -378,7 +378,7 @@
 				</bt:String>
 				<bt:String id="Microsoft.Description" DefaultValue="Bezoek de website van Microsoft.">
 				</bt:String>
-				<bt:String id="OsloContextMenu.Description" DefaultValue="Zoek op in OSLO.">
+				<bt:String id="OsloContextMenu.Description" DefaultValue="Open de OSLO zoekfunctie">
 				</bt:String>
 			</bt:LongStrings>
 		</Resources>
