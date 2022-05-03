@@ -22,7 +22,7 @@
           </vl-title>
           <hr><br>
         </vl-column>
-        <a v-for="item in results" @click="toSubResults(item)">{{item.text}}</a>
+        <a id="results" v-for="item in results" @click="toSubResults(item)">{{item.text}}</a>
       </vl-grid>
       <vl-grid v-if="onSubResults">
         <vl-column>
@@ -163,13 +163,13 @@ body {
 #ResultBox {
   margin-bottom: 135px;
 }
-a {
+#results {
   font-size: 18px;
   font-weight: bold;
   color: #0055cc;
   text-decoration: none;
 }
-a:hover{
+#results:hover{
   text-decoration: underline;
 }
 
