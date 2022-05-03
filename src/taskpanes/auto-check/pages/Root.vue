@@ -26,10 +26,10 @@
       </vl-grid>
       <vl-grid v-if="onSubResults">
         <vl-column>
+          <img id="back" @click="toResults" src="assets/arrow-back-outline.svg" alt="back" width="40" height="40">
           <vl-title tag-name="h5">
             Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>
           </vl-title>
-          <a @click="toResults">Terug naar alle resultaten</a>
         </vl-column>
         <vl-column id="ResultBox">
           <search-result-card
@@ -169,7 +169,7 @@ body {
   color: #0055cc;
   text-decoration: none;
 }
-#results:hover{
+#results:hover {
   text-decoration: underline;
 }
 
