@@ -152,10 +152,12 @@ export default Vue.extend({
       this.shownWord = item;
       this.shownWordDefinitions = getDefinitions(this.shownWord);
       selectWordInDocument(this.shownWord, this.back);
+      scroll(0,0);
     },
     toResults(){
       this.onSubResults = false;
       selectNothing();
+      scroll(0,0);
     }
   }
 });
