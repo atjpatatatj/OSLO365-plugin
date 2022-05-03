@@ -31,12 +31,19 @@
           </vl-title>
           <a @click="toResults">Terug naar alle resultaten</a>
         </vl-column>
+        <vl-column id="ResultBox">
+          <search-result-card
+              v-for="(hit, index) of shownWordDefinitions"
+              :key="`${hit.reference}-${index}`"
+              :value="hit"
+              :id="`radio-tile-${index}`"
+              :title="hit.label"
+              :description="hit.description"
+              :url="hit.reference"
+              :dictionaryItem="hit.isDictionaryItem"
+          />
+        </vl-column>
       </vl-grid>
-<!--        <vl-column>-->
-<!--          <vl-title tag-name="h5">-->
-<!--            Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>-->
-<!--          </vl-title>-->
-<!--        </vl-column>-->
 <!--        <vl-column>-->
 <!--          <vl-action-group mod-space-between>-->
 <!--            <vl-button mod-icon-before icon="nav-left-light" @click="previous" :mod-disabled="resultIndex === 0"-->
@@ -60,18 +67,6 @@
 <!--              >Volgende</vl-button-->
 <!--            >-->
 <!--          </vl-action-group>-->
-<!--        </vl-column>-->
-<!--        <vl-column id="ResultBox">-->
-<!--          <search-result-card-->
-<!--            v-for="(hit, index) of shownWordDefinitions"-->
-<!--            :key="`${hit.reference}-${index}`"-->
-<!--            :value="hit"-->
-<!--            :id="`radio-tile-${index}`"-->
-<!--            :title="hit.label"-->
-<!--            :description="hit.description"-->
-<!--            :url="hit.reference"-->
-<!--            :dictionaryItem="hit.isDictionaryItem"-->
-<!--          />-->
 <!--        </vl-column>-->
       <vl-grid mod-stacked v-if="scanned && results.length === 0">
         <vl-column>
@@ -149,6 +144,7 @@ export default Vue.extend({
     toSubResults(item) {
       this.onSubResults = true;
       this.shownWord = item;
+      this.shownWordDefinitions = getDefinitions(this.shownWord);
     },
     toResults(){
       this.onSubResults = false;
