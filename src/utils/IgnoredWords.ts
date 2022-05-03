@@ -1,2 +1,2 @@
 /** Words that should be ignored when searching the whole document */
-export const ignoredWords = ["een", "de", "het", "is", "dit", "die", "ik", "om", "er", "van", "wat", "ook", "uit", "iets"];
+export const ignoredWords = ["een", "de", "het", "is", "dit", "die", "ik", "om", "er", "van", "wat", "ook", "uit", "iets", "zie", "alle", "aan","bij", "dat", "com", "elk", "hoe", "kan", "laat", "mee", "met", "min", "toe","zij", "gaan", "lang", "form", "lang", "waar","ons", "wel", "and", "eens", "ging", "mis", "pas", "hem", "the", "top", "was", "wil", "zet", "zit", "let", "all", "men", "ten", "ter", "wie", "doe", "ben"];
