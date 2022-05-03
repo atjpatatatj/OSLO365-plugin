@@ -22,10 +22,13 @@
           </vl-title>
           <hr><br>
         </vl-column>
-        <a v-for="item in results" @click="toSubResults">{{item.text}}</a>
+        <a v-for="item in results" @click="toSubResults(item)">{{item.text}}</a>
       </vl-grid>
       <vl-grid v-if="onSubResults">
         <vl-column>
+          <vl-title tag-name="h5">
+            Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>
+          </vl-title>
           <a @click="toResults">Terug naar alle resultaten</a>
         </vl-column>
       </vl-grid>
@@ -143,8 +146,9 @@ export default Vue.extend({
       this.subResults = await searchDocumentForWord(this.shownWord);
       selectWordInDocument(this.shownWord, this.back);
     },
-    toSubResults() {
+    toSubResults(item) {
       this.onSubResults = true;
+      this.shownWord = item;
     },
     toResults(){
       this.onSubResults = false;
