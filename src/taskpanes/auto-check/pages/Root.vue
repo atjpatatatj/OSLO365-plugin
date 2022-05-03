@@ -83,7 +83,13 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {searchDocument, getDefinitions, selectWordInDocument, searchDocumentForWord} from "../auto-check";
+import {
+  searchDocument,
+  getDefinitions,
+  selectWordInDocument,
+  searchDocumentForWord,
+  selectNothing
+} from "../auto-check";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-auto-check-pane.vue";
 import { IOsloItem } from "src/oslo/IOsloItem";
@@ -145,9 +151,11 @@ export default Vue.extend({
       this.onSubResults = true;
       this.shownWord = item;
       this.shownWordDefinitions = getDefinitions(this.shownWord);
+      selectWordInDocument(this.shownWord, this.back);
     },
     toResults(){
       this.onSubResults = false;
+      selectNothing();
     }
   }
 });

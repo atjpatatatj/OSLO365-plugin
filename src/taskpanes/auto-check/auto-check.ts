@@ -225,3 +225,12 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
       }
   });
 }
+export function selectNothing() {
+  return Word.run(async (context) => {
+    // force cursor to start of document so word selection works.
+    const start = context.document.body.getRange("Start");
+    start.load();
+    start.select();
+    await context.sync();
+  });
+}
