@@ -8,7 +8,7 @@
       </vl-column>
       <vl-column>
         <vl-action-group mod-align-center mod-collapse-s>
-          <vl-button mod-wide @click="scan">Start scan</vl-button>
+          <vl-button class="button" mod-wide @click="scan">Start scan</vl-button>
         </vl-action-group>
       </vl-column>
     </vl-grid>
@@ -73,7 +73,7 @@
           <vl-introduction>Er werden geen overeenkomsten gevonden in OSLO voor het document.</vl-introduction>
         </vl-column>
         <vl-column v-vl-align:center>
-          <vl-button @click="scan">Opnieuw scannen</vl-button>
+          <vl-button class="button" @click="scan">Opnieuw scannen</vl-button>
         </vl-column>
       </vl-grid>
     </vl-layout>
@@ -171,8 +171,14 @@ body {
 }
 #results:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
-
+#back{
+  cursor: pointer;
+}
+.button{
+  cursor: pointer;
+}
 
 /* width */
 ::-webkit-scrollbar {

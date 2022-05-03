@@ -71,6 +71,7 @@ export default Vue.extend({
   cursor: grab;
 }
 .nopadding{
+  cursor: pointer !important;
   padding: 0 !important;
 }
 </style>
