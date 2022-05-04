@@ -28,7 +28,7 @@
         <vl-column>
           <img id="back" @click="toResults" src="assets/arrow-back-outline.svg" alt="back" width="40" height="40">
           <vl-title tag-name="h5">
-            Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>
+            <span class="vl-u-mark">{{ shownWord.text }}</span> werd {{subResults.length}} keer gevonden
           </vl-title>
         </vl-column>
         <vl-column id="ResultBox">
@@ -115,12 +115,7 @@ export default Vue.extend({
     async scan() {
       this.searching = true;
       this.scanned = true;
-
       this.results = await searchDocument();
-      this.shownWord = this.results[this.resultIndex];
-      this.shownWordDefinitions = getDefinitions(this.shownWord);
-      this.subResults = await searchDocumentForWord(this.shownWord);
-
       this.searching = false;
     },
     next() {
@@ -147,12 +142,13 @@ export default Vue.extend({
       this.subResults = await searchDocumentForWord(this.shownWord);
       selectWordInDocument(this.shownWord, this.back);
     },
-    toSubResults(item) {
+    async toSubResults(item) {
       this.onSubResults = true;
       this.shownWord = item;
+      this.subResults = await searchDocumentForWord(this.shownWord);
       this.shownWordDefinitions = getDefinitions(this.shownWord);
       selectWordInDocument(this.shownWord, this.back);
-      scroll(0,0);
+      scroll(0, 0);
     },
     toResults(){
       this.onSubResults = false;
