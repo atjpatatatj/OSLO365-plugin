@@ -27,10 +27,13 @@
       <vl-grid v-if="onSubResults">
         <vl-column>
           <img id="back" @click="toResults" src="assets/arrow-back-outline.svg" alt="back" width="40" height="40">
-          <vl-title tag-name="h5">
+          <vl-title tag-name="h5" v-if="subResults.length > 1">
             <span class="vl-u-mark">{{ shownWord.text }}</span> werd {{subResults.length}} keer gevonden
           </vl-title>
-          <vl-action-group mod-space-between>
+          <vl-title tag-name="h5" v-if="subResults.length === 1">
+            Gevonden definities voor <span class="vl-u-mark">{{ shownWord.text }}</span>
+          </vl-title>
+          <vl-action-group mod-space-between v-if="subResults.length > 1" >
             <vl-button mod-icon-before icon="nav-left-light" @click="previous" :mod-disabled="resultIndex === 0">Vorige</vl-button>
             <vl-introduction>
               {{this.resultIndex + 1 }} / {{ subResults.length}}</vl-introduction>
