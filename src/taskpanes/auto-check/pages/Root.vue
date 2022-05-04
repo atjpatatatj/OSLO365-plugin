@@ -46,7 +46,7 @@
                 mod-icon-after
                 icon="nav-right-light"
                 @click="next"
-                :mod-disabled="resultIndex === results.length - 1">
+                :mod-disabled="resultIndex === subResults.length - 1">
               Volgende
             </vl-button>
           </vl-action-group><br>
