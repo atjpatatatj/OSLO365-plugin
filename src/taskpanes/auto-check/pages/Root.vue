@@ -30,6 +30,26 @@
           <vl-title tag-name="h5">
             <span class="vl-u-mark">{{ shownWord.text }}</span> werd {{subResults.length}} keer gevonden
           </vl-title>
+          <vl-action-group mod-space-between>
+            <vl-button mod-icon-before icon="nav-left-light" @click="previous" :mod-disabled="resultIndex === 0">Vorige</vl-button>
+            <vl-introduction>
+              <vl-input-field
+                  id="search-input"
+                  mod-block
+                  v-model="input"
+                  @input="navigation"
+                  :placeholder="[[ resultIndex + 1 ]]"
+                  style="width: 25px; height: 35px; font-size: 16px;"
+              />
+              / {{ subResults.length }}</vl-introduction>
+            <vl-button
+                mod-icon-after
+                icon="nav-right-light"
+                @click="next"
+                :mod-disabled="resultIndex === results.length - 1">
+              Volgende
+            </vl-button>
+          </vl-action-group><br>
         </vl-column>
         <vl-column id="ResultBox">
           <search-result-card
@@ -44,30 +64,6 @@
           />
         </vl-column>
       </vl-grid>
-<!--        <vl-column>-->
-<!--          <vl-action-group mod-space-between>-->
-<!--            <vl-button mod-icon-before icon="nav-left-light" @click="previous" :mod-disabled="resultIndex === 0"-->
-<!--              >Vorige</vl-button-->
-<!--            >-->
-<!--            <vl-introduction>-->
-<!--              <vl-input-field-->
-<!--                  id="search-input"-->
-<!--                  mod-block-->
-<!--                  v-model="input"-->
-<!--                  @input="navigation"-->
-<!--                  :placeholder="[[ resultIndex + 1 ]]"-->
-<!--                  style="width: 25px; height: 35px; font-size: 16px;"-->
-<!--              />-->
-<!--               / {{ results.length }}</vl-introduction>-->
-<!--            <vl-button-->
-<!--              mod-icon-after-->
-<!--              icon="nav-right-light"-->
-<!--              @click="next"-->
-<!--              :mod-disabled="resultIndex === results.length - 1"-->
-<!--              >Volgende</vl-button-->
-<!--            >-->
-<!--          </vl-action-group>-->
-<!--        </vl-column>-->
       <vl-grid mod-stacked v-if="scanned && results.length === 0">
         <vl-column>
           <vl-introduction>Er werden geen overeenkomsten gevonden in OSLO voor het document.</vl-introduction>
