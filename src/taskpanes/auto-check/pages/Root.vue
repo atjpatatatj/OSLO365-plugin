@@ -33,15 +33,7 @@
           <vl-action-group mod-space-between>
             <vl-button mod-icon-before icon="nav-left-light" @click="previous" :mod-disabled="resultIndex === 0">Vorige</vl-button>
             <vl-introduction>
-              <vl-input-field
-                  id="search-input"
-                  mod-block
-                  v-model="input"
-                  @input="navigation"
-                  :placeholder="[[ resultIndex + 1 ]]"
-                  style="width: 25px; height: 35px; font-size: 16px;"
-              />
-              / {{ subResults.length }}</vl-introduction>
+              {{this.resultIndex + 1 }} / {{ subResults.length}}</vl-introduction>
             <vl-button
                 mod-icon-after
                 icon="nav-right-light"
@@ -128,16 +120,12 @@ export default Vue.extend({
         selectWordInDocument(this.subResults[this.resultIndex], this.back);
       }
     },
-    navigation() {
-      this.resultIndex = this.input - 1;
-      selectWordInDocument(this.subResults[this.resultIndex], this.back);
-    },
     async toSubResults(item) {
       this.onSubResults = true;
       this.shownWord = item;
       this.subResults = await searchDocumentForWord(this.shownWord);
       this.shownWordDefinitions = getDefinitions(this.shownWord);
-      selectWordInDocument(this.shownWord, this.back);
+      selectWordInDocument(this.subResults[0], this.back);
       scroll(0, 0);
     },
     toResults(){
