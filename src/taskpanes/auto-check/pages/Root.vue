@@ -115,28 +115,22 @@ export default Vue.extend({
       this.searching = false;
     },
     next() {
-      if (this.resultIndex + 1 <= this.results.length - 1) {
+      if (this.resultIndex + 1 <= this.subResults.length - 1) {
         this.resultIndex++;
-        this.updateDisplayedWord();
         this.back = false;
+        selectWordInDocument(this.subResults[this.resultIndex], this.back);
       }
     },
     previous() {
       if (this.resultIndex - 1 >= 0) {
         this.resultIndex--;
-        this.updateDisplayedWord();
         this.back = true;
+        selectWordInDocument(this.subResults[this.resultIndex], this.back);
       }
     },
     navigation() {
       this.resultIndex = this.input - 1;
-      this.updateDisplayedWord();
-    },
-    async updateDisplayedWord() {
-      this.shownWord = this.results[this.resultIndex];
-      this.shownWordDefinitions = getDefinitions(this.shownWord);
-      this.subResults = await searchDocumentForWord(this.shownWord);
-      selectWordInDocument(this.shownWord, this.back);
+      selectWordInDocument(this.subResults[this.resultIndex], this.back);
     },
     async toSubResults(item) {
       this.onSubResults = true;
@@ -148,6 +142,7 @@ export default Vue.extend({
     },
     toResults(){
       this.onSubResults = false;
+      this.resultIndex = 0;
       selectNothing();
       scroll(0,0);
     }
