@@ -18,7 +18,7 @@
       <vl-grid mod-stacked v-if="scanned && results.length > 0 && !onSubResults">
         <vl-column>
           <vl-title tag-name="h3">
-            Er werden <span class="vl-u-mark">{{results.length}} definities </span> gevonden in uw document.
+            Er werden <span class="vl-u-mark">{{results.length}} definities </span> gevonden in uw document
           </vl-title>
           <hr><br>
         </vl-column>
@@ -136,6 +136,8 @@ export default Vue.extend({
       this.resultIndex = 0;
       selectNothing();
       scroll(0,0);
+      this.subResults = [] as Word.Range[];
+      this.shownWord = {} as Word.Range;
     }
   }
 });
