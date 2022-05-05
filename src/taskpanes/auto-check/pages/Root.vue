@@ -18,7 +18,7 @@
       <vl-grid mod-stacked v-if="results.length > 0 && !onSubResults">
         <vl-column>
           <vl-title tag-name="h3">
-            Er werden <span class="vl-u-mark">{{results.length}} definities </span> gevonden in uw document
+            Er werden <span class="vl-u-mark">{{results.length}}</span>  overeenkomsten gevonden in uw document
           </vl-title>
           <hr><br>
         </vl-column>
@@ -74,7 +74,10 @@
             Uw document wordt gescand
           </p>
           <p v-if="!onSubResults">
-            {{ counter }} definities gevonden
+            {{ counter }} overeenkomsten gevonden
+          </p>
+          <p v-if="onSubResults">
+            {{ counter }} overeenkomsten voor <span class="vl-u-mark">{{shownWord.text}}</span> gevonden
           </p>
         </div>
       </vl-grid>
@@ -134,6 +137,7 @@ export default Vue.extend({
       }
     },
     async toSubResults(item) {
+      this.counter = 0;
       this.onSubResults = true;
       this.shownWord = item;
       this.subResults = await searchDocumentForWord(this.shownWord);
@@ -142,6 +146,7 @@ export default Vue.extend({
       scroll(0, 0);
     },
     toResults(){
+      this.counter = 0;
       this.onSubResults = false;
       this.resultIndex = 0;
       selectNothing();

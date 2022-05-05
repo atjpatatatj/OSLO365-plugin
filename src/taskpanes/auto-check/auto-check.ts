@@ -149,6 +149,7 @@ export async function searchDocumentForWord(word: Word.Range) {
         if (store.osloStoreLookup(word.text, false).length > 0) {
           if (wordFromList.text.toLowerCase() === word.text.toLowerCase()){
             wordsWithMatches.push(word);
+            EventBus.$emit("counter", wordsWithMatches.length);
           }
         }
       }
