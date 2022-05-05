@@ -67,6 +67,14 @@
           <vl-button class="button" @click="scan">Opnieuw scannen</vl-button>
         </vl-column>
       </vl-grid>
+      <vl-grid mod-stacked v-if="scanned">
+        <div id="loader" class="vl-u-align-center">
+          <div class="vl-loader" role="status"></div>
+          <p>
+            Uw pagina wordt gescand.
+          </p>
+        </div>
+      </vl-grid>
     </vl-layout>
     <content-footer v-if="results.length > 0 && onSubResults" />
   </div>
@@ -164,6 +172,9 @@ body {
 }
 .button{
   cursor: pointer;
+}
+#loader{
+  margin: auto !important;
 }
 
 /* width */
