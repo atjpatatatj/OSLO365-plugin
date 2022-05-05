@@ -106,6 +106,7 @@ function Comparator(a, b) {
 }
 export async function searchDocumentForWord(word: Word.Range) {
   return await Word.run(async (context) => {
+    EventBus.$emit("loading", true);
     const wordsWithMatches: Word.Range[] = [];
 
     const range = context.document.body.getRange();
@@ -156,6 +157,7 @@ export async function searchDocumentForWord(word: Word.Range) {
 
       await context.sync();
     }
+    EventBus.$emit("loading", false);
     return wordsWithMatches;
   });
 }

@@ -26,7 +26,7 @@
       </vl-grid>
       <vl-grid v-if="onSubResults">
         <vl-column>
-          <img id="back" @click="toResults" src="assets/arrow-back-outline.svg" alt="back" width="40" height="40">
+          <img v-if="!loading" id="back" @click="toResults" src="assets/arrow-back-outline.svg" alt="back" width="40" height="40">
           <vl-title tag-name="h5" v-if="subResults.length > 1">
             <span class="vl-u-mark">{{ shownWord.text }}</span> werd {{subResults.length}} keer gevonden
           </vl-title>
@@ -67,7 +67,7 @@
           <vl-button class="button" @click="scan">Opnieuw scannen</vl-button>
         </vl-column>
       </vl-grid>
-      <vl-grid mod-stacked v-if="loading">
+      <vl-grid v-if="loading">
         <div id="loader" class="vl-u-align-center">
           <div class="vl-loader" role="status"></div>
           <p>
@@ -76,7 +76,7 @@
         </div>
       </vl-grid>
     </vl-layout>
-    <content-footer v-if="results.length > 0 && onSubResults" />
+    <content-footer v-if="results.length > 0 && onSubResults && !scanning" />
   </div>
 </template>
 
