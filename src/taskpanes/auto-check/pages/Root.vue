@@ -15,7 +15,7 @@
   </vl-layout>
   <div v-else>
     <vl-layout>
-      <vl-grid mod-stacked v-if="scanned && results.length > 0 && !onSubResults">
+      <vl-grid mod-stacked v-if="results.length > 0 && !onSubResults">
         <vl-column>
           <vl-title tag-name="h3">
             Er werden <span class="vl-u-mark">{{results.length}} definities </span> gevonden in uw document
@@ -59,7 +59,7 @@
           />
         </vl-column>
       </vl-grid>
-      <vl-grid mod-stacked v-if="scanned && results.length === 0">
+      <vl-grid mod-stacked v-if="results.length === 0">
         <vl-column>
           <vl-introduction>Er werden geen overeenkomsten gevonden in OSLO voor het document.</vl-introduction>
         </vl-column>
@@ -68,7 +68,7 @@
         </vl-column>
       </vl-grid>
     </vl-layout>
-    <content-footer v-if="scanned && results.length > 0 && onSubResults" />
+    <content-footer v-if="results.length > 0 && onSubResults" />
   </div>
 </template>
 
@@ -91,12 +91,10 @@ export default Vue.extend({
   data: () => {
     return {
       scanned: false,
-      searching: false,
       resultIndex: 0,
       results: [] as Word.Range[],
       shownWord: {} as Word.Range,
       shownWordDefinitions: [] as IOsloItem[],
-      selectedDefinition: {} as IOsloItem,
       back: false,
       subResults: [] as Word.Range[],
       onSubResults: false
@@ -104,10 +102,8 @@ export default Vue.extend({
   },
   methods: {
     async scan() {
-      this.searching = true;
-      this.scanned = true;
       this.results = await searchDocument();
-      this.searching = false;
+      this.scanned = true;
     },
     next() {
       if (this.resultIndex + 1 <= this.subResults.length - 1) {
