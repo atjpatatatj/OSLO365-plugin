@@ -163,6 +163,9 @@ export default Vue.extend({
     EventBus.$on("counter", (data: number) => {
       this.counter = data;
     });
+    EventBus.$on("results", (data: Word.Range[]) => {
+      this.results = (data);
+    });
   }
 });
 </script>

@@ -32,7 +32,6 @@ Office.onReady((info) => {
 
 export async function searchDocument() {
   return await Word.run(async (context) => {
-    EventBus.$emit("loading", true);
     const wordsWithMatches: Word.Range[] = [];
 
     const range = context.document.body.getRange();
@@ -86,7 +85,7 @@ export async function searchDocument() {
           }
           if (!duplicate){
             wordsWithMatches.push(word);
-            EventBus.$emit("counter", wordsWithMatches.length);
+            EventBus.$emit("results", wordsWithMatches.sort(Comparator));
           }
         }
       }
@@ -96,13 +95,12 @@ export async function searchDocument() {
 
       await context.sync();
     }
-    EventBus.$emit("loading", false);
     return wordsWithMatches.sort(Comparator);
   });
 }
 function Comparator(a, b) {
-  if (a.text < b.text) return -1;
-  if (a.text > b.text) return 1;
+  if (a.text.toLowerCase() < b.text.toLowerCase()) return -1;
+  if (a.text.toLowerCase() > b.text.toLowerCase()) return 1;
   return 0;
 }
 export async function searchDocumentForWord(word: Word.Range) {
