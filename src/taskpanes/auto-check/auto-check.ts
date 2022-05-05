@@ -6,6 +6,7 @@ import { wordDelimiters } from "../../utils/WordDelimiters";
 import { ignoredWords } from "../../utils/IgnoredWords";
 import { IOsloItem } from "../../oslo/IOsloItem";
 import { OsloStore } from "../../store/OsloStore";
+import EventBus from "../../utils/EventBus";
 
 // configuration of the built-in validator
 const validatorConfig = {
@@ -31,6 +32,7 @@ Office.onReady((info) => {
 
 export async function searchDocument() {
   return await Word.run(async (context) => {
+    EventBus.$emit("loading", true);
     const wordsWithMatches: Word.Range[] = [];
 
     const range = context.document.body.getRange();
@@ -93,6 +95,7 @@ export async function searchDocument() {
 
       await context.sync();
     }
+    EventBus.$emit("loading", false);
     return wordsWithMatches.sort(Comparator);
   });
 }

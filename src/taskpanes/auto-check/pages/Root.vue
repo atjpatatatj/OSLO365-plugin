@@ -1,5 +1,5 @@
 <template>
-  <vl-layout v-if="!scanned">
+  <vl-layout v-if="!scanning">
     <vl-grid mod-stacked>
       <vl-column>
         <vl-introduction>
@@ -59,7 +59,7 @@
           />
         </vl-column>
       </vl-grid>
-      <vl-grid mod-stacked v-if="results.length === 0">
+      <vl-grid mod-stacked v-if="!scanning && results.length === 0">
         <vl-column>
           <vl-introduction>Er werden geen overeenkomsten gevonden in OSLO voor het document.</vl-introduction>
         </vl-column>
@@ -67,11 +67,11 @@
           <vl-button class="button" @click="scan">Opnieuw scannen</vl-button>
         </vl-column>
       </vl-grid>
-      <vl-grid mod-stacked v-if="scanned">
+      <vl-grid mod-stacked v-if="loading">
         <div id="loader" class="vl-u-align-center">
           <div class="vl-loader" role="status"></div>
           <p>
-            Uw pagina wordt gescand.
+            Uw document wordt gescand.
           </p>
         </div>
       </vl-grid>
@@ -92,13 +92,15 @@ import {
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-auto-check-pane.vue";
 import { IOsloItem } from "src/oslo/IOsloItem";
+import EventBus from "../../../utils/EventBus";
 
 export default Vue.extend({
   name: "root",
   components: { searchResultCard, contentFooter },
   data: () => {
     return {
-      scanned: false,
+      scanning: false,
+      loading: false,
       resultIndex: 0,
       results: [] as Word.Range[],
       shownWord: {} as Word.Range,
@@ -110,8 +112,8 @@ export default Vue.extend({
   },
   methods: {
     async scan() {
+      this.scanning = true;
       this.results = await searchDocument();
-      this.scanned = true;
     },
     next() {
       if (this.resultIndex + 1 <= this.subResults.length - 1) {
@@ -143,6 +145,11 @@ export default Vue.extend({
       this.subResults = [] as Word.Range[];
       this.shownWord = {} as Word.Range;
     }
+  },
+  mounted() {
+    EventBus.$on("loading", (data: boolean) => {
+      this.loading = data;
+    });
   }
 });
 </script>
@@ -174,7 +181,8 @@ body {
   cursor: pointer;
 }
 #loader{
-  margin: auto !important;
+  padding-top: 15% ;
+  margin: auto ;
 }
 
 /* width */
