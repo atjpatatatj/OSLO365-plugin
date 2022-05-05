@@ -86,6 +86,7 @@ export async function searchDocument() {
           }
           if (!duplicate){
             wordsWithMatches.push(word);
+            EventBus.$emit("counter", wordsWithMatches.length);
           }
         }
       }

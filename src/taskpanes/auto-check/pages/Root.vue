@@ -71,7 +71,10 @@
         <div id="loader" class="vl-u-align-center">
           <div class="vl-loader" role="status"></div>
           <p>
-            Uw document wordt gescand.
+            Uw document wordt gescand
+          </p>
+          <p v-if="!onSubResults">
+            {{ counter }} definities gevonden
           </p>
         </div>
       </vl-grid>
@@ -107,7 +110,8 @@ export default Vue.extend({
       shownWordDefinitions: [] as IOsloItem[],
       back: false,
       subResults: [] as Word.Range[],
-      onSubResults: false
+      onSubResults: false,
+      counter: 0
     };
   },
   methods: {
@@ -150,6 +154,9 @@ export default Vue.extend({
   mounted() {
     EventBus.$on("loading", (data: boolean) => {
       this.loading = data;
+    });
+    EventBus.$on("counter", (data: number) => {
+      this.counter = data;
     });
   }
 });
