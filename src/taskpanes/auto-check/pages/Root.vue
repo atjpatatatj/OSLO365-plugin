@@ -144,6 +144,7 @@ export default Vue.extend({
       scroll(0,0);
       this.subResults = [] as Word.Range[];
       this.shownWord = {} as Word.Range;
+      this.shownWordDefinitions = [] as IOsloItem[];
     }
   },
   mounted() {
