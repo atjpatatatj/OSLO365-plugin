@@ -101,8 +101,8 @@ export async function searchDocument() {
   });
 }
 function Comparator(a, b) {
-  if (a.text < b.text) return -1;
-  if (a.text > b.text) return 1;
+  if (a.text.toLowerCase() < b.text.toLowerCase()) return -1;
+  if (a.text.toLowerCase() > b.text.toLowerCase()) return 1;
   return 0;
 }
 export async function searchDocumentForWord(word: Word.Range) {
