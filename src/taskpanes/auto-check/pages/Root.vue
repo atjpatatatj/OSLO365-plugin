@@ -20,7 +20,9 @@
           <vl-title tag-name="h3">
             Er werden <span class="vl-u-mark">{{results.length}}</span>  overeenkomsten gevonden in uw document
           </vl-title>
-          <hr><br>
+          <hr>
+          <a id="alphabet" v-for="item in alphabet" @click="sort(item)">{{item}}</a>
+          <hr>
         </vl-column>
         <a id="results" v-for="item in results" @click="toSubResults(item)">{{item.text}}</a>
       </vl-grid>
@@ -89,7 +91,6 @@ import {
   searchDocument,
   getDefinitions,
   selectWordInDocument,
-  searchDocumentForWord,
   selectNothing
 } from "../auto-check";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
@@ -112,7 +113,8 @@ export default Vue.extend({
       back: false,
       subResults: [] as Word.Range[],
       onSubResults: false,
-      counter: 0
+      counter: 0,
+      alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     };
   },
   methods: {
@@ -187,6 +189,20 @@ body {
 #results:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+#alphabet {
+  color: black;
+  padding-right: 3px;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+}
+#alphabet:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+hr {
+  border: 1px solid black !important;
 }
 #back{
   cursor: pointer;
