@@ -109,6 +109,7 @@ export default Vue.extend({
       loading: false,
       resultIndex: 0,
       results: [] as Word.Range[],
+      resultMap: null,
       shownWord: {} as Word.Range,
       shownWordDefinitions: [] as IOsloItem[],
       back: false,
@@ -136,11 +137,11 @@ export default Vue.extend({
         selectWordInDocument(this.subResults[this.resultIndex], this.back);
       }
     },
-    async toSubResults(item) {
+    toSubResults(item) {
       this.counter = 0;
       this.onSubResults = true;
       this.shownWord = item;
-      this.subResults = await searchDocumentForWord(this.shownWord);
+      this.subResults = this.resultMap.get(this.shownWord.text.toLowerCase());
       this.shownWordDefinitions = getDefinitions(this.shownWord);
       selectWordInDocument(this.subResults[0], this.back);
       scroll(0, 0);
@@ -162,6 +163,9 @@ export default Vue.extend({
     });
     EventBus.$on("counter", (data: number) => {
       this.counter = data;
+    });
+    EventBus.$on("map", (data: any) => {
+      this.resultMap = data;
     });
   }
 });

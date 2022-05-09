@@ -29,7 +29,8 @@ Office.onReady((info) => {
     });
   }
 });
-
+// This functions returns an Array with all unique words found in the document.
+// Besides that an eventbus also returns a map containing all the duplicate values that we can use to load the sub-results instantly
 export async function searchDocument() {
   return await Word.run(async (context) => {
     EventBus.$emit("loading", true);
@@ -104,8 +105,8 @@ export async function searchDocument() {
 
       await context.sync();
     }
-    console.log(resultList);
     EventBus.$emit("loading", false);
+    EventBus.$emit("map", resultList);
     return wordsWithMatches.sort(Comparator);
   });
 }
@@ -113,64 +114,6 @@ function Comparator(a, b) {
   if (a.text.toLowerCase() < b.text.toLowerCase()) return -1;
   if (a.text.toLowerCase() > b.text.toLowerCase()) return 1;
   return 0;
-}
-export async function searchDocumentForWord(word: Word.Range) {
-  return await Word.run(async (context) => {
-    EventBus.$emit("loading", true);
-    const wordsWithMatches: Word.Range[] = [];
-
-    const range = context.document.body.getRange();
-    range.load();
-    await context.sync();
-
-    let paragraph = range.paragraphs.getFirstOrNullObject();
-    paragraph.load();
-    await context.sync();
-
-    while (!paragraph.isNullObject) {
-      let ranges = paragraph.split(wordDelimiters, true /* trimDelimiters*/, true /* trimSpacing */);
-      ranges.load();
-
-      const wordList: Word.Range[] = [];
-
-      await context.sync().catch(function (error) {
-        // If the paragraph is empty, the split throws an error
-        ranges = null;
-      });
-
-      if (ranges && ranges.items) {
-        for (let word of ranges.items) {
-          // Collect all the words in the paragraph, so we can search through them
-          // We check if the 'word' is longer then 1 characters, if not don't include the word in the wordlist
-          // We also check if the word is not in the list of excluded words
-          if (
-              word.text.length > 1 &&
-              !ignoredWords.find((ignoredWord: string) => ignoredWord.toLowerCase() === word.text.toLowerCase())
-          ) {
-            wordList.push(word);
-          }
-
-          await context.sync();
-        }
-      }
-      const store = OsloStore.getInstance()
-      for (let wordFromList of wordList) {
-        if (store.osloStoreLookup(word.text, false).length > 0) {
-          if (wordFromList.text.toLowerCase() === word.text.toLowerCase()){
-            wordsWithMatches.push(word);
-            EventBus.$emit("counter", wordsWithMatches.length);
-          }
-        }
-      }
-
-      paragraph = paragraph.getNextOrNullObject();
-      paragraph.load();
-
-      await context.sync();
-    }
-    EventBus.$emit("loading", false);
-    return wordsWithMatches;
-  });
 }
 
 export function getDefinitions(word: Word.Range): IOsloItem[] {
@@ -241,6 +184,7 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
       }
   });
 }
+//function to go back to the start of the document. This is important when switching words in autocheck navigation
 export function selectNothing() {
   return Word.run(async (context) => {
     // force cursor to start of document so word selection works.
