@@ -34,6 +34,7 @@ export async function searchDocument() {
   return await Word.run(async (context) => {
     EventBus.$emit("loading", true);
     const wordsWithMatches: Word.Range[] = [];
+    const resultList = new Map();
 
     const range = context.document.body.getRange();
     range.load();
@@ -82,9 +83,16 @@ export async function searchDocument() {
           for (let wordInList of wordsWithMatches){
             if(word.text.toLowerCase() === wordInList.text.toLowerCase()){
               duplicate = true;
+              let values;
+              values = resultList.get(word.text.toLowerCase());
+              values.push(word);
+              resultList.set(word.text.toLowerCase(), values);
             }
           }
           if (!duplicate){
+            let value = [];
+            value.push(word);
+            resultList.set(word.text.toLowerCase(), value);
             wordsWithMatches.push(word);
             EventBus.$emit("counter", wordsWithMatches.length);
           }
@@ -96,6 +104,7 @@ export async function searchDocument() {
 
       await context.sync();
     }
+    console.log(resultList);
     EventBus.$emit("loading", false);
     return wordsWithMatches.sort(Comparator);
   });
