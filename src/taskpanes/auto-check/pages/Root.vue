@@ -76,9 +76,6 @@
           <p v-if="!onSubResults">
             {{ counter }} overeenkomsten gevonden
           </p>
-          <p v-if="onSubResults">
-            {{ counter }} overeenkomsten voor <span class="vl-u-mark">{{shownWord.text}}</span> gevonden
-          </p>
         </div>
       </vl-grid>
     </vl-layout>
