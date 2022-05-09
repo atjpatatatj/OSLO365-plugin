@@ -15,9 +15,9 @@
   </vl-layout>
   <div v-else>
     <vl-layout>
-      <vl-grid mod-stacked v-if="results.length > 0 && !onSubResults">
+      <vl-grid mod-stacked v-if="results.length > 0 && !onSubResults || sorting === true">
         <vl-column>
-          <vl-title tag-name="h3">
+          <vl-title tag-name="h4">
             Er werden <span class="vl-u-mark">{{results.length}}</span>  overeenkomsten gevonden in uw document
           </vl-title>
           <hr>
@@ -87,15 +87,10 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {
-  searchDocument,
-  getDefinitions,
-  selectWordInDocument,
-  selectNothing
-} from "../auto-check";
+import {getDefinitions, searchDocument, selectNothing, selectWordInDocument} from "../auto-check";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-auto-check-pane.vue";
-import { IOsloItem } from "src/oslo/IOsloItem";
+import {IOsloItem} from "src/oslo/IOsloItem";
 import EventBus from "../../../utils/EventBus";
 
 export default Vue.extend({
@@ -107,6 +102,7 @@ export default Vue.extend({
       loading: false,
       resultIndex: 0,
       results: [] as Word.Range[],
+      savedResults: [] as Word.Range[],
       resultMap: null,
       shownWord: {} as Word.Range,
       shownWordDefinitions: [] as IOsloItem[],
@@ -114,13 +110,15 @@ export default Vue.extend({
       subResults: [] as Word.Range[],
       onSubResults: false,
       counter: 0,
-      alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+      alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],
+      sorting: false
     };
   },
   methods: {
     async scan() {
       this.scanning = true;
       this.results = await searchDocument();
+      this.savedResults = this.results;
     },
     next() {
       if (this.resultIndex + 1 <= this.subResults.length - 1) {
@@ -137,6 +135,7 @@ export default Vue.extend({
       }
     },
     toSubResults(item) {
+      this.sorting = false;
       this.counter = 0;
       this.onSubResults = true;
       this.shownWord = item;
@@ -154,6 +153,16 @@ export default Vue.extend({
       this.subResults = [] as Word.Range[];
       this.shownWord = {} as Word.Range;
       this.shownWordDefinitions = [] as IOsloItem[];
+    },
+    sort(character){
+      this.sorting = true;
+      const filtered = [];
+      for (let word of this.savedResults){
+        if (word.text.charAt(0).toLowerCase() === character.toLowerCase()){
+          filtered.push(word);
+        }
+      }
+      this.results = filtered;
     }
   },
   mounted() {
