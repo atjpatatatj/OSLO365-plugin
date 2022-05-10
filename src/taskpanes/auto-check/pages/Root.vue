@@ -81,7 +81,7 @@
         </div>
       </vl-grid>
     </vl-layout>
-    <content-footer v-if="results.length > 0 && onSubResults && !scanning" />
+    <content-footer v-if="onSubResults" />
   </div>
 </template>
 
