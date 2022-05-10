@@ -110,7 +110,7 @@ export default Vue.extend({
       subResults: [] as Word.Range[],
       onSubResults: false,
       counter: 0,
-      alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],
+      alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","ALL"],
       sorting: false
     };
   },
@@ -157,12 +157,17 @@ export default Vue.extend({
     sort(character){
       this.sorting = true;
       const filtered = [];
-      for (let word of this.savedResults){
-        if (word.text.charAt(0).toLowerCase() === character.toLowerCase()){
-          filtered.push(word);
-        }
+      if (character === "ALL"){
+        this.results = this.savedResults;
       }
-      this.results = filtered;
+      else{
+        for (let word of this.savedResults){
+          if (word.text.charAt(0).toLowerCase() === character.toLowerCase()){
+            filtered.push(word);
+          }
+        }
+        this.results = filtered;
+      }
     }
   },
   mounted() {
@@ -201,7 +206,7 @@ body {
 }
 #alphabet {
   color: black;
-  padding-right: 3px;
+  padding-right: 2px;
   font-size: 12px;
   font-weight: bold;
   text-decoration: none;
