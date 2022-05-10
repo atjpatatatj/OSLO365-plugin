@@ -6,17 +6,17 @@
           <vl-grid v-vl-align:center mod-stacked>
             <vl-column v-if="confirmDelete === false">
               <br>
-              <vl-button id="deleteEntireDictionary" mod-block @click="areYouSure()">Verwijder alle items in uw woorden</vl-button>
+              <vl-button class="button" id="deleteEntireDictionary" mod-block @click="areYouSure()">Verwijder alle items in uw woorden</vl-button>
             </vl-column>
             <vl-column v-if="confirmDelete === true">
               <br>
-              <vl-button id="deleteEntireDictionary" mod-block @click="deleteEntireDictionary()">Ben je het zeker?</vl-button>
+              <vl-button class="button" id="deleteEntireDictionary" mod-block @click="deleteEntireDictionary()">Ben je het zeker?</vl-button>
             </vl-column>
             <vl-column v-if="setting === true">
-              <vl-button id="disableDailyDefinition" mod-block @click="disableDefinition()">Definitie van de dag uitschakelen</vl-button>
+              <vl-button class="button" id="disableDailyDefinition" mod-block @click="disableDefinition()">Definitie van de dag uitschakelen</vl-button>
             </vl-column>
             <vl-column v-if="setting === false">
-              <vl-button id="enableDailyDefinition" mod-block @click="enableDefinition()">Definitie van de dag inschakelen</vl-button>
+              <vl-button class="button" id="enableDailyDefinition" mod-block @click="enableDefinition()">Definitie van de dag inschakelen</vl-button>
               <br>
             </vl-column>
           </vl-grid>
@@ -52,7 +52,7 @@
           <vl-grid v-vl-align:center mod-stacked>
             <p>De laatste update was op</p>
             <p>{{timeStamp}}</p>
-            <vl-button id="update" mod-block @click="updateOsloStore()">Oslo definities updaten</vl-button>
+            <vl-button class="button" id="update" mod-block @click="updateOsloStore()">Oslo definities updaten</vl-button>
           </vl-grid>
         </vl-layout>
       </vl-tab>
@@ -141,5 +141,8 @@ a:visited{
 }
 .vl-tab__pane{
   padding-left: 15px;
+}
+.button{
+  cursor: pointer !important;
 }
 </style>

@@ -6,6 +6,7 @@ import { wordDelimiters } from "../../utils/WordDelimiters";
 import { ignoredWords } from "../../utils/IgnoredWords";
 import { IOsloItem } from "../../oslo/IOsloItem";
 import { OsloStore } from "../../store/OsloStore";
+import EventBus from "../../utils/EventBus";
 
 // configuration of the built-in validator
 const validatorConfig = {
@@ -23,22 +24,24 @@ Office.onReady((info) => {
     const store = osloStore.getStore();
 
     var app = new Vue({
-      store: store,
       el: "#app",
       render: (h) => h(root),
     });
   }
 });
-
+// This functions returns an Array with all unique words found in the document.
+// Besides that an eventbus also returns a map containing all the duplicate values that we can use to load the sub-results instantly
 export async function searchDocument() {
   return await Word.run(async (context) => {
+    EventBus.$emit("loading", true);
     const wordsWithMatches: Word.Range[] = [];
+    const resultList = new Map();
 
     const range = context.document.body.getRange();
     range.load();
     await context.sync();
 
-    // force cursor to beginning of document so word selection works.
+    // force cursor to start of document so word selection works.
     const start = context.document.body.getRange("Start");
     start.load();
     start.select();
@@ -62,10 +65,10 @@ export async function searchDocument() {
       if (ranges && ranges.items) {
         for (let word of ranges.items) {
           // Collect all the words in the paragraph, so we can search through them
-          // We check if the 'word' is longer then 1 characters, if not don't include the word in the wordlist
+          // We check if the 'word' is longer then 2 characters, if not don't include the word in the wordlist
           // We also check if the word is not in the list of excluded words
           if (
-            word.text.length > 1 &&
+            word.text.length > 2 &&
             !ignoredWords.find((ignoredWord: string) => ignoredWord.toLowerCase() === word.text.toLowerCase())
           ) {
             wordList.push(word);
@@ -76,8 +79,24 @@ export async function searchDocument() {
       }
       const store = OsloStore.getInstance()
       for (let word of wordList) {
+        let duplicate = false;
         if (store.osloStoreLookup(word.text, false).length > 0) {
-          wordsWithMatches.push(word);
+          for (let wordInList of wordsWithMatches){
+            if(word.text.toLowerCase() === wordInList.text.toLowerCase()){
+              duplicate = true;
+              let values;
+              values = resultList.get(word.text.toLowerCase());
+              values.push(word);
+              resultList.set(word.text.toLowerCase(), values);
+            }
+          }
+          if (!duplicate){
+            let value = [];
+            value.push(word);
+            resultList.set(word.text.toLowerCase(), value);
+            wordsWithMatches.push(word);
+            EventBus.$emit("counter", wordsWithMatches.length);
+          }
         }
       }
 
@@ -86,8 +105,15 @@ export async function searchDocument() {
 
       await context.sync();
     }
-    return wordsWithMatches;
+    EventBus.$emit("loading", false);
+    EventBus.$emit("map", resultList);
+    return wordsWithMatches.sort(Comparator);
   });
+}
+function Comparator(a, b) {
+  if (a.text.toLowerCase() < b.text.toLowerCase()) return -1;
+  if (a.text.toLowerCase() > b.text.toLowerCase()) return 1;
+  return 0;
 }
 
 export function getDefinitions(word: Word.Range): IOsloItem[] {
@@ -137,7 +163,6 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
           while (!found && index >= 0) {
             const position = results.items[index].compareLocationWith(selection);
             await context.sync();
-            console.log(position.value);
 
             if (position.value !== Word.LocationRelation.before && position.value !== Word.LocationRelation.adjacentBefore) {
               if (position.value === Word.LocationRelation.equal) {
@@ -157,5 +182,15 @@ export function selectWordInDocument(word: Word.Range, back : boolean) {
         }
         await context.sync();
       }
+  });
+}
+//function to go back to the start of the document. This is important when switching words in autocheck navigation
+export function selectNothing() {
+  return Word.run(async (context) => {
+    // force cursor to start of document so word selection works.
+    const start = context.document.body.getRange("Start");
+    start.load();
+    start.select();
+    await context.sync();
   });
 }

@@ -49,12 +49,12 @@
           Your browser does not support the video tag.
         </video>
       </vl-tab>
-      <vl-tab label="Document scan" id="document-scan" mod-show-title>
+      <vl-tab label="document controle" id="document-scan" mod-show-title>
         <p>
-          Met de functie document scant u uw volledig document. U krijgt een overzicht met alle matches.
+          Met deze functie wordt uw volledig document gecontroleerd. U krijgt een overzicht met alle overeenkomsten.
         </p>
         <p>
-          U kan makkelijk navigeren naar de definitie die u wilt en vervolgens een voet/eindnoot toevoegen.
+          U kan makkelijk navigeren door de overeenkomsten en vervolgens een voet/eindnoot toevoegen.
         </p>
         <br>
         <video width="600" controls autoplay loop>
