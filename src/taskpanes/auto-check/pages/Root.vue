@@ -71,13 +71,15 @@
       </vl-grid>
       <vl-grid v-if="loading">
         <div id="loader" class="vl-u-align-center">
-          <div class="vl-loader" role="status"></div>
+          <div class="vl-loader" role="status"></div><br>
           <p>
             Uw document wordt gescand
-          </p>
-          <p v-if="!onSubResults">
+          </p><br>
+          <p>
             {{ counter }} overeenkomsten gevonden
-            {{progress}}%
+          </p><br>
+          <p>
+            <progress id="loader" :value="progress" max="100"> </progress>
           </p>
         </div>
       </vl-grid>
