@@ -51,6 +51,19 @@ export async function searchDocument() {
     paragraph.load();
     await context.sync();
 
+    let currentParagraph = range.paragraphs.getFirstOrNullObject();
+    currentParagraph.load();
+    await context.sync();
+
+    let total = 0;
+    while (!currentParagraph.isNullObject){
+      currentParagraph = currentParagraph.getNextOrNullObject();
+      currentParagraph.load();
+      await context.sync();
+      total++
+    }
+
+    let i = 1;
     while (!paragraph.isNullObject) {
       let ranges = paragraph.split(wordDelimiters, true /* trimDelimiters*/, true /* trimSpacing */);
       ranges.load();
@@ -104,6 +117,8 @@ export async function searchDocument() {
       paragraph.load();
 
       await context.sync();
+      EventBus.$emit("progress", Math.round(i/total * 100) );
+      i++;
     }
     EventBus.$emit("loading", false);
     EventBus.$emit("map", resultList);

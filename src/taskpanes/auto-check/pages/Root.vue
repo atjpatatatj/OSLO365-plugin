@@ -77,6 +77,7 @@
           </p>
           <p v-if="!onSubResults">
             {{ counter }} overeenkomsten gevonden
+            {{progress}}%
           </p>
         </div>
       </vl-grid>
@@ -111,7 +112,8 @@ export default Vue.extend({
       onSubResults: false,
       counter: 0,
       alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","ALLE"],
-      sorting: false
+      sorting: false,
+      progress: 0
     };
   },
   methods: {
@@ -179,6 +181,9 @@ export default Vue.extend({
     });
     EventBus.$on("map", (data: any) => {
       this.resultMap = data;
+    });
+    EventBus.$on("progress", (data: number) => {
+      this.progress = data;
     });
   }
 });
