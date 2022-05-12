@@ -145,7 +145,12 @@ export default Vue.extend({
       this.shownWord = item;
       this.subResults = this.resultMap.get(this.shownWord.text.toLowerCase());
       this.shownWordDefinitions = getDefinitions(this.shownWord);
-      selectWordInDocument(this.subResults[0], this.back);
+      if(this.subResults > 1){
+        selectWordInDocument(this.subResults[0], this.back);
+      }
+      else {
+        selectWordInDocument(item, this.back);
+      }
       scroll(0, 0);
     },
     toResults(){
