@@ -71,12 +71,15 @@
       </vl-grid>
       <vl-grid v-if="loading">
         <div id="loader" class="vl-u-align-center">
-          <div class="vl-loader" role="status"></div>
+          <div class="vl-loader" role="status"></div><br>
           <p>
             Uw document wordt gescand
-          </p>
-          <p v-if="!onSubResults">
+          </p><br>
+          <p>
             {{ counter }} overeenkomsten gevonden
+          </p><br>
+          <p>
+            <progress id="loader" :value="progress" max="100"> </progress>
           </p>
         </div>
       </vl-grid>
@@ -111,7 +114,8 @@ export default Vue.extend({
       onSubResults: false,
       counter: 0,
       alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","ALLE"],
-      sorting: false
+      sorting: false,
+      progress: 0
     };
   },
   methods: {
@@ -141,7 +145,12 @@ export default Vue.extend({
       this.shownWord = item;
       this.subResults = this.resultMap.get(this.shownWord.text.toLowerCase());
       this.shownWordDefinitions = getDefinitions(this.shownWord);
-      selectWordInDocument(this.subResults[0], this.back);
+      if(this.subResults > 1){
+        selectWordInDocument(this.subResults[0], this.back);
+      }
+      else {
+        selectWordInDocument(item, this.back);
+      }
       scroll(0, 0);
     },
     toResults(){
@@ -179,6 +188,9 @@ export default Vue.extend({
     });
     EventBus.$on("map", (data: any) => {
       this.resultMap = data;
+    });
+    EventBus.$on("progress", (data: number) => {
+      this.progress = data;
     });
   }
 });
