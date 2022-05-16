@@ -2,11 +2,17 @@
   <vl-content-footer id="content-footer">
     <vl-layout>
       <vl-grid v-vl-align:center mod-stacked>
-        <vl-column width="6">
-          <vl-button class="nopadding" mod-block @click="insertNote('footnote')">Voetnoot</vl-button>
+        <vl-column width="6" v-if="!options">
+          <vl-button class="nopadding" mod-block @click="toOptions('footnote')">Voetnoot</vl-button>
         </vl-column>
-        <vl-column width="6">
-          <vl-button class="nopadding" mod-block @click="insertNote('endnote')">Eindnoot</vl-button>
+        <vl-column width="6" v-if="!options">
+          <vl-button class="nopadding" mod-block @click="toOptions('endnote')">Eindnoot</vl-button>
+        </vl-column>
+        <vl-column width="6" v-if="options">
+          <vl-button class="nopadding" mod-block @click="insertNote()">Enkel</vl-button>
+        </vl-column>
+        <vl-column width="6" v-if="options">
+          <vl-button class="nopadding" mod-block @click="insertNote()">Overal</vl-button>
         </vl-column>
         <vl-column>
           <vl-button class="nopadding" id="button" mod-block @click="deleteFromDictionary()">Verwijderen van uw woorden</vl-button>
@@ -21,24 +27,33 @@ import Vue from "vue";
 import {onInsertNoteClicked} from "../../../utils/Utils";
 import EventBus from "../../../utils/EventBus";
 import { IOsloItem } from "src/oslo/IOsloItem";
-import {deleteFromDictionary} from "../../../store/OsloDictionary";
+import {addToDictionary, deleteFromDictionary} from "../../../store/OsloDictionary";
 import {increaseCounter} from "../../../store/OsloSettings";
 
 export default Vue.extend({
   data: () => {
     return {
-      radioTile: {} as IOsloItem
+      radioTile: {} as IOsloItem,
+      options: false,
+      note: null
     };
   },
   methods: {
-    async insertNote(which) {
+    async insertNote() {
+      await onInsertNoteClicked(this.radioTile, this.note);
+      increaseCounter(this.radioTile);
+      this.options = false;
+    },
+    toOptions(which) {
       if (Object.keys(this.radioTile).length > 0) {
-        await onInsertNoteClicked(this.radioTile, which);
-        increaseCounter(this.radioTile);
+        this.options = true;
+        this.note = which;
       }
     },
     deleteFromDictionary(){
-      deleteFromDictionary(this.radioTile);
+      if (Object.keys(this.radioTile).length > 0) {
+        deleteFromDictionary(this.radioTile);
+      }
     }
   },
   mounted() {
