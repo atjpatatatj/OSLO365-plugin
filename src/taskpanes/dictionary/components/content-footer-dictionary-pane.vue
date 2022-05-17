@@ -9,10 +9,10 @@
           <vl-button class="nopadding" mod-block @click="toOptions('endnote')">Eindnoot</vl-button>
         </vl-column>
         <vl-column width="6" v-if="options">
-          <vl-button class="nopadding" mod-block @click="insertNote()">Enkel</vl-button>
+          <vl-button class="nopadding" mod-block @click="insertNote(true)">Enkel</vl-button>
         </vl-column>
         <vl-column width="6" v-if="options">
-          <vl-button class="nopadding" mod-block @click="insertNote()">Overal</vl-button>
+          <vl-button class="nopadding" mod-block @click="insertNote(false)">Overal</vl-button>
         </vl-column>
         <vl-column>
           <vl-button class="nopadding" id="button" mod-block @click="deleteFromDictionary()">Verwijderen van uw woorden</vl-button>
@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {onInsertNoteClicked} from "../../../utils/Utils";
+import {onInsertNoteClicked, searchDocumentForWord, selectWordInDocument} from "../../../utils/Utils";
 import EventBus from "../../../utils/EventBus";
 import { IOsloItem } from "src/oslo/IOsloItem";
 import {addToDictionary, deleteFromDictionary} from "../../../store/OsloDictionary";
@@ -39,8 +39,17 @@ export default Vue.extend({
     };
   },
   methods: {
-    async insertNote() {
-      await onInsertNoteClicked(this.radioTile, this.note);
+    async insertNote(enkel) {
+      if(enkel === true){
+        await onInsertNoteClicked(this.radioTile, this.note);
+      }
+      else {
+        let words = await searchDocumentForWord(this.radioTile.label);
+        for (let word of words){
+          await selectWordInDocument(word, false);
+          await onInsertNoteClicked(this.radioTile, this.note);
+        }
+      }
       increaseCounter(this.radioTile);
       this.options = false;
     },
