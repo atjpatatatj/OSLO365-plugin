@@ -90,11 +90,12 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {getDefinitions, searchDocument, selectNothing, selectWordInDocument} from "../auto-check";
+import {getDefinitions, searchDocument, selectNothing} from "../auto-check";
 import searchResultCard from "../../../general-components/search-result-card/search-result-card.vue";
 import contentFooter from "../components/content-footer-auto-check-pane.vue";
 import {IOsloItem} from "src/oslo/IOsloItem";
 import EventBus from "../../../utils/EventBus";
+import {selectWordInDocument} from "../../../utils/Utils";
 
 export default Vue.extend({
   name: "root",
