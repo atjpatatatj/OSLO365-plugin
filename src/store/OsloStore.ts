@@ -155,11 +155,13 @@ export class OsloStore {
   public getItems() {
     return OsloStore.getStorageItems();
   }
+  //returns a random Oslo Item
   public getRandomDefinition(){
     let items = OsloStore.getStorageItems();
     let randomInt = Math.floor(Math.random() * items);
     return items[randomInt];
   }
+  //Creates timestamp and saves it. This is used to update oslo definitions every month
   private createTimeStamp(){
     const currentDate = new Date();
 
@@ -175,6 +177,7 @@ export class OsloStore {
   public getLatestUpdateMoment(){
     return localStorage.getItem("lastUpdated");
   }
+  // has month passed? true of false
   private needsUpdate(){
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1; // Be careful! January is 0, not 1

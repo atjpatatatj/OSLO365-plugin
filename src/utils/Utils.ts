@@ -9,6 +9,7 @@ export function trace(text: string) {
     console.log(text);
   }
 }
+//insert a string, and it will scan your document for matches
 export async function searchDocumentForWord(wordToFind: string) {
   return await Word.run(async (context) => {
     const wordsWithMatches: Word.Range[] = [];
@@ -70,6 +71,7 @@ export async function searchDocumentForWord(wordToFind: string) {
     return wordsWithMatches;
   });
 }
+//selects a word in your document
 export function selectWordInDocument(word: Word.Range, back : boolean) {
   return Word.run(async (context) => {
 

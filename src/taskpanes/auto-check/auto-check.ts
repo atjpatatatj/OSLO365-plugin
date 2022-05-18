@@ -30,7 +30,7 @@ Office.onReady((info) => {
   }
 });
 // This functions returns an Array with all unique words found in the document.
-// Besides that an eventbus also returns a map containing all the duplicate values that we can use to load the sub-results instantly
+// Besides, that an eventbus also returns a map containing all the duplicate values that we can use to load the sub-results instantly
 export async function searchDocument() {
   return await Word.run(async (context) => {
     EventBus.$emit("loading", true);
@@ -55,6 +55,7 @@ export async function searchDocument() {
     currentParagraph.load();
     await context.sync();
 
+    //calculates the total amount of paragraphs, so we can track progress
     let total = 0;
     while (!currentParagraph.isNullObject){
       currentParagraph = currentParagraph.getNextOrNullObject();
@@ -95,6 +96,7 @@ export async function searchDocument() {
         let duplicate = false;
         if (store.osloStoreLookup(word.text, false).length > 0) {
           for (let wordInList of wordsWithMatches){
+            // add duplicate value to map
             if(word.text.toLowerCase() === wordInList.text.toLowerCase()){
               duplicate = true;
               let values;
@@ -103,12 +105,13 @@ export async function searchDocument() {
               resultList.set(word.text.toLowerCase(), values);
             }
           }
+          // add new value to the array of unique words and adds them to the map
           if (!duplicate){
             let value = [];
             value.push(word);
             resultList.set(word.text.toLowerCase(), value);
             wordsWithMatches.push(word);
-            EventBus.$emit("counter", wordsWithMatches.length);
+            EventBus.$emit("counter", wordsWithMatches.length); // how many unique matches were found
           }
         }
       }
@@ -117,14 +120,15 @@ export async function searchDocument() {
       paragraph.load();
 
       await context.sync();
-      EventBus.$emit("progress", Math.round(i/total * 100) );
+      EventBus.$emit("progress", Math.round(i/total * 100) ); // send progress eg 40%
       i++;
     }
-    EventBus.$emit("loading", false);
-    EventBus.$emit("map", resultList);
+    EventBus.$emit("loading", false); //scanning is done
+    EventBus.$emit("map", resultList); //send the map with every match, so we can load sub results instantly
     return wordsWithMatches.sort(Comparator);
   });
 }
+//sort array alphabetically
 function Comparator(a, b) {
   if (a.text.toLowerCase() < b.text.toLowerCase()) return -1;
   if (a.text.toLowerCase() > b.text.toLowerCase()) return 1;
